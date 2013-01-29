@@ -1,0 +1,50 @@
+<h1>Manage application settings</h1>
+
+
+<div class="well" id="toggle_application_status">
+  <%= render "toggle_application_status" %>
+</div>
+
+<div>
+  <h4>MaRLI submissions are sent to the following e-mails:</h4>
+  <table class="table table-bordered table-striped">
+
+    <thead>
+      <tr>
+        <th>Institution</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+  	<% Settings.emails.each do |email| %>
+  	  <tr>
+  	    <td><%= email["institution"] %></td>
+  	    <td><%= email["email"] %></td>
+  	  </tr>
+  	<% end %>
+  	</tbody>
+  </table>
+</div>
+
+<h1>Listing application text</h1>
+
+<table class="table table-bordered table-striped">
+<thead>
+  <tr>
+    <th>Description</th>
+    <th>Text</th>
+    <th>Actions</th>
+  </tr>
+</thead>
+<tbody>
+<% @application_details.each do |application_detail| %>
+  <tr>
+    <td><%=h application_detail.description.html_safe %></td>
+    <td><%=h application_detail.the_text.html_safe %></td>
+    <td><%= link_to 'Edit', edit_application_detail_path(application_detail) %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<br />

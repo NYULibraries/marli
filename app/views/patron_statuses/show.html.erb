@@ -1,0 +1,13 @@
+<p>
+  <b>Affiliation code:</b>
+  <%=h @patron_status.code %>
+</p>
+
+<p>
+  <b>Affiliation title:</b>
+  <%=h @patron_status.web_text %>
+</p>
+
+
+<%= icon_tag :edit%><%= link_to 'Edit', edit_patron_status_path(@patron_status) %> |
+<%= icon_tag :back%><%= link_to 'Back', patron_statuses_path %>

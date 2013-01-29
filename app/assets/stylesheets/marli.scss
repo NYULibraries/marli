@@ -1,0 +1,15 @@
+@import "nyulibraries";
+
+.q {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  line-height: 20px !important;
+}
+
+form label.required:after {
+  color: #e32;
+  content: "*";
+  display: inline;
+  padding-left: 2px;
+  font-weight: bold;
+}

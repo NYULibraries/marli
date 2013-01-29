@@ -1,0 +1,47 @@
+<h1>Listing authorized patron statuses</h1>
+
+<p>Listing patron statuses with access to the MaRLI sublibrary. This list is pulled from the <a href="https://web1.library.nyu.edu/privileges_guide" target="_blank">NYU Libraries Privileges Guide</a>. </p>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Web text</th>
+    </tr>
+  </thead>
+  <tbody>
+<% auth_types.delete_if {|x| !(Float(x["code"]) rescue false) }.each do |auth_type| %>
+  <tr>
+    <td><%=h auth_type["code"] %></td>
+    <td><%=h auth_type["web_text"] %></td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+
+<!--
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Web text</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @patron_statuses.each do |patron_status| %>
+  <tr>
+    <td><%=h patron_status.code %></td>
+    <td><%=h patron_status.web_text %></td>
+    <td><%= link_to 'Show', patron_status %></td>
+    <td><%= link_to 'Edit', edit_patron_status_path(patron_status) %></td>
+    <td><%= link_to 'Destroy', patron_status, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br />
+<%= icon_tag :add %>
+<%= link_to 'New patron status', new_patron_status_path %>
+-->

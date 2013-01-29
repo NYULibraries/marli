@@ -1,0 +1,24 @@
+<%= form_for @application_detail, :html => {:class => "form-horizontal"} do |f| %>
+  <% if @application_detail.errors.any? %>  
+    <div id="error_explanation" class="alert alert-error">  
+      <h2><%= pluralize(@application_detail.errors.count, "error") %> prohibited this record from being saved:</h2>  
+      <ul>  
+      <% @application_detail.errors.full_messages.each do |msg| %>  
+        <li><%= msg %></li>  
+      <% end %>  
+      </ul>  
+    </div>  
+  <% end %>
+  <div class="well">
+    <%= @application_detail.description.html_safe %>
+  </div>
+  <div class="control-group">
+    <%= f.label :the_text, :class => "control-label" %>
+    <div class="controls">
+    <%= f.text_area :the_text, :rows => 3 %>
+    </div>
+  </div>
+  <p>
+    <button class="btn" type="submit">Save changes</button>
+  </p>
+<% end %>

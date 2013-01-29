@@ -1,0 +1,84 @@
+<% h = @user.user_attributes %>
+
+<h1>Patron: <%=h @user.username %></h1>
+
+<h4>MaRLI Required Information:</h4>
+
+<div id="show_user">
+  
+<dl class="dl-horizontal">
+  <dt>First name:</dt>
+  <dd>&nbsp;<%=h @user.firstname %></dd>
+
+  <dt>Last name:</dt>
+  <dd>&nbsp;<%=h @user.lastname %></dd>
+
+  <dt>Date of birth:</dt>
+  <dd>&nbsp;<%=h @user.dob %></dd>
+
+  <dt>Date of Request:</dt>
+  <dd>&nbsp;<%=h @user.submitted_at %></dd>
+
+<% unless h[:address].nil? %>
+
+  <dt>Street address:</dt>
+  <dd>&nbsp;<%=h h[:address][:street_address] %></dd>
+  
+	<dt>City:</dt>
+	<dd>&nbsp;<%=h h[:address][:city] %></dd>
+
+	<dt>State:</dt>
+	<dd>&nbsp;<%=h h[:address][:state] %></dd>
+
+	<dt>Postal code:</dt>
+	<dd>&nbsp;<%=h h[:address][:postal_code] %></dd>
+
+<% end %>
+
+  <dt>E-mail:</dt>
+  <dd>&nbsp;<%=h @user.email %></dd>
+
+  <dt>Home Library:</dt>
+  <dd>&nbsp;NYU</dd>
+
+  <dt>Institution ID:</dt>
+  <dd>&nbsp;<%=h @user.username %></dd>
+
+  <dt>Affiliation:</dt>
+  <dd>&nbsp;<%= affiliation_text %></dd>
+
+  <dt>NYPL Barcode:</dt>
+  <dd>&nbsp;<%=h @user.barcode %></dd>
+</dl>
+
+<h2>Additional NYU Information:</h2>
+
+<dl class="dl-horizontal">
+  <dt>N #:</dt>
+  <dd>&nbsp;<%=h h[:nyuidn] %></dd>
+
+  <dt>School:</dt>
+  <dd>&nbsp;<%=h h[:school]%></dd>
+
+  <dt>Department:</dt>
+  <dd>&nbsp;<%=h h[:department]%></dd>
+  
+  <%= form_for @user, :remote => true, :class => "form-inline clearfix" do |f| %>
+    <dt>Admin?</dt>
+    <dd>
+    <%= f.check_box :marli_admin, :checked => h[:marli_admin], :disabled => (current_user.username == @user.username) %>
+    </dd>
+
+    <dt>Exception?</dt>
+    <dd>
+    <%= f.check_box :marli_exception, :checked => h[:marli_exception], :disabled => (current_user.username == @user.username) %>
+    </dd>
+    <button type="submit" data-remote="true" class="btn" <%= (current_user.username == @user.username) ? "disabled" : ""%>>Update</button>
+  <% end %>
+</dl>
+
+</div>
+
+<br />
+<%= icon_tag :back %>
+<%= link_to 'Back', users_path %>

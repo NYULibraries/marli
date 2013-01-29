@@ -1,0 +1,36 @@
+<%= form_for @user, :html => {:class => ""} do |f| %>
+  <% if @user.errors.any? %>  
+    <div id="error_explanation" class="alert alert-error">  
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this record from being saved:</h2>  
+      <ul>  
+      <% @user.errors.full_messages.each do |msg| %>  
+        <li><%= msg %></li>  
+      <% end %>  
+      </ul>  
+    </div>  
+  <% end %>
+  <fieldset>
+    <%= f.label :username, :class => "control-label" do %>
+    Username <br />
+    <%= f.text_field :username %>
+    <% end -%>
+
+    <%= f.label :email, :class => "control-label" do %>
+    E-mail <br />
+    <%= f.text_field :email %>
+    <% end -%>
+
+    <%= f.label "marli_admin", :class => "control-label" do %>
+      <%= check_box_tag "user[marli_admin]" %>
+      Admin
+    <% end %>
+
+    <%= f.label "marli_exception", :class => "control-label" do %>
+      <%= check_box_tag "user[marli_exception]" %>
+      Exception
+    <% end %>
+  </fieldset>
+  <p>
+    <button class="btn" type="submit">Save changes</button>
+  </p>
+<% end %>

@@ -1,0 +1,7 @@
+<div>
+  <% if app_is_active? %>
+    <%= render 'register_form' %>
+  <% else %>
+    <%= render 'closed' %>
+  <% end %>
+</div>

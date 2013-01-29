@@ -1,0 +1,55 @@
+<h1><%= get_sanitized_detail('title') %></h1>
+
+<h4><%= get_sanitized_detail('subtitle') %></h4>
+
+<p>
+  <%= get_sanitized_detail('body_text') %>
+</p>
+
+<% if current_user.submitted_request %>
+<div class="alert alert-info">
+  <%=h get_sanitized_detail('already_submitted') %>  (<%= link_to "View confirmation", confirmation_url%>)
+</div>
+<% end %>
+
+<%= form_tag 'register', :class => "form-inline form-horizontal clearfix well" do %>
+  <div class="control-group">
+    <%= label_tag :name, "Name", :class => "required control-label"%>
+    <div class="controls">
+      <%= text_field_tag :name, "#{current_user.firstname} #{current_user.lastname}", :disabled => true %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= label_tag :dob, "Date of birth", :class => "required control-label" %>
+    <div class="controls">
+      <%= text_field_tag :dob %>
+      <a class="dob-popover" data-class="article-finding" rel="popover" target="_blank" data-original-title="Date of Birth Required" data-content="Date of birth information is required by<br /> Columbia University Library's systems"><i class="icons-famfamfam-information"></i></a>
+    </div>
+  </div>
+  <div class="control-group">
+     <%= label_tag :school, "School", :class => "required control-label" %>
+     <div class="controls">
+       <%= select_tag :school, options_for_select(t('schools'), :selected => current_user.user_attributes[:school]), {:include_blank => true} %>
+     </div>
+  </div>
+  <div class="control-group">
+    <%= label_tag :department, "Department", :class => "control-label" %>
+    <div class="controls">
+    <%= text_field_tag :department, "#{current_user.user_attributes[:department]}" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= label_tag :barcode, "New York Public Library Barcode", :class => "control-label" %>
+    <div class="controls">
+      <%= text_field_tag :barcode, nil, :placeholder => "(if applicable)" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+        <%= check_box_tag :renewal %> Check here if this is a membership renewal
+      </label>
+    </div>
+    <button type="submit" class="btn" <%= (current_user.submitted_request) ? 'disabled' : ''%>><%=h get_sanitized_detail('submit') %></button>
+  </div>
+<% end %>

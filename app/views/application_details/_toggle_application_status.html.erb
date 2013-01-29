@@ -1,0 +1,11 @@
+<%= form_tag toggle_application_status_url, :class => "form-inline", :style => "margin-bottom: 0;" do %>
+  <% if app_is_active? %>
+    <h4>The application is open.</h4>
+    <p>Click the button below to close the application and halt additional submissions.</p>
+    <button class="btn btn-danger" type="submit">Close application</button>
+  <% else %>
+    <h4>The application is closed.</h4>
+    <p>Click the button below to open the application and allow additional submissions.</p>
+    <button class="btn btn-success" type="submit">Open application</button>
+  <% end %>
+<% end -%>
