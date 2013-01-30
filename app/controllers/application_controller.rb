@@ -22,10 +22,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :affiliation
   
-  def user_session_redirect_url(url)
-    root_url
-  end 
-  
   # Filter users to root if not admin
   def authenticate_admin
     if !is_admin?
@@ -111,12 +107,12 @@ class ApplicationController < ActionController::Base
   # * If logged in but not authorized, rendered an error page
   # * Otherwise redirect to login page, no anonymous access allowed
   def authorize_patron
+    redirect_to login_url and return if current_user.nil?
+    
     if is_admin? or is_exception? or is_authorized?
       return true
     elsif !current_user.nil?
       render 'user_sessions/unauthorized_patron'
-    #else
-      #redirect_to login_url and return
     end
   end
 
