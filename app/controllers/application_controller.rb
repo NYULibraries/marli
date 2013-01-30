@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   helper_method :affiliation
   
   def user_session_redirect_url(url)
-    (url.nil? or url.empty?) ? (request.referer.nil? or anonymous?) ? root_url : request.referer : url
+    root_url
   end 
   
   # Filter users to root if not admin
