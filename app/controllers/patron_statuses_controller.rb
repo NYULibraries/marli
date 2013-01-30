@@ -1,3 +1,5 @@
+# This class is defunct as the privileges guide app now drives the permissions to marli
+# Will be removed in future versions
 class PatronStatusesController < ApplicationController
   before_filter :authenticate_admin
    
