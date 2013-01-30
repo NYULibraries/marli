@@ -8,15 +8,6 @@ GIT
       institutions (~> 0.0.4)
       rake (~> 10.0.2)
 
-GIT
-  remote: git://github.com/barnabyalter/exlibris-aleph.git
-  revision: 457cfd361fd4d05f4f9af6f5edcaabf5696df091
-  specs:
-    exlibris-aleph (0.1.4)
-      httparty
-      nokogiri
-      rails (~> 3.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -101,6 +92,10 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    exlibris-aleph (0.1.6)
+      httparty
+      nokogiri
+      rails (~> 3.2.0)
     fssm (0.2.10)
     git (1.2.5)
     highline (1.6.15)
@@ -218,7 +213,7 @@ DEPENDENCIES
   compass (~> 0.12.1)
   compass-rails (~> 1.0.3)
   debugger
-  exlibris-aleph!
+  exlibris-aleph (= 0.1.6)
   httparty (~> 0.10.0)
   jquery-rails (~> 2.1.4)
   kaminari (~> 0.13)
