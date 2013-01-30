@@ -20,7 +20,11 @@ class ApplicationController < ActionController::Base
   def affiliation
     @affiliation ||= auth_types_collection[current_user.user_attributes[:bor_status]]
   end
-  helper_method :affiliation 
+  helper_method :affiliation
+  
+  def user_session_redirect_url(url)
+    (url.nil? or url.empty?) ? (request.referer.nil? or anonymous?) ? root_url : request.referer : url
+  end 
   
   # Filter users to root if not admin
   def authenticate_admin

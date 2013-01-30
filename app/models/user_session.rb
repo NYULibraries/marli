@@ -1,7 +1,6 @@
 class UserSession < Authlogic::Session::Base
   pds_url Settings.login.pds_url
   calling_system Settings.login.calling_system
-  redirect_logout_url "http://bobcat.library.nyu.edu"
   anonymous false
   
   def additional_attributes
