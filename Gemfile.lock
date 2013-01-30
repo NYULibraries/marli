@@ -9,10 +9,10 @@ GIT
       rake (~> 10.0.2)
 
 GIT
-  remote: git://github.com/scotdalton/exlibris-aleph.git
-  revision: 4033c9a56349bd018c02593da6a4aa51caa1c50e
+  remote: git://github.com/barnabyalter/exlibris-aleph.git
+  revision: 457cfd361fd4d05f4f9af6f5edcaabf5696df091
   specs:
-    exlibris-aleph (0.1.6)
+    exlibris-aleph (0.1.4)
       httparty
       nokogiri
       rails (~> 3.2.0)

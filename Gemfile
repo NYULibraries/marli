@@ -40,8 +40,8 @@ gem "rails_config", "~> 0.3.2"
 gem 'authpds-nyu', "~> 0.2.5"
 
 # Aleph config gem
-gem 'exlibris-aleph', :git => "git://github.com/scotdalton/exlibris-aleph.git" #"~> 0.1.6"
-#gem 'exlibris-aleph', :git => 'git://github.com/barnabyalter/exlibris-aleph.git'
+#gem 'exlibris-aleph', :git => "git://github.com/scotdalton/exlibris-aleph.git" #"~> 0.1.6"
+gem 'exlibris-aleph', :git => 'git://github.com/barnabyalter/exlibris-aleph.git'
 
 gem "kaminari", "~> 0.13"
 
