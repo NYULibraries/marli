@@ -17,5 +17,7 @@ Marli::Application.routes.draw do
   match "send_email", :to => "registration#send_email"
   match "confirmation", :to => "registration#confirmation"
   
+  get '/robots.txt' => 'application#robots'
+  
   root :to => "registration#index_register"
 end

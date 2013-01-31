@@ -2,7 +2,7 @@ class UserSession < Authlogic::Session::Base
   pds_url Settings.login.pds_url
   calling_system Settings.login.calling_system
   anonymous true
-  redirect_logout_url "https://login.library.nyu.edu/pds?func=load-login&institute=NYU&calling_system=primo&url=https://webdev3.library.nyu.edu/marli"
+  #redirect_logout_url "https://login.library.nyu.edu/pds?func=load-login&institute=NYU&calling_system=primo&url=https://webdev3.library.nyu.edu/marli"
   
   def additional_attributes
     h = {}
