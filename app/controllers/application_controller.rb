@@ -9,9 +9,6 @@ class ApplicationController < ActionController::Base
   layout "bobcat"
   
   protect_from_forgery
-  
-  # Cache auth-types action
-  caches_action :auth_types, :expires_in => 1.hour
 
   #Authpds user functions
   include Authpds::Controllers::AuthpdsController
@@ -75,7 +72,9 @@ class ApplicationController < ActionController::Base
   # Fetch auth_types from privileges guide
   # * Get patron statuses with access to the MaRLi sublibrary
   def auth_types 
-    @auth_types ||= HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
+    Rails.cache.fetch "auth_types", :expires_in => 5.minutes do
+      HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
+    end
   rescue Timeout::Error => e
     @error = e
     render 'user_sessions/timeout_error'
@@ -107,7 +106,7 @@ class ApplicationController < ActionController::Base
   # * If logged in but not authorized, rendered an error page
   # * Otherwise redirect to login page, no anonymous access allowed
   def authorize_patron
-    if is_admin? or is_exception? or is_authorized?
+    if is_authorized?#is_admin? or is_exception? or is_authorized?
       return true
     elsif !current_user.nil?
       render 'user_sessions/unauthorized_patron'
