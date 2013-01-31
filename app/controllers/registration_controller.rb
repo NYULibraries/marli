@@ -3,7 +3,6 @@ class RegistrationController < ApplicationController
   
   # Default action
   def index_register
-    redirect_to login_url and return if current_user.nil?
     @user = current_user
   end
   
