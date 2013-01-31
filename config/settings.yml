@@ -17,7 +17,7 @@ login:
   default_admins: []
   pds_url: "https://login.library.nyu.edu"
   calling_system: "primo"
-  login_url: "https://logindev.library.nyu.edu/pds?func=load-login&institute=NYU&calling_system=primo&url=https%3A%2F%2Fwebdev3.library.nyu.edu%2Fmarli%2Fvalidate%3Freturn_url%3Dhttps%253A%252F%252Fwebdev3.library.nyu.edu%252Fmarli"
+  login_url: "https://logindev.library.nyu.edu/pds?func=load-login&institute=NYU&calling_system=primo&url=https%3A%2F%2Fwebdev3.library.nyu.edu%2Fmarli%2Fvalidate%3Freturn_url%3Dhttps%253A%252F%252Fwebdev3.library.nyu.edu%252Fmarli%252F%26primo_action%3Dnew%26primo_controller%3Duser_sessions"
   
 privileges:
   base_url: https://web1.library.nyu.edu/privileges_guide
