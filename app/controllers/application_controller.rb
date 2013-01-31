@@ -107,12 +107,12 @@ class ApplicationController < ActionController::Base
   # * If logged in but not authorized, rendered an error page
   # * Otherwise redirect to login page, no anonymous access allowed
   def authorize_patron
-    redirect_to login_url and return if current_user.nil?
-    
     if is_admin? or is_exception? or is_authorized?
       return true
     elsif !current_user.nil?
       render 'user_sessions/unauthorized_patron'
+    else
+      redirect_to login_url
     end
   end
   
