@@ -1,8 +1,11 @@
 class UserSession < Authlogic::Session::Base
+  # Sorry MVC purists
+  include Rails.application.routes.url_helpers
+  
   pds_url Settings.login.pds_url
   calling_system Settings.login.calling_system
-  anonymous false
-  redirect_logout_url :login_url
+  anonymous true
+  redirect_logout_url login_url
   
   def additional_attributes
     h = {}
@@ -16,4 +19,5 @@ class UserSession < Authlogic::Session::Base
     h[:address][:postal_code] = addr_info["get_pat_adrs"]["address_information"]["z304_zip"]["__content__"]
     return h
   end
+  
 end
