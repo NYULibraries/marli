@@ -27,7 +27,7 @@ class ApplicationDetailsController < ApplicationController
         flash[:notice] = t('application_details.update_success')
         format.html { redirect_to(application_details_path) }
       else
-        format.html { render :action => "edit" }
+        format.html { render :edit }
       end
     end
   end

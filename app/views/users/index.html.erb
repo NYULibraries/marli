@@ -1,6 +1,5 @@
 <h1>Listing users</h1>
 
-
 <%= form_tag users_path, :class => "form-inline clearfix", :method => :get do %>
   <p>
     <%= hidden_field_tag :direction, params[:direction] %>
@@ -16,9 +15,6 @@
   </p>
 <% end %>
 
-
 <div id="table">
-<%= render :partial => "users" %>
+<%= render "users" %>
 </div>
-
-

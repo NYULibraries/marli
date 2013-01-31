@@ -30,7 +30,7 @@ class UsersController < ApplicationController
         flash[:notice] = t('users.create_success')
         format.html { redirect_to users_url }
       else
-        format.html { render :action => "new" }
+        format.html { render :new }
       end
     end
   end

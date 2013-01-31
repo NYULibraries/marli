@@ -44,7 +44,7 @@ class PatronStatusesController < ApplicationController
         flash[:notice] = t('patron_statuses.create_success')
         format.html { redirect_to(@patron_status) }
       else
-        format.html { render :action => "new" }
+        format.html { render :new }
       end
     end
   end
@@ -58,7 +58,7 @@ class PatronStatusesController < ApplicationController
         flash[:notice] = t('patron_statuses.update_success')
         format.html { redirect_to(@patron_status) }
       else
-        format.html { render :action => "edit" }
+        format.html { render :edit }
       end
     end
   end

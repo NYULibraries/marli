@@ -7,8 +7,6 @@ Marli::Application.routes.draw do
     match "clear_patron_data", :to => "users#clear_patron_data"
     match "toggle_application_status", :to => "application_details#toggle_application_status"
   end
-
-  resources :user_sessions
   
   match 'login', :to => 'user_sessions#new', :as => :login
   match 'logout', :to => 'user_sessions#destroy', :as => :logout
@@ -20,5 +18,4 @@ Marli::Application.routes.draw do
   match "confirmation", :to => "registration#confirmation"
   
   root :to => "registration#index_register"
-
 end
