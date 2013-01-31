@@ -3,7 +3,7 @@ class UserSession < Authlogic::Session::Base
   pds_url Settings.login.pds_url
   calling_system Settings.login.calling_system
   anonymous true
-  #redirect_logout_url Rails.application.routes.url_helpers.login_path
+  redirect_logout_url Rails.application.routes.url_helpers.login_path(self)
   
   def additional_attributes
     h = {}

@@ -39,11 +39,6 @@ module ApplicationHelper
    sanitize(html, :tags => %w(b strong i em br p a ul li), :attributes => %w(target href class)).html_safe
   end
 
-  # Format html
-  def print_formatted_html(html)
-    simple_format(print_sanitized_html(html)).html_safe unless html.blank?
-  end
-  
   # Retrieve a value matching a key to an icon class name
   def icons key
     icons_info[key.to_s]
@@ -52,11 +47,6 @@ module ApplicationHelper
   # Load the icons YAML info file
   def icons_info
     @icons_info ||= YAML.load_file( File.join(Rails.root, "config", "icons.yml") )
-  end
-  
-  # Generate a tooltip tag
-  def tooltip_tag content, title
-    link_to(content, "#", :class => "help-inline record-help", :data => { :placement => "right" }, :rel => "tooltip", :target => "_blank", :title => title)
   end
   
   # Generate an icon tag with class key
