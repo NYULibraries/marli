@@ -1,10 +1,9 @@
 class UserSession < Authlogic::Session::Base
-  delegate :url_helpers, to: 'Rails.application.routes' 
   
   pds_url Settings.login.pds_url
   calling_system Settings.login.calling_system
   anonymous true
-  redirect_logout_url url_helpers.login_url
+  redirect_logout_url Rails.application.routes.url_helpers.login_path
   
   def additional_attributes
     h = {}
