@@ -112,7 +112,6 @@ class ApplicationController < ActionController::Base
     elsif !current_user.nil?
       render 'user_sessions/unauthorized_patron'
     end
-    #redirect_to login_url if current_user.nil?
   end
   
   # Set robots.txt per environment
