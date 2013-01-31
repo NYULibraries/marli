@@ -17,7 +17,6 @@ login:
   default_admins: []
   pds_url: "https://login.library.nyu.edu"
   calling_system: "primo"
-  redirect_logout_url: "https://web1.library.nyu.edu/marli"
   
 privileges:
   base_url: https://web1.library.nyu.edu/privileges_guide
