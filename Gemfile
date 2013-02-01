@@ -51,7 +51,7 @@ gem 'newrelic_rpm', "~> 3.5.3"
 gem 'mustache-rails', "~> 0.2.3", :require => 'mustache/railtie'
 
 # For memcached
-#gem 'dalli', "~> 2.5.0"
+gem 'dalli', "~> 2.5.0"
 
 # Create CSVs from models
 gem "comma", "~> 3.0"
