@@ -111,21 +111,14 @@ class ApplicationController < ActionController::Base
     elsif !current_user.nil?
       render 'user_sessions/unauthorized_patron'
     else
-      redirect_to :action => :logged_out, :status => 401
+      redirect_to :login_url, :status => 401
       return false
-      #redirect_to :login_url
-      #return false
     end
   end
-  
-  def logged_out
-    redirect_to :login_url, :status => 401
-    return false
-  end
-  
+
   # Set robots.txt per environment
   def robots
-    robots = File.read(Rails.root + "config/robots.#{Rails.env}.txt")
+    robots = File.read(Rails.root + "public/robots.#{Rails.env}.txt")
     render :text => robots, :layout => false, :content_type => "text/plain"
   end
 
