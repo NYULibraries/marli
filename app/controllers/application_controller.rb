@@ -72,9 +72,9 @@ class ApplicationController < ActionController::Base
   # Fetch auth_types from privileges guide
   # * Get patron statuses with access to the MaRLi sublibrary
   def auth_types 
-    #@auth_types = Rails.cache.fetch "auth_types", :expires_in => 5.minutes do
-      @auth_types = HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
-    #end
+    @auth_types = Rails.cache.fetch "auth_types", :expires_in => 5.minutes do
+      HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
+    end
   rescue Timeout::Error => e
     @error = e
     render 'user_sessions/timeout_error'
@@ -112,15 +112,9 @@ class ApplicationController < ActionController::Base
       render 'user_sessions/unauthorized_patron'
     else
       render :logged_out
-      #redirect_to :login_url, :status => 403
+      #redirect_to :login_url
       #return false
-      #render redirect_to login_url and return
     end
-  end
-  
-  def logged_out
-    redirect_to :login_url, :status => 401
-    return false
   end
   
   # Set robots.txt per environment

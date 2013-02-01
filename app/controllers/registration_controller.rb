@@ -33,4 +33,9 @@ class RegistrationController < ApplicationController
     end
 
   end
+  
+  def logged_out
+    redirect_to :login_url, :status => 401
+    return false
+  end
 end
