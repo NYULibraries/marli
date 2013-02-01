@@ -60,21 +60,21 @@ class ApplicationController < ActionController::Base
   # Create a hash of :code => :web_text pairs for auth_types
   def auth_types_collection
     auth_types_h = Hash.new
-    auth_types.collect {|patron_status| {patron_status["code"] => patron_status["web_text"]}}.each {|patron_status| auth_types_h.merge!(patron_status)}
-    return auth_types_h
+    return Rails.cache.fetch "auth_types_h", :expires_in => 5.minutes do
+      auth_types.collect {|patron_status| {patron_status["code"] => patron_status["web_text"]}}.each {|patron_status| auth_types_h.merge!(patron_status)}
+      auth_types_h 
+    end
   end
   
   # Collect a simple array of codes from auth_types
   def auth_types_array
-    auth_types.collect {|x| x["code"] }
+    @auth_types_array ||= Rails.cache.fetch "auth_types", :expires_in => 5.minutes { auth_types.collect {|x| x["code"] } }
   end
   
   # Fetch auth_types from privileges guide
   # * Get patron statuses with access to the MaRLi sublibrary
   def auth_types 
-    @auth_types = Rails.cache.fetch "auth_types", :expires_in => 5.minutes do
-      JSON.parse(HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}"))
-    end
+    @auth_types ||= HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
   rescue Timeout::Error => e
     @error = e
     render 'user_sessions/timeout_error'
