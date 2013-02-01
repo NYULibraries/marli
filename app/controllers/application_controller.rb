@@ -1,6 +1,6 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
-
+require 'json'
 class ApplicationController < ActionController::Base
 
   helper :all # include all helpers, all the time
@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   # * Get patron statuses with access to the MaRLi sublibrary
   def auth_types 
     @auth_types = Rails.cache.fetch "auth_types", :expires_in => 5.minutes do
-      HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
+      JSON.parse(HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}"))
     end
   rescue Timeout::Error => e
     @error = e
