@@ -59,16 +59,17 @@ class ApplicationController < ActionController::Base
   
   # Create a hash of :code => :web_text pairs for auth_types
   def auth_types_collection
-    auth_types_h ||= Rails.cache.fetch "auth_types_h", :expires_in => 5.minutes do
+    @auth_types_h ||= Rails.cache.fetch "auth_types_h", :expires_in => 5.minutes do
       auth_types_h = Hash.new
       auth_types.collect {|patron_status| {patron_status["code"] => patron_status["web_text"]}}.each {|patron_status| auth_types_h.merge!(patron_status)}
     end
-    return auth_types_h
   end
   
   # Collect a simple array of codes from auth_types
   def auth_types_array
-    @auth_types_array = Rails.cache.fetch "auth_types_array", :expires_in => 5.minutes { auth_types.collect {|x| x["code"] } }
+    @auth_types_array ||= Rails.cache.fetch "auth_types_array", :expires_in => 5.minutes do
+      auth_types.collect {|x| x["code"] } 
+    end
   end
   
   # Fetch auth_types from privileges guide
@@ -106,6 +107,7 @@ class ApplicationController < ActionController::Base
   # * If logged in but not authorized, rendered an error page
   # * Otherwise redirect to login page, no anonymous access allowed
   def authorize_patron
+    debugger
     if is_authorized? or is_exception? #or is_authorized? is_admin?
       return true
     elsif !current_user.nil?
