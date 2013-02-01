@@ -111,7 +111,7 @@ class ApplicationController < ActionController::Base
     elsif !current_user.nil?
       render 'user_sessions/unauthorized_patron'
     else
-      redirect_to :login_url, :status => 401
+      redirect_to :login, :status => 401
       return false
     end
   end
