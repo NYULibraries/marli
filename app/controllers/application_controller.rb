@@ -72,9 +72,9 @@ class ApplicationController < ActionController::Base
   # Fetch auth_types from privileges guide
   # * Get patron statuses with access to the MaRLi sublibrary
   def auth_types 
-    Rails.cache.fetch "auth_types", :expires_in => 5.minutes do
-      HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
-    end
+    #Rails.cache.fetch "auth_types", :expires_in => 5.minutes do
+    @auth_types = HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
+    #end
   rescue Timeout::Error => e
     @error = e
     render 'user_sessions/timeout_error'
