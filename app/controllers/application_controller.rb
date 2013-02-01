@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
   
   # Create a hash of :code => :web_text pairs for auth_types
   def auth_types_collection
-    @auth_types_h ||= Rails.cache.fetch "auth_types_h", :expires_in => 5.minutes do
+    @auth_types_h ||= Rails.cache.fetch "auth_types_h", :expires_in => 24.hours do
       auth_types_h = Hash.new
       auth_types.collect {|patron_status| {patron_status["code"] => patron_status["web_text"]}}.each {|patron_status| auth_types_h.merge!(patron_status)}
     end
@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
   
   # Collect a simple array of codes from auth_types
   def auth_types_array
-    @auth_types_array ||= Rails.cache.fetch "auth_types_array", :expires_in => 5.minutes do
+    @auth_types_array ||= Rails.cache.fetch "auth_types_array", :expires_in => 24.hours do
       auth_types.collect {|x| x["code"] } 
     end
   end
