@@ -13,12 +13,6 @@ class ApplicationController < ActionController::Base
   #Authpds user functions
   include Authpds::Controllers::AuthpdsController
   
-  # Retrieve the web text for this borrower affiliation based on the status
-  def affiliation
-    @affiliation ||= auth_types_collection[current_user.user_attributes[:bor_status]]
-  end
-  helper_method :affiliation
-  
   # Filter users to root if not admin
   def authenticate_admin
     if !is_admin?
@@ -122,6 +116,12 @@ class ApplicationController < ActionController::Base
     render :text => robots, :layout => false, :content_type => "text/plain"
   end
   
+  # Retrieve the web text for this borrower affiliation based on the status
+  def affiliation
+    @affiliation ||= auth_types_collection[current_user.user_attributes[:bor_status]]
+  end
+  helper_method :affiliation
+    
   # Get the affiliation title if it exists or the default text otherwise
   def affiliation_text
     return affiliation unless affiliation.nil?
