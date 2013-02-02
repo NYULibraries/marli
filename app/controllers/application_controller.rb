@@ -128,12 +128,6 @@ class ApplicationController < ActionController::Base
     get_sanitized_detail("default_patron_type")
   end
   helper_method :affiliation_text
-
-  # Format and santitize detail from database
-  def get_formatted_detail(purpose, css = nil)
-   simple_format(get_sanitized_detail(purpose), :class => css)
-  end
-  helper_method :get_formatted_detail
   
   # Fetch application detail text by purpose
   def detail_by_purpose(purpose)

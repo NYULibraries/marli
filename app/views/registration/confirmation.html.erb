@@ -2,6 +2,6 @@
 </h1>
 <div>
 <p>
-	<%= get_formatted_detail('confirmation_body') %>
+	<%= simple_format(get_sanitized_detail('confirmation_body')) %>
 </p>
 </div>
