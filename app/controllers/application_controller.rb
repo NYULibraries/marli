@@ -144,7 +144,7 @@ class ApplicationController < ActionController::Base
   # Sanitize detail
   def get_sanitized_detail(purpose)
    application_detail = detail_by_purpose(purpose)
-   return print_sanitized_html(application_detail.the_text) if text_exists?(purpose)
+   return application_detail.the_text.html_safe if text_exists?(purpose)
   end
   helper_method :get_sanitized_detail
 
@@ -154,11 +154,5 @@ class ApplicationController < ActionController::Base
    return !(text.nil? || text.the_text.empty?)
   end
   helper_method :text_exists
-
-  # Sanitize HTML
-  def print_sanitized_html(html)
-   sanitize(html, :tags => %w(b strong i em br p a ul li), :attributes => %w(target href class)).html_safe
-  end
-  helper_method :print_sanitized_html
 
 end
