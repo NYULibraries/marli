@@ -121,5 +121,44 @@ class ApplicationController < ActionController::Base
     robots = File.read(Rails.root + "public/robots.#{Rails.env}.txt")
     render :text => robots, :layout => false, :content_type => "text/plain"
   end
+  
+  # Get the affiliation title if it exists or the default text otherwise
+  def affiliation_text
+    return affiliation unless affiliation.nil?
+    get_sanitized_detail("default_patron_type")
+  end
+  helper_method :affiliation_text
+
+  # Format and santitize detail from database
+  def get_formatted_detail(purpose, css = nil)
+   simple_format(get_sanitized_detail(purpose), :class => css)
+  end
+  helper_method :get_formatted_detail
+  
+  # Fetch application detail text by purpose
+  def detail_by_purpose(purpose)
+    ApplicationDetail.find_by_purpose(purpose)
+  end
+  helper_method :detail_by_purpose
+
+  # Sanitize detail
+  def get_sanitized_detail(purpose)
+   application_detail = detail_by_purpose(purpose)
+   return print_sanitized_html(application_detail.the_text) if text_exists?(purpose)
+  end
+  helper_method :get_sanitized_detail
+
+  # Returns boolean for whether or not there exists application detail text for this purpose
+  def text_exists?(purpose)
+   text = detail_by_purpose(purpose)
+   return !(text.nil? || text.the_text.empty?)
+  end
+  helper_method :text_exists
+
+  # Sanitize HTML
+  def print_sanitized_html(html)
+   sanitize(html, :tags => %w(b strong i em br p a ul li), :attributes => %w(target href class)).html_safe
+  end
+  helper_method :print_sanitized_html
 
 end
