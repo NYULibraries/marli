@@ -12,6 +12,6 @@ Postal code: <%= @user.user_attributes[:address][:postal_code] %>
 E-mail: <%= @user.email %>
 Home Library: NYU
 Institution ID: <%= @user.username %>
-Affiliation: <%= affiliation_text %>
+Affiliation: <%= @user.user_attributes[:affiliation_text] %>
 NYPL Barcode: <%= @user.barcode %>
 ======================================================
