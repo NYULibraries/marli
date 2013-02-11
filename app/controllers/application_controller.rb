@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   def auth_types_collection
     @auth_types_h ||= Rails.cache.fetch "auth_types_h", :expires_in => 24.hours do
       auth_types_h = Hash.new
-      auth_types.collect {|patron_status| {patron_status["code"] => patron_status["web_text"]}}.each {|patron_status| auth_types_h.merge!(patron_status)}
+      auth_types.collect {|patron_status| {patron_status["code"].to_s => patron_status["web_text"]}}.each {|patron_status_pair| auth_types_h.merge!(patron_status_pair)}
     end
   end
   
@@ -118,7 +118,7 @@ class ApplicationController < ActionController::Base
   
   # Retrieve the web text for this borrower affiliation based on the status
   def affiliation
-    @affiliation ||= auth_types_collection[current_user.user_attributes[:bor_status]]
+    @affiliation ||= auth_types_collection[current_user.user_attributes[:bor_status].to_s] unless current_user.user_attributes[:bor_status].nil?
   end
   helper_method :affiliation
     

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.11'
+gem 'rails', '~> 3.2.12'
 
 gem 'mysql2', "~> 0.3.11"
 
@@ -24,6 +24,8 @@ group :test do
   gem 'simplecov', :require => false
   gem 'simplecov-rcov', :require => false
 end
+
+gem 'json', '~> 1.7.7'
 
 gem 'debugger', :groups => [:development, :test]
 
