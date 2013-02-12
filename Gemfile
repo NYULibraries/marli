@@ -39,7 +39,7 @@ gem 'rvm-capistrano', "~> 1.2.7"
 gem "rails_config", "~> 0.3.2"
 
 # Authenticate gem
-gem 'authpds-nyu', "~> 0.2.5"
+gem 'authpds-nyu', "~> 0.2.9"
 
 # Aleph config gem
 #gem 'exlibris-aleph', :git => "git://github.com/scotdalton/exlibris-aleph.git" #"~> 0.1.6"

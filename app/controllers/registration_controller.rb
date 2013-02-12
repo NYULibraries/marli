@@ -16,7 +16,7 @@ class RegistrationController < ApplicationController
         @user.user_attributes[:department] = params[:department]
         @user.user_attributes[:marli_renewal] = (params[:renewal]) ? "Renewal" : "New Applicant"
         @user.user_attributes[:affiliation_text] = affiliation_text
-        @user.dob = params[:dob]
+        @user.dob = DateTime.parse(params[:dob]).strftime("%Y-%m-%d")
         @user.submitted_request = true
         @user.submitted_at = Time.now
         if @user.save!
