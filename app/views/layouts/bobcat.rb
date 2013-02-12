@@ -39,6 +39,15 @@ module Views
         render :partial => "shared/sidebar"
       end
       
+      # Using Gauges?
+      def gauges?
+        (Rails.env.eql?("production") and (not gauges_tracking_code.nil?))
+      end
+
+      def gauges_tracking_code
+        Settings.gauges.tracking_code
+      end
+      
       # Print breadcrumb navigation
       def breadcrumbs
         breadcrumbs = super
