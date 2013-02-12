@@ -105,7 +105,7 @@ class ApplicationController < ActionController::Base
     elsif !current_user.nil?
       render 'user_sessions/unauthorized_patron'
     else
-      redirect_to validate_url and return
+      redirect_to login_url and return
     end
   end
 
