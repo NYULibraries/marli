@@ -46,6 +46,17 @@ namespace :deploy do
   end
 end
 
+namespace :cache do
+  desc "Clear rails cache"
+  task :tmp_clear, :roles => :app do
+    run "cd #{current_release} && bundle exec rake tmp:clear RAILS_ENV=#{rails_env}"
+  end
+  desc "Clear memcache after deployment"
+  task :clear, :roles => :app do
+    run "cd #{current_release} && bundle exec rake cache:clear RAILS_ENV=#{rails_env}"
+  end
+end
+
 desc "Cleanup git project"
 task :clean_git, :roles => :app do
   # Clean up non tracked git files that aren't explicitly ignoredgit 
@@ -59,4 +70,4 @@ end
 
 before "deploy", "rvm:install_ruby", "deploy:migrations"
 before "ghpages", "clean_git"
-after "deploy", "ghpages", "deploy:cleanup", "deploy:passenger_symlink"
+after "deploy", "ghpages", "deploy:cleanup", "deploy:passenger_symlink", "cache:clear", "cache:tmp_clear"
