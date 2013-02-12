@@ -19,7 +19,7 @@ class RegistrationController < ApplicationController
         @user.dob = params[:dob]
         @user.submitted_request = true
         @user.submitted_at = Time.now
-        if @user.save
+        if @user.save!
           # Send email
           RegistrationMailer.registration_email(@user).deliver
           format.html { redirect_to confirmation_url }
