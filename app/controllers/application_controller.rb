@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
   # Filter users to root if not admin
   def authenticate_admin
     if !is_admin?
-      redirect_to root_url and return
+      redirect_to :root 
+      return false
     else
       return true
     end
