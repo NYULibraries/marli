@@ -126,7 +126,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.21)
-    multi_json (1.5.1)
+    multi_json (1.6.0)
     multi_xml (0.5.3)
     mustache (0.99.4)
     mustache-rails (0.2.3)
@@ -215,7 +215,7 @@ DEPENDENCIES
   compass-rails (~> 1.0.3)
   dalli (~> 2.5.0)
   debugger
-  exlibris-aleph (= 0.1.6)
+  exlibris-aleph (~> 0.1.6)
   httparty (~> 0.10.0)
   jquery-rails (~> 2.1.4)
   json (~> 1.7.7)
