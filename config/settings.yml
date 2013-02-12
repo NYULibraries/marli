@@ -22,11 +22,6 @@ login:
 privileges:
   base_url: https://web1.library.nyu.edu/privileges_guide
   marli_code: nyu_ag_noaleph_MaRLI
-  
-emails:
-  -
-    institution: Dummy 1
-    email: dummy@dummy.com
     
 cookie: 
   domain: ".local"
