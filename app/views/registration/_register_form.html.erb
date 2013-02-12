@@ -22,7 +22,7 @@
   <div class="control-group">
     <%= label_tag :dob, "Date of birth", :class => "required control-label" %>
     <div class="controls">
-      <%= text_field_tag :dob %>
+      <%= text_field_tag :dob, params[:dob] %>
       <a class="dob-popover" data-class="article-finding" rel="popover" target="_blank" data-original-title="Date of Birth Required" data-content="Date of birth information is required by<br /> Columbia University Library's systems"><i class="icons-famfamfam-information"></i></a>
     </div>
   </div>
