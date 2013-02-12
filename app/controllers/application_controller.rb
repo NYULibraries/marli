@@ -16,8 +16,7 @@ class ApplicationController < ActionController::Base
   # Filter users to root if not admin
   def authenticate_admin
     if !is_admin?
-      redirect_to :root
-      return false
+      redirect_to root_url and return
     else
       return true
     end
@@ -47,15 +46,15 @@ class ApplicationController < ActionController::Base
 
   # For dev purposes
   def current_user_dev
-   @current_user ||= User.find_by_username("nonadmin")
+   @current_user ||= User.find_by_username("ba36")
   end
   alias :current_user :current_user_dev if Rails.env == "development"
   
   # Create a hash of :code => :web_text pairs for auth_types
   def auth_types_collection
     @auth_types_h ||= Rails.cache.fetch "auth_types_h", :expires_in => 24.hours do
-      auth_types_h = Hash.new
-      auth_types.collect {|patron_status| {patron_status["code"].to_s => patron_status["web_text"]}}.each {|patron_status_pair| auth_types_h.merge!(patron_status_pair)}
+      # Uses the Hash object to cast a mapped array as a hash
+      Hash[auth_types.map {|x| [x["code"], x["web_text"]]}]
     end
   end
   
@@ -101,12 +100,12 @@ class ApplicationController < ActionController::Base
   # * If logged in but not authorized, rendered an error page
   # * Otherwise redirect to login page, no anonymous access allowed
   def authorize_patron
-    if is_admin? or is_authorized? or is_exception?
+    if is_admin? or is_exception? or is_authorized? 
       return true
     elsif !current_user.nil?
       render 'user_sessions/unauthorized_patron'
     else
-      redirect_to login_url and return
+      redirect_to validate_url and return
     end
   end
 
@@ -118,7 +117,7 @@ class ApplicationController < ActionController::Base
   
   # Retrieve the web text for this borrower affiliation based on the status
   def affiliation
-    @affiliation ||= auth_types_collection[current_user.user_attributes[:bor_status].to_s] unless current_user.user_attributes[:bor_status].nil?
+    @affiliation ||= auth_types_collection[current_user.user_attributes[:bor_status]] unless current_user.user_attributes[:bor_status].nil?
   end
   helper_method :affiliation
     
