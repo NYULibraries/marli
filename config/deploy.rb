@@ -2,6 +2,8 @@
 require "bundler/capistrano"
 # Load rvm-capistrano gem
 require "rvm/capistrano"
+# Newrelic
+require 'new_relic/recipes'
 
 # Environments
 set :stages, ["staging", "production"]
@@ -71,3 +73,4 @@ end
 before "deploy", "rvm:install_ruby", "deploy:migrations"
 before "ghpages", "clean_git"
 after "deploy", "ghpages", "deploy:cleanup", "deploy:passenger_symlink", "cache:clear", "cache:tmp_clear"
+after "deploy:update", "newrelic:notice_deployment"
