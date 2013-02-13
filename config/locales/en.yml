@@ -13,7 +13,7 @@ en:
     reset_submissions_success: Reset successful
     clear_patron_data_success: Deleted all non-admin patron data
   registration:
-    missing_fields: Please enter all required fields.
+    missing_fields: Some fields are missing or invalid. 
     error: Could not save user data. Please try again.
   application_details:
     update_success: Updated text

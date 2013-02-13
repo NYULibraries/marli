@@ -1,5 +1,12 @@
 class User < ActiveRecord::Base
   attr_accessible :crypted_password, :current_login_at, :current_login_ip, :email, :firstname, :last_login_at, :last_login_ip, :last_request_at, :lastname, :login_count, :mobile_phone, :password_salt, :persistence_token, :refreshed_at, :session_id, :user_attributes, :username
+  validate :valid_date?
+
+  def valid_date?
+   unless !dob? or DateTime.parse(dob.to_s)
+     errors.add(:dob, "is an invalid date format. Please use the format yyyy-mm-dd")
+   end
+  end
 
   serialize :user_attributes  
   
