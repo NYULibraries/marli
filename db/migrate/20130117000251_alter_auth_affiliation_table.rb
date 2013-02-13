@@ -1,5 +1,6 @@
 class AlterAuthAffiliationTable < ActiveRecord::Migration
   def up
+    #drop_table :patron_statuses
     rename_table :auth_affiliations, :patron_statuses
     rename_column :patron_statuses, :affiliation_code, :code
     rename_column :patron_statuses, :affiliation_title, :web_text
