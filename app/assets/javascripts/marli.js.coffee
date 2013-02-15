@@ -8,4 +8,3 @@ $ ->
   $("*[type='submit'][data-remote='true']").hide()
   $("#show_user").find("input[type='checkbox']").live 'change', ->
     $(this).closest("form").submit()
-  

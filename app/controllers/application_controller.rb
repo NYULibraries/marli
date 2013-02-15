@@ -23,6 +23,20 @@ class ApplicationController < ActionController::Base
     end
   end
   protected :authenticate_admin
+
+  # Authorize patron access to this application
+  # * Has access if authorized, exception or admin
+  # * If logged in but not authorized, rendered an error page
+  # * Otherwise redirect to login page, no anonymous access allowed
+  def authorize_patron
+    if is_admin? or is_exception? or is_authorized? 
+      return true
+    elsif !current_user.nil?
+      render 'user_sessions/unauthorized_patron'
+    else
+      redirect_to login_url unless performed?
+    end
+  end
   
   # Return true if user is marked as admin
   def is_admin
@@ -95,20 +109,6 @@ class ApplicationController < ActionController::Base
   end
   alias :is_in_admin_view? :is_in_admin_view
   helper_method :is_in_admin_view?
-  
-  # Authorize patron access to this application
-  # * Has access if authorized, exception or admin
-  # * If logged in but not authorized, rendered an error page
-  # * Otherwise redirect to login page, no anonymous access allowed
-  def authorize_patron
-    if is_admin? or is_exception? or is_authorized? 
-      return true
-    elsif !current_user.nil?
-      render 'user_sessions/unauthorized_patron'
-    else
-      redirect_to login_url and return
-    end
-  end
 
   # Set robots.txt per environment
   def robots
