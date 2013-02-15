@@ -6,5 +6,5 @@ $ ->
     dateFormat: 'yy-mm-dd'
   }
   $("*[type='submit'][data-remote='true']").hide()
-  $("#show_user").find("input[type='checkbox']").live 'change', ->
+  $("#show_user").on 'change', "input[type='checkbox']", ->
     $(this).closest("form").submit()
