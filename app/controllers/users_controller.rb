@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     if @users.update_all( :submitted_request => nil, :submitted_at => nil )
       flash[:success] = t('users.reset_submissions_success')
     end
-    repsond_with(@users)
+    respond_with(@users)
   end
   
   # Delete all non-admin patrons
