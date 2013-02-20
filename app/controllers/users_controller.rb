@@ -57,10 +57,12 @@ class UsersController < ApplicationController
   def reset_submissions
     if params[:id]
       @users = User.find(params[:id])
+      @users.update_attributes( :submitted_request => nil, :submitted_at => nil )
     else
       @users = User.where(:submitted_request => true)
+      @users.update_all( :submitted_request => nil, :submitted_at => nil )
     end
-    if @users.update_attributes( :submitted_request => nil, :submitted_at => nil )
+    if @users.errors.blank?
       flash[:success] = t('users.reset_submissions_success')
     end
     respond_with(@users) do |format|
