@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     else
       @users = User.where(:submitted_request => true)
     end
-    if @users.update_all( :submitted_request => nil, :submitted_at => nil )
+    if @users.update_attributes( :submitted_request => nil, :submitted_at => nil )
       flash[:success] = t('users.reset_submissions_success')
     end
     respond_with(@users) do |format|
