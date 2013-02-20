@@ -11,7 +11,7 @@ class RegistrationController < ApplicationController
     @user = current_user
 
     respond_to do |format|
-      unless params[:dob].blank? or params[:school].blank?
+      unless params[:dob].blank? or params[:school].blank? or !params[:dob].match(/\A\d\d\d\d[-\/]?\d\d[-\/]?\d\d\z/)
         # Update user details based on submission
         @user.user_attributes = { :school => params[:school], :department => params[:department], :marli_renewal => ((params[:renewal]) ? "Renewal" : "New Applicant"), :affiliation_text => affiliation_text }
         @user.dob = params[:dob]

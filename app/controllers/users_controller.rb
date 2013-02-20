@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def index
     @users = User.search(params[:q]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
     respond_with(@user) do |format|
-      format.csv { render :csv => @users, :filename => "marli_users" }
+      format.csv { render :csv => @users, :filename => "marli_users_#{DateTime.now.strftime("%Y%m%d%H%m")}" }
     end
   end
   
@@ -63,7 +63,9 @@ class UsersController < ApplicationController
     if @users.update_all( :submitted_request => nil, :submitted_at => nil )
       flash[:success] = t('users.reset_submissions_success')
     end
-    respond_with(@users, :location => users_url)
+    respond_with(@users) do |format|
+      format.html { redirect_to users_url }
+    end
   end
   
   # Delete all non-admin patrons
@@ -71,7 +73,9 @@ class UsersController < ApplicationController
     if User.destroy_all("user_attributes not like '%:marli_admin: true%'")
       flash[:success] = t('users.clear_patron_data_success')
     end
-    respond_with(@user, :location => users_url)
+    respond_with(@user) do |format|
+      format.html { redirect_to users_url }
+    end
   end
 
   # Implement sort column function for this model
