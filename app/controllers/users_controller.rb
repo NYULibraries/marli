@@ -1,12 +1,11 @@
 class UsersController < ApplicationController
+  respond_to :html, :js, :csv
   before_filter :authenticate_admin
 
   # GET /users
   def index
     @users = User.search(params[:q]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
-    
-    respond_to do |format|
-      format.html
+    respond_with(@user) do |format|
       format.csv { render :csv => @users, :filename => "marli_users" }
     end
   end
@@ -18,30 +17,18 @@ class UsersController < ApplicationController
   
   # POST /users
   def create
-    @user = User.new
-    @user.username = params[:user][:username]
-    @user.email = params[:user][:email]
-    @user.user_attributes = {}
-    @user.user_attributes[:marli_admin] = params[:user][:marli_admin].to_i == 1
-    @user.user_attributes[:marli_exception] = params[:user][:marli_exception].to_i == 1
+    @user = User.new(:username => params[:user][:username], :email => params[:user][:email])
+    @user.user_attributes = { :marli_admin => (params[:user][:marli_admin].to_i == 1), :marli_exception => (params[:user][:marli_exception].to_i == 1) }
 
-    respond_to do |format|
-      if @user.save
-        flash[:notice] = t('users.create_success')
-        format.html { redirect_to users_url }
-      else
-        format.html { render :new }
-      end
+    if @user.save
+      flash[:notice] = t('users.create_success')
     end
+    respond_with(@user)
   end
   
   # GET /patrons/1
   def show
     @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-    end
   end
 
   # GET /patrons/1/edit
@@ -52,46 +39,39 @@ class UsersController < ApplicationController
   # PUT /users/1
   def update
     @user = User.find(params[:id])
-    user_attributes = {}
-    user_attributes[:marli_admin] = params[:user][:marli_admin].to_i == 1
-    user_attributes[:marli_exception] = params[:user][:marli_exception].to_i == 1
-    @user.update_attributes(:user_attributes => user_attributes)
-
-    respond_to do |format|
+    
+    if @user.update_attributes(:user_attributes => {:marli_admin => (params[:user][:marli_admin].to_i == 1), :marli_exception => (params[:user][:marli_exception].to_i == 1)})
       flash[:notice] = t('users.update_success')
-      format.js { render :layout => false }
-      format.html { redirect_to(@user) }
     end
+    respond_with(@user)
   end
   
   # DELETE /patrons/1
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(users_url) }
-    end
+    respond_with(@user)
   end
   
   # Reset submitted request flag 
   def reset_submissions
     if params[:id]
-      @user = User.find(params[:id])
-      @user.update_attributes( :submitted_request => nil, :submitted_at => nil )
+      @users = User.find(params[:id])
     else
       @users = User.where(:submitted_request => true)
-      @users.update_all( :submitted_request => nil, :submitted_at => nil )
     end
-    flash[:success] = t('users.reset_submissions_success')
-    redirect_to users_url
+    if @users.update_all( :submitted_request => nil, :submitted_at => nil )
+      flash[:success] = t('users.reset_submissions_success')
+    end
+    repsond_with(@users)
   end
   
   # Delete all non-admin patrons
   def clear_patron_data
-    User.destroy_all("user_attributes not like '%:marli_admin: true%'")
-    flash[:success] = t('users.clear_patron_data_success')
-    redirect_to users_url
+    if User.destroy_all("user_attributes not like '%:marli_admin: true%'")
+      flash[:success] = t('users.clear_patron_data_success')
+    end
+    respond_with(@user)
   end
 
   # Implement sort column function for this model
