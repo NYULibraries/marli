@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     if @users.update_all( :submitted_request => nil, :submitted_at => nil )
       flash[:success] = t('users.reset_submissions_success')
     end
-    respond_with(@users)
+    respond_with(@users, :location => users_url)
   end
   
   # Delete all non-admin patrons
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
     if User.destroy_all("user_attributes not like '%:marli_admin: true%'")
       flash[:success] = t('users.clear_patron_data_success')
     end
-    respond_with(@user)
+    respond_with(@user, :location => users_url)
   end
 
   # Implement sort column function for this model
