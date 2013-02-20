@@ -62,9 +62,7 @@ class UsersController < ApplicationController
       @users = User.where(:submitted_request => true)
       @users.update_all( :submitted_request => nil, :submitted_at => nil )
     end
-    if @users.errors.blank?
-      flash[:success] = t('users.reset_submissions_success')
-    end
+    flash[:success] = t('users.reset_submissions_success')
     respond_with(@users) do |format|
       format.html { redirect_to users_url }
     end
