@@ -15,6 +15,7 @@ class RegistrationController < ApplicationController
         # Update user details based on submission
         @user.user_attributes = { :school => params[:school], :department => params[:department], :marli_renewal => ((params[:renewal]) ? "Renewal" : "New Applicant"), :affiliation_text => affiliation_text }
         @user.dob = params[:dob]
+        @user.barcode = params[:barcode]
         @user.submitted_request = true
         @user.submitted_at = Time.now
         if @user.save
