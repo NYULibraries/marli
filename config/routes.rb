@@ -3,7 +3,7 @@ Marli::Application.routes.draw do
     resources :patron_statuses
     resources :application_details
     resources :users 
-    match "reset_submissions", :to => "users#reset_submissions"
+    match "reset_submissions(/:id)", :to => "users#reset_submissions", :as => "reset_submissions"
     match "clear_patron_data", :to => "users#clear_patron_data"
     match "toggle_application_status", :to => "application_details#toggle_application_status"
   end

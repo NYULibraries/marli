@@ -53,7 +53,7 @@
   	  <td><%= (user_submitted(user)) ? "<i class=\"icon-ok\"></i>".html_safe : ''%></td>
     	<td><%=h user_status(user) %></td>
     	<td><%= link_to 'Show', user %></td>
-    	<td><%= link_to 'Reset', reset_submissions_url, :id => user.id, :data => {:confirm => 'This will removed the submitted status from this user. Are you sure?'} %></td>
+    	<td><%= link_to 'Reset', reset_submissions_url(user), :data => {:confirm => 'This will removed the submitted status from this user. Are you sure?'} %></td>
     	<td><%= link_to_if(user.username != current_user.username, 'Destroy', user, :data => {:confirm => 'Are you sure?'}, :method => :delete) %></td>
  	  </tr>
   <% end %>
