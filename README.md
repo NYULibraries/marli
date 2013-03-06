@@ -1,8 +1,9 @@
 # Manhattan Research Library Initiative (MaRLI) registration application
 
 [![Build Status](http://jenkins1.bobst.nyu.edu/job/MaRLI%20Production/badge/icon)](http://jenkins1.bobst.nyu.edu/job/MaRLI%20Production/)
+
 [![Build Status](https://travis-ci.org/NYULibraries/marli.png?branch=master)](https://travis-ci.org/NYULibraries/marli)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/NYULibraries/marli)
+[![Code Climate](https://codeclimate.com/github/NYULibraries/marli.png)](https://codeclimate.com/github/NYULibraries/marli)
 [![Dependency Status](https://gemnasium.com/NYULibraries/marli.png)](https://gemnasium.com/NYULibraries/marli)
 
 This is a simple Rails3 application to allow MaRLI participants at NYU to send their registration requests to the other participant libraries. See [http://marli.libguides.com/welcome](http://marli.libguides.com/welcome) for more information on the MaRLI project.

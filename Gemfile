@@ -29,9 +29,9 @@ gem 'json', '~> 1.7.7'
 
 gem 'debugger', :groups => [:development, :test]
 
-gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git'
+gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git', :tag => "v1.0"
 #gem 'nyulibraries_assets', :path => '/apps/nyulibraries_assets'
-gem 'jquery-rails', "~> 2.1.4"
+gem 'jquery-rails', "~> 2.2.1"
 
 # Deploy with Capistrano
 gem 'rvm-capistrano', "~> 1.2.7"
@@ -53,7 +53,7 @@ gem 'newrelic_rpm', "~> 3.5.3"
 gem 'mustache-rails', "~> 0.2.3", :require => 'mustache/railtie'
 
 # For memcached
-gem 'dalli', "~> 2.5.0"
+gem 'dalli', "~> 2.6.2"
 
 # Create CSVs from models
 gem "comma", "~> 3.0"
