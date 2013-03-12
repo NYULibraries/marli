@@ -9,41 +9,40 @@ module Views
         meta << tag(:meta, :name => "cleartype", :content => "on")
         meta << favicon_link_tag('https://library.nyu.edu/favicon.ico')
       end
-      
+    
       # Stylesheets to include in layout
       def stylesheets
         catalog_stylesheets = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Muli"
         catalog_stylesheets += stylesheet_link_tag "application"
       end
-
+    
       # Javascripts to include in layout
       def javascripts
         catalog_javascripts = javascript_include_tag "application"
       end
-      
-      def title
+    
+      def application
         get_sanitized_detail('title')
       end
-
-      # Generate link to application root
-      def application
-        application = link_to title, root_path
+    
+      def title
+        application
       end
-      
+    
       # Render the sidebar partial
       def sidebar
         render :partial => "common/sidebar"
       end
-      
+    
       # Using Gauges?
       def gauges?
         (Rails.env.eql?("production") and (not gauges_tracking_code.nil?))
       end
-
+    
       def gauges_tracking_code
         Settings.gauges.tracking_code
       end
-      
+    
       # Print breadcrumb navigation
       def breadcrumbs
         breadcrumbs = super
@@ -52,31 +51,31 @@ module Views
         breadcrumbs << link_to_unless_current(controller.controller_name.humanize, {:action => :index }) if is_in_admin_view?
         return breadcrumbs
       end
-      
+    
       # Render footer partial
       def footer
         render :partial => "common/footer"
       end
-      
+    
       # Prepend modal dialog elements to the body
       def prepend_body
         prepend_body = '<div class="modal-container"></div>'.html_safe
         prepend_body << '<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>'.html_safe
       end
-      
+    
       # Prepend the flash message partial before yield
       def prepend_yield
         content_tag :div, :id => "main-flashses" do
-         render :partial => 'common/flash_msg'
+        render :partial => 'common/flash_msg'
         end
       end
-
+    
       # Boolean for whether or not to show tabs
       # This application doesn't need tabs
       def show_tabs
         false
       end
-      
+    
       # Boolean for whether or not to show search box
       # For this application only show tabs when not in admin view
       def show_search_box?
