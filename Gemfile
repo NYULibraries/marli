@@ -29,7 +29,7 @@ gem 'json', '~> 1.7.7'
 
 gem 'debugger', :groups => [:development, :test]
 
-gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git', :tag => "v1.0"
+gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git'#, :tag => "v1.0"
 #gem 'nyulibraries_assets', :path => '/apps/nyulibraries_assets'
 gem 'jquery-rails', "~> 2.2.1"
 
