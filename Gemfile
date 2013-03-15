@@ -29,8 +29,9 @@ gem 'json', '~> 1.7.7'
 
 gem 'debugger', :groups => [:development, :test]
 
-gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git'#, :tag => "v1.0"
 #gem 'nyulibraries_assets', :path => '/apps/nyulibraries_assets'
+gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git'
+
 gem 'jquery-rails', "~> 2.2.1"
 
 # Deploy with Capistrano
@@ -42,9 +43,7 @@ gem "rails_config", "~> 0.3.2"
 gem 'authpds-nyu', "~> 0.2.9"
 
 # Aleph config gem
-#gem 'exlibris-aleph', :git => "git://github.com/scotdalton/exlibris-aleph.git" #"~> 0.1.6"
-gem 'exlibris-aleph', "~> 0.1.6"
-#gem 'exlibris-aleph', :git => 'git://github.com/barnabyalter/exlibris-aleph.git'
+gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :tag => 'v1.0.0'
 
 gem "kaminari", "~> 0.13"
 
