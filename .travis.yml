@@ -1,9 +1,5 @@
 language: ruby
 
-before_script:
-  - mysql -e 'create database nyu_marli_test;'
-  - RAILS_ENV=test bundle exec rake db:schema:load
-
 script:
   - RAILS_ENV=test bundle install
   - RAILS_ENV=test bundle exec rake test

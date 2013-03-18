@@ -23,9 +23,10 @@ group :test do
   #Testing coverage
   gem 'simplecov', :require => false
   gem 'simplecov-rcov', :require => false
+  gem "vcr", "~> 2.4.0"
+  gem "webmock", "~> 1.11.0"
+  gem "coveralls", "~> 0.6.0", :require => false
 end
-
-gem "coveralls", "~> 0.6.0", :require => false, :group => :test
 
 # Aleph config gem
 if ENV['RAILS_ENV'] == "test"
