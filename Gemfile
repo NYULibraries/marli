@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.12'
+gem 'rails', '~> 3.2.13'
 
 gem 'mysql2', "~> 0.3.11"
 
@@ -25,6 +25,15 @@ group :test do
   gem 'simplecov-rcov', :require => false
 end
 
+gem "coveralls", "~> 0.6.0", :require => false, :group => :test
+
+# Aleph config gem
+if ENV['RAILS_ENV'] == "test"
+    gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :branch => 'development'
+else
+  gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :tag => 'v1.0.0'
+end
+
 gem 'json', '~> 1.7.7'
 
 gem 'debugger', :groups => [:development, :test]
@@ -41,9 +50,6 @@ gem "rails_config", "~> 0.3.2"
 
 # Authenticate gem
 gem 'authpds-nyu', "~> 0.2.9"
-
-# Aleph config gem
-gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :tag => 'v1.0.0'
 
 gem "kaminari", "~> 0.13"
 

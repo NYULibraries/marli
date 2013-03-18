@@ -1,8 +1,8 @@
 Marli::Application.routes.draw do
   scope "admin" do
-    resources :patron_statuses
     resources :application_details
     resources :users 
+    match "auth_settings", :to => "users#auth_types", :as => "auth_settings"
     match "reset_submissions(/:id)", :to => "users#reset_submissions", :as => "reset_submissions"
     match "clear_patron_data", :to => "users#clear_patron_data"
     match "toggle_application_status", :to => "application_details#toggle_application_status"

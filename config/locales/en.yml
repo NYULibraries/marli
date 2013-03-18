@@ -4,9 +4,6 @@
 en:
   send_email:
     subject: NYU Libraries- MaRLI request
-  patron_statuses:
-    update_success: Patron status was successfully updated.
-    create_success: Patron status was successfully created.
   users:
     update_success: Updated user
     create_success: User created

@@ -14,4 +14,4 @@ Users login to NYU's SSO through ExLibris's Patron Directory Service (PDS) using
 
 ## User information
 
-Once a user is logged into PDS, the application uses the [exlibris-aleph](https://github.com/scotdalton/exlibris-aleph) gem to get additional patron information from [ExLibris's Aleph](http://www.exlibris-usa.com/category/Aleph) ILS. 
+Once a user is logged into PDS, the application uses the [exlibris-nyu](https://github.com/NYULibraries/exlibris-nyu) gem to get additional patron information from [ExLibris's Aleph](http://www.exlibris-usa.com/category/Aleph) ILS. 
