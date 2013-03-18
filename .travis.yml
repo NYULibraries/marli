@@ -1,8 +1,8 @@
 language: ruby
 
-script:
-  - RAILS_ENV=test bundle install
-  - RAILS_ENV=test bundle exec rake test
+before_script:
+  - mysql -e 'create database nyu_marli_test;'
+  - bundle exec rake db:schema:load
 
 rvm:
   - "1.9.3"

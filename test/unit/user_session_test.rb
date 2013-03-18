@@ -5,7 +5,7 @@ class UserSessionTest < ActiveSupport::TestCase
   setup :activate_authlogic
 
   test "get additional attributes address" do
-    VCR.use_cassette('patron additional attributes') do
+    VCR.use_cassette('patron additional attributes', :match_requests_on => [:path]) do
       # Use a real user from PDS to verify address
       user_session = UserSession.create(users(:real_user))
       set_dummy_pds_user(user_session)

@@ -29,11 +29,7 @@ group :test do
 end
 
 # Aleph config gem
-if ENV['RAILS_ENV'] == "test"
-    gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :branch => 'development'
-else
-  gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :tag => 'v1.0.0'
-end
+gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :tag => 'v1.0.0'
 
 gem 'json', '~> 1.7.7'
 
