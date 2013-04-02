@@ -11,7 +11,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', "~> 0.10.0", :platforms => :ruby
+  gem 'therubyracer', "~> 0.11.4", :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '~> 0.12.1'
@@ -46,11 +46,11 @@ gem 'rvm-capistrano', "~> 1.2.7"
 gem "rails_config", "~> 0.3.2"
 
 # Authenticate gem
-gem 'authpds-nyu', "~> 0.2.9"
+gem 'authpds-nyu', "~> 0.2.12"
 
 gem "kaminari", "~> 0.13"
 
-gem 'newrelic_rpm', "~> 3.5.3"
+gem 'newrelic_rpm', "~> 3.6.0"
 
 gem 'mustache-rails', "~> 0.2.3", :require => 'mustache/railtie'
 
