@@ -21,22 +21,13 @@ module Views
         catalog_javascripts = javascript_include_tag "application"
       end
     
-      def application
+      def application_title
         get_sanitized_detail('title')
-      end
-    
-      def title
-        application
       end
     
       # Render the sidebar partial
       def sidebar
         render :partial => "common/sidebar"
-      end
-    
-      # Using Gauges?
-      def gauges?
-        (Rails.env.eql?("production") and (not gauges_tracking_code.nil?))
       end
     
       def gauges_tracking_code
@@ -46,7 +37,7 @@ module Views
       # Print breadcrumb navigation
       def breadcrumbs
         breadcrumbs = super
-        breadcrumbs << link_to_unless_current(title, root_url)
+        breadcrumbs << link_to_unless_current(application_title, root_url)
         breadcrumbs << link_to('Admin', :controller => 'users') if is_in_admin_view?
         breadcrumbs << link_to_unless_current(controller.controller_name.humanize, {:action => :index }) if is_in_admin_view?
         return breadcrumbs
@@ -59,8 +50,8 @@ module Views
     
       # Prepend modal dialog elements to the body
       def prepend_body
-        prepend_body = '<div class="modal-container"></div>'.html_safe
-        prepend_body << '<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>'.html_safe
+        content_tag(:div, nil, :class => "modal-container")+
+        content_tag(:div, nil, :id => "ajax-modal", :class => "modal hide fade", :tabindex => "-1")
       end
     
       # Prepend the flash message partial before yield

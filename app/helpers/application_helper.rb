@@ -5,21 +5,6 @@ module ApplicationHelper
   def app_is_active?
     (!File.exists? "#{Rails.root}/config/app_is_inactive.pid")
   end
-
-  # Retrieve a value matching a key to an icon class name
-  def icons key
-    icons_info[key.to_s]
-  end
-  
-  # Load the icons YAML info file
-  def icons_info
-    @icons_info ||= YAML.load_file( File.join(Rails.root, "config", "icons.yml") )
-  end
-  
-  # Generate an icon tag with class key
-  def icon_tag key
-    content_tag :i, "", :class => icons(key)
-  end
   
   # Generate an abbr tag for long words
   def word_break word
