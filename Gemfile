@@ -29,25 +29,26 @@ group :test do
 end
 
 # Aleph config gem
-gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :tag => 'v1.0.0'
+gem "exlibris-nyu", :git => "git://github.com/NYULibraries/exlibris-nyu.git", :tag => 'v1.0.8'
 
 gem 'json', '~> 1.7.7'
 
 gem 'debugger', :groups => [:development, :test]
 
 #gem 'nyulibraries_assets', :path => '/apps/nyulibraries_assets'
-gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git', :tag => "v1.1.9"
+gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git', :tag => "v1.1.15"
 gem "rake_nyu", :git => "git://github.com/NYULibraries/rake_nyu.git"
 
 gem 'jquery-rails', "~> 2.2.1"
 
 # Deploy with Capistrano
-gem 'rvm-capistrano', "~> 1.2.7"
+gem 'rvm-capistrano', "~> 1.4.4"
   
 gem "rails_config", "~> 0.3.2"
 
 # Authenticate gem
-gem 'authpds-nyu', "~> 0.2.12"
+gem "authpds-nyu", "~> 0.2.13"
+#gem 'authpds-nyu', :git => "git@github.com:NYULibraries/authpds-nyu.git", :branch => "shibboleth"
 
 gem "kaminari", "~> 0.13"
 
@@ -59,6 +60,6 @@ gem 'mustache-rails', "~> 0.2.3", :require => 'mustache/railtie'
 gem 'dalli', "~> 2.6.2"
 
 # Create CSVs from models
-gem "comma", "~> 3.0"
+gem "comma", "~> 3.1"
 
 gem "httparty", "~> 0.10.0"
