@@ -47,8 +47,8 @@ gem 'rvm-capistrano', "~> 1.4.4"
 gem "rails_config", "~> 0.3.2"
 
 # Authenticate gem
-gem "authpds-nyu", "~> 0.2.13"
-#gem 'authpds-nyu', :git => "git@github.com:NYULibraries/authpds-nyu.git", :branch => "shibboleth"
+#gem "authpds-nyu", "~> 0.2.13"
+gem 'authpds-nyu', :git => "git@github.com:NYULibraries/authpds-nyu.git", :branch => "shibboleth"
 
 gem "kaminari", "~> 0.13"
 
