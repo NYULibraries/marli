@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Marli::Affiliations
+  
   attr_accessible :dob, :submitted_request, :submitted_at
   # Attributes used by authpds
   attr_accessible :crypted_password, :current_login_at, :current_login_ip, :email, :firstname, :last_login_at, :last_login_ip, :last_request_at, :lastname, :login_count, :mobile_phone, :password_salt, :persistence_token, :refreshed_at, :session_id, :user_attributes, :username
@@ -33,6 +35,7 @@ class User < ActiveRecord::Base
     barcode "NYPL Barcode"
     user_attributes "Department" do |user_attributes| user_attributes[:department] end
     user_attributes "School" do |user_attributes| user_attributes[:school] end
+    affiliation_text "Affiliation"
   end
   
 end
