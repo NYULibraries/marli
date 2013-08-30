@@ -2,9 +2,11 @@
 # Likewise, all the methods added will be available for all controllers.
 require 'json'
 class ApplicationController < ActionController::Base
-
-  helper :all # include all helpers, all the time
-
+  
+  include Marli::Affiliations
+  helper_method :affiliation_text, :affiliation, :auth_types
+  helper_method :detail_by_purpose, :get_sanitized_detail, :text_exists
+  
   # Use nyu assets layout
   layout "application"
   
@@ -64,31 +66,6 @@ class ApplicationController < ActionController::Base
   end
   alias :current_user :current_user_dev if Rails.env == "development"
   
-  # Create a hash of :code => :web_text pairs for auth_types
-  def auth_types_collection
-    @auth_types_h ||= Rails.cache.fetch "auth_types_h", :expires_in => 24.hours do
-      # Uses the Hash object to cast a mapped array as a hash
-      Hash[auth_types.map {|x| [x["code"], x["web_text"]]}]
-    end
-  end
-  
-  # Collect a simple array of codes from auth_types
-  def auth_types_array
-    @auth_types_array ||= Rails.cache.fetch "auth_types_array", :expires_in => 24.hours do
-      auth_types.collect {|x| x["code"] } 
-    end
-  end
-  
-  # Fetch auth_types from privileges guide
-  # * Get patron statuses with access to the MaRLi sublibrary
-  def auth_types 
-    @auth_types ||= HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}")
-  rescue Timeout::Error => e
-    @error = e
-    render 'user_sessions/timeout_error'
-  end
-  helper_method :auth_types
-  
   # Protect against SQL injection by forcing column to be an actual column name in the model
   def sort_column klass, default_column = "title_sort"
     klass.constantize.column_names.include?(params[:sort]) ? params[:sort] : default_column
@@ -114,38 +91,5 @@ class ApplicationController < ActionController::Base
     robots = File.read(Rails.root + "public/robots.#{Rails.env}.txt")
     render :text => robots, :layout => false, :content_type => "text/plain"
   end
-  
-  # Retrieve the web text for this borrower affiliation based on the status
-  def affiliation
-    @affiliation ||= auth_types_collection[current_user.user_attributes[:bor_status]] unless current_user.user_attributes[:bor_status].nil?
-  end
-  helper_method :affiliation
-    
-  # Get the affiliation title if it exists or the default text otherwise
-  def affiliation_text
-    return affiliation unless affiliation.nil?
-    get_sanitized_detail("default_patron_type")
-  end
-  helper_method :affiliation_text
-  
-  # Fetch application detail text by purpose
-  def detail_by_purpose(purpose)
-    ApplicationDetail.find_by_purpose(purpose)
-  end
-  helper_method :detail_by_purpose
-
-  # Sanitize detail
-  def get_sanitized_detail(purpose)
-   application_detail = detail_by_purpose(purpose)
-   return application_detail.the_text.html_safe if text_exists?(purpose)
-  end
-  helper_method :get_sanitized_detail
-
-  # Returns boolean for whether or not there exists application detail text for this purpose
-  def text_exists?(purpose)
-   text = detail_by_purpose(purpose)
-   return !(text.nil? || text.the_text.empty?)
-  end
-  helper_method :text_exists
 
 end
