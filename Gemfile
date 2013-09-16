@@ -37,12 +37,10 @@ gem 'debugger', :groups => [:development, :test]
 
 #gem 'nyulibraries_assets', :path => '/apps/nyulibraries_assets'
 gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git', :tag => "v1.1.15"
-gem "rake_nyu", :git => "git://github.com/NYULibraries/rake_nyu.git"
+gem "nyulibraries_deploy", :git => "git://github.com/NYULibraries/rake_nyu.git", :tag => "v2.0.1"
 
 gem 'jquery-rails', "~> 2.2.1"
 
-# Deploy with Capistrano
-gem 'rvm-capistrano', "~> 1.4.4"
   
 gem "rails_config", "~> 0.3.2"
 
