@@ -37,7 +37,7 @@ gem 'debugger', :groups => [:development, :test]
 
 #gem 'nyulibraries_assets', :path => '/apps/nyulibraries_assets'
 gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_assets.git', :tag => "v1.1.15"
-gem "nyulibraries_deploy", :git => "git://github.com/NYULibraries/rake_nyu.git",  :branch => "development-deploy"
+gem "nyulibraries_deploy", :git => "git://github.com/NYULibraries/rake_nyu.git",  :tag => "v2.0.4"
 
 gem 'jquery-rails', "~> 2.2.1"
 
