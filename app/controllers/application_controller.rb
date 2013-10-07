@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   helper_method :affiliation_text, :affiliation, :auth_types
   helper_method :detail_by_purpose, :get_sanitized_detail, :text_exists
   
+  layout Proc.new{ |controller| (controller.request.xhr?) ? false : "application" }
+  
   # Use nyu assets layout
   layout "application"
   
