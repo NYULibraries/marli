@@ -8,7 +8,7 @@ class ApplicationDetailsController < ApplicationController
   # GET /application_details
   def index
     @application_details = ApplicationDetail.all
-    respond_with(@appliation_details)
+    respond_with(@application_details)
   end
 
   # GET /application_details/1/edit

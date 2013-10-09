@@ -24,8 +24,10 @@ class UsersControllerTest < ActionController::TestCase
   end
   
   test "should get CSV from index" do
-    get :index, :format => :csv
-    assert_response :success
+    VCR.use_cassette('use privileges API for authorization') do
+      get :index, :format => :csv
+      assert_response :success
+    end
   end
   
   test "should get new user form" do
@@ -54,11 +56,13 @@ class UsersControllerTest < ActionController::TestCase
   end
   
   test "should show user" do
-    get :show, :id => users(:admin).to_param
-    
-    assert assigns(:user)
-    assert_response :success
-    assert_template :show
+    VCR.use_cassette('use privileges API for authorization') do
+      get :show, :id => users(:admin).to_param
+      
+      assert assigns(:user)
+      assert_response :success
+      assert_template :show
+    end
   end
   
   test "should update user as exception" do
@@ -103,29 +107,36 @@ class UsersControllerTest < ActionController::TestCase
   
   # With non-admin user
   test "get new registration form" do
-    get :new_registration
+    VCR.use_cassette('use privileges API for authorization') do
+      current_user = UserSession.create(users(:nonadmin))
+      get :new_registration
     
-    assert assigns(:user)
-    assert_response :success
-    assert_template :new_registration
+      assert assigns(:user)
+      assert_response :success
+      assert_template :new_registration
+    end
   end
   
   test "submit registration successfully" do
-    current_user = UserSession.create(users(:nonadmin))
-    post :create_registration, :school => "NYU", :dob => "1986-01-01"
+    VCR.use_cassette('use privileges API for authorization') do
+      current_user = UserSession.create(users(:nonadmin))
+      post :create_registration, :school => "NYU", :dob => "1986-01-01"
     
-    assert assigns(:user)
-    assert assigns(:user).submitted_request
-    assert_redirected_to confirmation_url
+      assert assigns(:user)
+      assert assigns(:user).submitted_request
+      assert_redirected_to confirmation_url
+    end
   end
   
   test "submit registration with error" do
-    current_user = UserSession.create(users(:nonadmin))
-    post :create_registration, :school => "", :dob => "1986-01-01"
+    VCR.use_cassette('use privileges API for authorization') do
+      current_user = UserSession.create(users(:nonadmin))
+      post :create_registration, :school => "", :dob => "1986-01-01"
     
-    assert assigns(:user)
-    assert(!assigns(:user).submitted_request)
-    assert_template :new_registration
+      assert assigns(:user)
+      assert(!assigns(:user).submitted_request)
+      assert_template :new_registration
+    end
   end
   
 end
