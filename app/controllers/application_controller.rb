@@ -2,16 +2,12 @@
 # Likewise, all the methods added will be available for all controllers.
 require 'json'
 class ApplicationController < ActionController::Base
+  layout Proc.new{ |controller| (controller.request.xhr?) ? false : "application" }
   
   include Marli::Affiliations
   helper_method :affiliation_text, :affiliation, :auth_types
   helper_method :detail_by_purpose, :get_sanitized_detail, :text_exists
-  
-  layout Proc.new{ |controller| (controller.request.xhr?) ? false : "application" }
-  
-  # Use nyu assets layout
-  layout "application"
-  
+    
   protect_from_forgery
 
   #Authpds user functions

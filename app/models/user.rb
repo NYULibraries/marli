@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   attr_accessible :dob, :submitted_request, :submitted_at
   # Attributes used by authpds
   attr_accessible :crypted_password, :current_login_at, :current_login_ip, :email, :firstname, :last_login_at, :last_login_ip, :last_request_at, :lastname, :login_count, :mobile_phone, :password_salt, :persistence_token, :refreshed_at, :session_id, :user_attributes, :username
-  validates :dob, :format => { :with => /\A\d\d\d\d[-\/]?\d\d[-\/]?\d\d\z/, :message => "Date of birth is invalid. Please use the format yyyy-mm-dd." }, :allow_blank => true
+  
+  validate :require_school, :on => :update, :if => Proc.new {|f| f.submitted_request }
+  validate :require_dob, :on => :update, :if => Proc.new {|f| f.submitted_request }
 
   serialize :user_attributes  
   
@@ -36,6 +38,20 @@ class User < ActiveRecord::Base
     user_attributes "Department" do |user_attributes| user_attributes[:department] end
     user_attributes "School" do |user_attributes| user_attributes[:school] end
     affiliation_text "Affiliation"
+  end
+  
+private
+  
+  def require_school
+    if user_attributes[:school].blank?
+      errors.add(:base, "School cannot be blank.")
+    end
+  end
+  
+  def require_dob
+    if dob.blank?
+      errors.add(:base, "Date of birth cannot be blank.")
+    end
   end
   
 end

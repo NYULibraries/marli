@@ -12,7 +12,7 @@
 </div>
 <% end %>
 
-<%= form_tag register_url, :class => "form-inline form-horizontal clearfix" do %>
+<%= form_for :user, :url => {:controller => "users", :action => "create_registration"}, :html => {:class => "form-inline form-horizontal clearfix"} do %>
   <% if @user.errors.any? %>
     <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -24,6 +24,7 @@
       </ul>
     </div>
   <% end %>
+<fieldset<%=h (current_user.submitted_request?) ? ' disabled=true' : '' %>>
 <div class="well">
   <div class="control-group">
     <%= label_tag :name, "Name", :class => "required control-label"%>
@@ -66,4 +67,5 @@
     <button type="submit" class="btn" <%= (current_user.submitted_request) ? 'disabled' : ''%>><%=h get_sanitized_detail('submit') %></button>
   </div>
 </div>
+</fieldset>
 <% end %>

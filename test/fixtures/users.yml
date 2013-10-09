@@ -1,24 +1,36 @@
 real_user:
   username: <%= username = "real_user" %>
   email: <%= username + "@university.edu" %>
+  dob: '1776-07-04'
   firstname: John
   lastname: Smith
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt(username + salt) %>
   persistence_token: <%= Authlogic::Random.hex_token %>
+  submitted_request: true
+  submitted_at: <%= Time.now %>
   user_attributes: <%= {
+    :school => "Arts",
     :nyuidn => "DS34D",
     :primary_institution => "NYU".to_sym,
     :institutions => ["NYU".to_sym],
     :bor_status => "51" }.to_yaml.inspect  %>
 
 nonadmin:
+  dob: '1776-07-04'
   username: <%= username = "nonadmin" %>
   email: <%= username + "@university.edu" %>
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt(username + salt) %>
   persistence_token: <%= Authlogic::Random.hex_token %>
   user_attributes: <%= {
+    :address => { 
+      :street_address => "123 Main St", 
+      :city => "New York City",
+      :state => "NY",
+      :postalcode => "00000"
+    },
+    :school => "Arts",
     :nyuidn => "N0000000", 
     :primary_institution => "INST01",
     :institutions => ["INST01"],
@@ -26,14 +38,18 @@ nonadmin:
 		:aleph_permissions => {} }.to_yaml.inspect  %>
 
 admin:
+  dob: '1776-07-04'
   username: <%= username = "admin" %>
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt(username + salt) %>
   persistence_token: <%= Authlogic::Random.hex_token %>
   email: <%= username + "@university.edu" %>
   firstname: Marcus T
+  submitted_request: true
+  submitted_at: <%= Time.now %>
   lastname: Admin
   user_attributes: <%= {
+    :school => "Arts",
     :marli_admin => true,
     :nyuidn => "N0000001", 
     :primary_institution => "INST01",
@@ -42,6 +58,7 @@ admin:
 		:aleph_permissions => {} }.to_yaml.inspect  %>
 
 patron_exception:
+  dob: '1776-07-04'
   username: <%= username = "exceptme" %>
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt(username + salt) %>
@@ -50,6 +67,7 @@ patron_exception:
   firstname: Except
   lastname: Ion
   user_attributes: <%= {
+    :school => "Arts",
     :marli_exception => true,
     :nyuidn => "N0000001", 
     :primary_institution => "INST01",
@@ -58,6 +76,7 @@ patron_exception:
 		:aleph_permissions => {} }.to_yaml.inspect  %>
 
 valid_patron:
+  dob: '1776-07-04'
   username: <%= username = "validissmo" %>
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt(username + salt) %>
@@ -66,6 +85,7 @@ valid_patron:
   firstname: Valid C.
   lastname: Patroon
   user_attributes: <%= {
+    :school => "Arts",
     :marli_exception => true,
     :nyuidn => "N0000001", 
     :primary_institution => "INST01",

@@ -12,13 +12,11 @@ Marli::Application.routes.draw do
   match 'logout', :to => 'user_sessions#destroy', :as => :logout
   match 'validate', :to => 'user_sessions#validate', :as => :validate
 
-  match "index_register", :to => "registration#index_register"
-  match "register", :to => "registration#register"
-  match "send_email", :to => "registration#send_email"
-  match "confirmation", :to => "registration#confirmation"
-  match "logged_out", :to => "user_sessions#logged_out"
+  match "new_registration", :to => "users#new_registration", :as => :register
+  match "create_registration", :to => "users#create_registration"
+  match "confirmation", :to => "users#confirmation"
   
   get '/robots.txt' => 'application#robots'
   
-  root :to => "registration#index_register"
+  root :to => "users#new_registration"
 end
