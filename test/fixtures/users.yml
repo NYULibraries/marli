@@ -92,9 +92,30 @@ valid_patron:
       :postalcode => "00000"
     },
     :school => "Arts",
-    :marli_exception => true,
     :nyuidn => "N0000001", 
     :primary_institution => "INST01",
     :institutions => ["INST01"],
     :bor_status => "54",
+		:aleph_permissions => {} }.to_yaml.inspect  %>
+
+invalid_patron:
+  dob: '1776-07-04'
+  username: <%= username = "novalidmo" %>
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt(username + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+  email: <%= username + "@university.edu" %>
+  firstname: Illid C.
+  lastname: Cloatroon
+  user_attributes: <%= {
+    :address => { 
+      :street_address => "123 Main St", 
+      :city => "New York City",
+      :state => "NY",
+      :postalcode => "00000"
+    },
+    :school => "Arts",
+    :nyuidn => "N0000001", 
+    :primary_institution => "INST01",
+    :institutions => ["INST01"],
 		:aleph_permissions => {} }.to_yaml.inspect  %>

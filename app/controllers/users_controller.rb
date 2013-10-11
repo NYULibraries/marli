@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     respond_with(@user)
   end
 
-  # GET /patrons/1
+  # GET /users/1
   def show
     @user = User.find(params[:id])
     respond_with(@user)
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     respond_with(@user, :location => user_path(@user))
   end
   
-  # DELETE /patrons/1
+  # DELETE /users/1
   def destroy
     @user = User.find(params[:id])
     @user.destroy

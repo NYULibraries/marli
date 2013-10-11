@@ -27,7 +27,8 @@ class UsersControllerTest < ActionController::TestCase
   end
   
   test "should get CSV from index" do
-    VCR.use_cassette('use privileges API for authorization') do
+    # Gets affiliation text from cache or API call
+    VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
       get :index, :format => :csv
       assert_response :success
     end
@@ -59,12 +60,26 @@ class UsersControllerTest < ActionController::TestCase
   end
   
   test "should show user" do
-    VCR.use_cassette('use privileges API for authorization') do
+    # Gets affiliation text from cache or API call
+    VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
       get :show, :id => users(:admin).to_param
       
       assert assigns(:user)
       assert_response :success
       assert_template :show
+    end
+  end
+  
+  test "show default affiliation text when no borrower status" do
+    # Gets affiliation text from cache or API call
+    VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
+      get :show, :id => users(:invalid_patron).to_param
+      
+      assert assigns(:user)
+      assert_response :success
+      assert_template :show
+      assert_select "dd", {:count=>1, :text=>"&nbsp;NYU PhD Student"},
+            "Wrong affiliation text or more than one element containing it"
     end
   end
   
@@ -111,9 +126,9 @@ class UsersControllerTest < ActionController::TestCase
   # With non-admin user
   test "get new registration form" do
     current_user = UserSession.create(users(:valid_patron))    
-    VCR.use_cassette('get new registration form') do
+    VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
       get :new_registration
-    
+        
       assert assigns(:user), "User instance var not set,"
       assert_response :success
       assert_template :new_registration
@@ -122,9 +137,9 @@ class UsersControllerTest < ActionController::TestCase
   
   test "submit registration successfully" do
     current_user = UserSession.create(users(:valid_patron))
-    VCR.use_cassette('submit registration successfully') do
+    VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
       post :create_registration, :school => "NYU", :dob => "1986-01-01"
-    
+        
       assert assigns(:user), "User instance var not set,"
       assert assigns(:user).submitted_request
       assert_redirected_to confirmation_url
@@ -133,13 +148,14 @@ class UsersControllerTest < ActionController::TestCase
   
   test "submit registration with error" do
     current_user = UserSession.create(users(:valid_patron))
-    VCR.use_cassette('submit registration with error') do
+    VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
       post :create_registration, :school => "", :dob => "1986-01-01"
-    
+      
       assert assigns(:user), "User instance var not set,"
       assert(!assigns(:user).submitted_request)
       assert_template :new_registration
     end
   end
   
+
 end
