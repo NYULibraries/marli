@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   # For dev purposes
   def current_user_dev
-   @current_user ||= User.find_by_username("ba36")
+   @current_user ||= User.find_by_username("real_user")
   end
   alias :current_user :current_user_dev if Rails.env == "development"
   
@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
   # Set robots.txt per environment
   def robots
     robots = File.read(Rails.root + "public/robots.#{Rails.env}.txt")
-    render :text => robots, :layout => false, :content_type => "text/plain"
+    render :text =>@robots, :layout => false, :content_type => "text/plain"
   end
 
 end

@@ -2,10 +2,13 @@ require 'test_helper'
 
 class ApplicationDetailsControllerTest < ActionController::TestCase
 
-  setup :activate_authlogic
-
-  def setup
-   current_user = UserSession.create(users(:admin))
+  setup do
+    activate_authlogic
+    # Pretend we've already checked PDS/Shibboleth for the session
+    # and we have a session
+    @request.cookies[:attempted_sso] = { value: "true" }
+    @controller.session[:session_id] = "FakeSessionID"
+    current_user = UserSession.create(users(:admin))
   end
 
   test "should get index" do

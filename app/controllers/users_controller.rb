@@ -71,9 +71,7 @@ class UsersController < ApplicationController
     if User.destroy_all("user_attributes not like '%:marli_admin: true%'")
       flash[:success] = t('users.clear_patron_data_success')
     end
-    respond_with(@user) do |format|
-      format.html { redirect_to users_url }
-    end
+    redirect_to users_url
   end
   
   def new_registration   

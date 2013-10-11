@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-
+  
   setup do
     activate_authlogic
     # Pretend we've already checked PDS/Shibboleth for the session
@@ -16,6 +16,12 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:users)
     assert_response :success
     assert_template :index
+  end
+  
+  test "should redirect non admin to root" do
+    current_user = UserSession.create(users(:valid_patron))
+    get :index
+    assert_redirected_to root_url
   end
   
   test "should search index" do
@@ -123,6 +129,14 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to users_url
   end
   
+  test "should delete all patrons" do
+    post :clear_patron_data
+    
+    assert_equal flash[:success], "Deleted all non-admin patron data"
+    assert_equal User.count, 1
+    assert_redirected_to users_url
+  end
+  
   # With non-admin user
   test "get new registration form" do
     current_user = UserSession.create(users(:valid_patron))    
@@ -146,16 +160,39 @@ class UsersControllerTest < ActionController::TestCase
     end
   end
   
-  test "submit registration with error" do
+  test "submit registration with error on no school" do
     current_user = UserSession.create(users(:valid_patron))
     VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
       post :create_registration, :school => "", :dob => "1986-01-01"
       
       assert assigns(:user), "User instance var not set,"
       assert(!assigns(:user).submitted_request)
+      assert_not_empty assigns(:user).errors
+      assert_equal assigns(:user).errors.first.last, "School cannot be blank."
       assert_template :new_registration
     end
   end
   
+  test "submit registration with error on no DOB" do
+    current_user = UserSession.create(users(:valid_patron))
+    VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
+      post :create_registration, :school => "NYU", :dob => ""
+      
+      assert assigns(:user), "User instance var not set,"
+      assert(!assigns(:user).submitted_request)
+      assert_not_empty assigns(:user).errors
+      assert_equal assigns(:user).errors.first.last, "Date of birth cannot be blank."
+      assert_template :new_registration
+    end
+  end
+  
+  test "should render invalid patron page" do
+    current_user = UserSession.create(users(:invalid_patron))
+    VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
+      get :new_registration
+      
+      assert_template 'user_sessions/unauthorized_patron'
+    end
+  end
 
 end
