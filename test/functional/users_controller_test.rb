@@ -2,9 +2,12 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
-  setup :activate_authlogic
-
-  def setup
+  setup do
+    activate_authlogic
+    # Pretend we've already checked PDS/Shibboleth for the session
+    # and we have a session
+    @request.cookies[:attempted_sso] = { value: "true" }
+    @controller.session[:session_id] = "FakeSessionID"
     current_user = UserSession.create(users(:admin))
   end
   
@@ -107,33 +110,33 @@ class UsersControllerTest < ActionController::TestCase
   
   # With non-admin user
   test "get new registration form" do
-    VCR.use_cassette('use privileges API for authorization') do
-      current_user = UserSession.create(users(:nonadmin))
+    current_user = UserSession.create(users(:valid_patron))    
+    VCR.use_cassette('get new registration form') do
       get :new_registration
     
-      assert assigns(:user)
+      assert assigns(:user), "User instance var not set,"
       assert_response :success
       assert_template :new_registration
     end
   end
   
   test "submit registration successfully" do
-    VCR.use_cassette('use privileges API for authorization') do
-      current_user = UserSession.create(users(:nonadmin))
+    current_user = UserSession.create(users(:valid_patron))
+    VCR.use_cassette('submit registration successfully') do
       post :create_registration, :school => "NYU", :dob => "1986-01-01"
     
-      assert assigns(:user)
+      assert assigns(:user), "User instance var not set,"
       assert assigns(:user).submitted_request
       assert_redirected_to confirmation_url
     end
   end
   
   test "submit registration with error" do
-    VCR.use_cassette('use privileges API for authorization') do
-      current_user = UserSession.create(users(:nonadmin))
+    current_user = UserSession.create(users(:valid_patron))
+    VCR.use_cassette('submit registration with error') do
       post :create_registration, :school => "", :dob => "1986-01-01"
     
-      assert assigns(:user)
+      assert assigns(:user), "User instance var not set,"
       assert(!assigns(:user).submitted_request)
       assert_template :new_registration
     end

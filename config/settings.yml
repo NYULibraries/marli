@@ -16,12 +16,12 @@ newrelic:
 login:
   default_admins: []
   pds_url: "https://login.university.nyu.edu"
-  calling_system: "rooms"
+  calling_system: "marli"
   redirect_logout_url: "https://login.university.edu/logout"
   
 privileges:
-  base_url: https://web1.library.nyu.edu/privileges_guide
-  marli_code: nyu_ag_noaleph_MaRLI
+  base_url: https://localhost/privileges_guide
+  marli_code: marli
     
 cookie: 
   domain: ".local"

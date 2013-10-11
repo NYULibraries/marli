@@ -85,6 +85,12 @@ valid_patron:
   firstname: Valid C.
   lastname: Patroon
   user_attributes: <%= {
+    :address => { 
+      :street_address => "123 Main St", 
+      :city => "New York City",
+      :state => "NY",
+      :postalcode => "00000"
+    },
     :school => "Arts",
     :marli_exception => true,
     :nyuidn => "N0000001", 

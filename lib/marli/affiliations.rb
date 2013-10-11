@@ -34,7 +34,7 @@ module Marli
     # Fetch auth_types from privileges guide
     # * Get patron statuses with access to the MaRLi sublibrary
     def auth_types 
-      @auth_types ||= HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}").body
+      @auth_types ||= HTTParty.get("#{Settings.privileges.base_url}/patrons.json?sublibrary_code=#{Settings.privileges.marli_code}").parsed_response
     rescue Timeout::Error => e
       @error = e
       render 'user_sessions/timeout_error'
