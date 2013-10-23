@@ -17,3 +17,10 @@ form label.required:after {
 .dob-popover { display: none; }
 
 #date_example { color: #999; font-style: italic; }
+
+fieldset[disabled=true] {
+  background-color: whitesmoke;
+  margin-bottom: 0;
+  opacity:0.4;
+  filter:alpha(opacity=40);
+}

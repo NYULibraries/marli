@@ -49,45 +49,45 @@ eight:
   description: |
     <strong>Submit:</strong> Displayed on the button that prompts users to submit
 
-nine:
-  purpose: confirmation_body
-  the_text: |
-    Your request for privileges at member libraries in the Manhattan Research Library Initiative (MaRLI) has been received.  This screen serves as your confirmation and no further emails will be sent unless there is a problem with your registration.
-
-    Your MaRLI credentials are being created for both Columbia and the New York Public Research Libraries and will be valid for onsite access and circulation privileges.  These credentials are in addition to your NYU ID. 
-
-    Your credentials will be available in two business days. When you are ready, please bring your NYU ID card with you to pickup your credentials at:
-
-    Columbia University Libraries
-    Library Information Office (LIO)
-    201 Butler Library
-    <a href="http://www.columbia.edu/cu/lweb/services/lio/index.html"> Contact information and office hours </a>
-
-    New York Public Library Research Libraries
-    (in addition to your NYU Card, please bring proof of address to one of the locations below)
-
-    Stephen A. Schwarzman Building
-    Rose Main Reading Room
-    (Bill Blass Reference Desk Room 315)
-    <a href="http://www.nypl.org/locations/schwarzman"> Contact information and office hours </a>                            
-
-    Science, Industry & Business Library
-    (Lower Level Delivery Desk)     
-    <a href="http://www.nypl.org/locations/sibl"> Contact information and office hours </a>                                   
-
-    Library for the Performing Arts
-    (Third Floor Print Delivery Desk)    
-    <a href="http://www.nypl.org/locations/lpa"> Contact information and office hours </a>                                    
-
-    Schomburg Center for Research in Black Culture
-    (Lower Level Delivery Desk)
-    <a href="http://www.nypl.org/locations/schomburg"> Contact information and office hours </a>         
-
-    Please see <a href="http://library.nyu.edu/marli"> MaRLI (Manhattan Research Libraries Inititative)</a>, for more information about the program and a list of participating libraries.
-
-    Please save or print this confirmation for your records.
-  description: |
-    <strong>Confirmation body:</strong> Displayed to users after they submit their registration
+#nine:
+#  purpose: confirmation_body
+#  the_text: |
+#    Your request for privileges at member libraries in the Manhattan Research Library Initiative (MaRLI) has been received.  This screen serves as your confirmation and no further emails will be sent unless there is a problem with your registration.
+#
+#    Your MaRLI credentials are being created for both Columbia and the New York Public Research Libraries and will be valid for onsite access and circulation privileges.  These credentials are in addition to your NYU ID. 
+#
+#    Your credentials will be available in two business days. When you are ready, please bring your NYU ID card with you to pickup your credentials at:
+#
+#    Columbia University Libraries
+#    Library Information Office (LIO)
+#    201 Butler Library
+#    <a href="http://www.columbia.edu/cu/lweb/services/lio/index.html"> Contact information and office hours </a>
+#
+#    New York Public Library Research Libraries
+#    (in addition to your NYU Card, please bring proof of address to one of the locations below)
+#
+#    Stephen A. Schwarzman Building
+#    Rose Main Reading Room
+#    (Bill Blass Reference Desk Room 315)
+#    <a href="http://www.nypl.org/locations/schwarzman"> Contact information and office hours </a>                            
+#
+#    Science, Industry & Business Library
+#    (Lower Level Delivery Desk)     
+#    <a href="http://www.nypl.org/locations/sibl"> Contact information and office hours </a>                                   
+#
+#    Library for the Performing Arts
+#    (Third Floor Print Delivery Desk)    
+#    <a href="http://www.nypl.org/locations/lpa"> Contact information and office hours </a>                                    
+#
+#    Schomburg Center for Research in Black Culture
+#    (Lower Level Delivery Desk)
+#    <a href="http://www.nypl.org/locations/schomburg"> Contact information and office hours </a>         
+#
+#    Please see <a href="http://library.nyu.edu/marli"> MaRLI (Manhattan Research Libraries Inititative)</a>, for more information about the program and a list of participating libraries.
+#
+#    Please save or print this confirmation for your records.
+#  description: |
+#    <strong>Confirmation body:</strong> Displayed to users after they submit their registration
 
 ten:
   purpose: confirmation_title

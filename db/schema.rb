@@ -21,11 +21,48 @@ ActiveRecord::Schema.define(:version => 20130117000251) do
     t.string   "description"
   end
 
+  create_table "auth_affiliations", :force => true do |t|
+    t.string   "affiliation_code"
+    t.string   "affiliation_title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "patron_exceptions", :force => true do |t|
+    t.string   "username"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "patron_statuses", :force => true do |t|
     t.string   "code"
     t.string   "web_text"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "patrons", :force => true do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "email"
+    t.boolean  "submitted_request"
+    t.datetime "submitted_at"
+    t.date     "dob"
+    t.string   "barcode"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "username",          :default => "", :null => false
+    t.string   "mobile_phone"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token",                 :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "expiration_date"
+    t.datetime "last_login_at"
+    t.text     "user_attributes"
+    t.datetime "refreshed_at"
   end
 
   create_table "users", :force => true do |t|

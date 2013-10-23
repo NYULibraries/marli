@@ -3,37 +3,31 @@
 #
 class ApplicationDetailsController < ApplicationController
   before_filter :authenticate_admin
+  respond_to :html, :js
   
   # GET /application_details
   def index
     @application_details = ApplicationDetail.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
+    respond_with(@application_details)
   end
 
   # GET /application_details/1/edit
   def edit
     @application_detail = ApplicationDetail.find(params[:id])
+    respond_with(@application_detail)
   end
 
   # PUT /application_details/1
   def update
     @application_detail = ApplicationDetail.find(params[:id])
+    flash[:notice] = t('application_details.update_success') if @application_detail.update_attributes(params[:application_detail])
 
-    respond_to do |format|
-      if @application_detail.update_attributes(params[:application_detail])
-        flash[:notice] = t('application_details.update_success')
-        format.html { redirect_to(application_details_path) }
-      else
-        format.html { render :edit }
-      end
-    end
+    respond_with(@application_detail, :location => application_details_url)
   end
   
   # Toggle status of application open/closed based on existence of a file
   def toggle_application_status
+    @application_details = ApplicationDetail.all
     pid_file = "#{Rails.root}/config/app_is_inactive.pid"
     
     if File.exists? pid_file
@@ -42,9 +36,9 @@ class ApplicationDetailsController < ApplicationController
       File.open(pid_file, 'w'){|f| f.write Process.pid} 
     end
     
-    respond_to do |format|
-      format.html { redirect_to application_details_url } unless request.xhr?
-      format.js { render :layout => false } if request.xhr?
+    respond_with(@application_details, :location => application_details_url) do |format|
+      format.js
+      format.html { redirect_to application_details_url }
     end
   end
 
