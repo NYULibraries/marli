@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.15'
+gem 'rails', '~> 3.2.16'
 
 gem 'mysql2', '~> 0.3.11'
 
@@ -40,14 +40,15 @@ gem 'nyulibraries_assets', :git => 'git://github.com/NYULibraries/nyulibraries_a
 gem 'nyulibraries_deploy', :git => 'git://github.com/NYULibraries/nyulibraries_deploy.git', :tag => 'v3.2.0'
 
 gem 'jquery-rails', '~> 3.0.4'
-gem 'jquery-ui-rails', '~> 4.0.0'
+gem 'jquery-ui-rails', '~> 4.1.0'
   
-gem 'rails_config', '~> 0.3.2'
+gem 'rails_config', '~> 0.3.3'
 
-gem 'kaminari', '~> 0.13'
+gem 'kaminari', '~> 0.15.0'
 
 gem 'newrelic_rpm', '~> 3.6.0'
 
+gem 'mustache', '0.99.4'
 gem 'mustache-rails', '~> 0.2.3', :require => 'mustache/railtie'
 
 # For memcached
