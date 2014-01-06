@@ -16,6 +16,8 @@ class UserSession < Authlogic::Session::Base
     h[:address][:state] = addr_info["z304_address_4"]["__content__"]
     h[:address][:postal_code] = addr_info["z304_zip"]["__content__"]
     return h
+  rescue Exception => e
+    render 'user_sessions/unexpected_error' and return
   end
   
 end
