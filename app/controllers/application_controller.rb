@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
     else
       redirect_to login_url unless performed?
     end
-  rescue Exception => e
-    render 'user_sessions/unexpected_error' and return
+  rescue
+    render 'user_sessions/unexpected_error', :layout => false and return
   end
   
   # Return true if user is marked as admin

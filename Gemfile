@@ -32,7 +32,7 @@ end
 
 gem 'json', '~> 1.8.0'
 
-gem 'debugger', :groups => [:development, :test]
+gem 'debugger', :groups => [:development, :test, :staging]
 
 gem 'exlibris-nyu', :git => 'git://github.com/NYULibraries/exlibris-nyu.git', :tag => 'v1.1.2'
 gem 'authpds-nyu', :git => 'git://github.com/NYULibraries/authpds-nyu.git', :tag => 'v1.1.2'
