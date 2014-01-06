@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   include Authpds::Controllers::AuthpdsController
   
   def connection_error
-    render 'user_sessions/unexpected_error', :status => 500 and return
+    render 'user_sessions/unexpected_error', :layout => false, :status => 500 and return
   end
   protected :connection_error
   
