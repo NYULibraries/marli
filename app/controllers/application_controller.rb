@@ -3,6 +3,7 @@
 require 'json'
 class ApplicationController < ActionController::Base
   layout Proc.new{ |controller| (controller.request.xhr?) ? false : "application" }
+  rescue_from Errno::ECONNREFUSED, :with => :connection_error
   
   include Marli::Affiliations
   helper_method :affiliation_text, :affiliation, :auth_types
@@ -12,6 +13,11 @@ class ApplicationController < ActionController::Base
 
   #Authpds user functions
   include Authpds::Controllers::AuthpdsController
+  
+  def connection_error
+    render 'user_sessions/unexpected_error', :status => 500 and return
+  end
+  protected :connection_error
   
   # Filter users to root if not admin
   def authenticate_admin
@@ -35,8 +41,6 @@ class ApplicationController < ActionController::Base
     else
       redirect_to login_url unless performed?
     end
-  rescue
-    render 'user_sessions/unexpected_error', :layout => false and return
   end
   
   # Return true if user is marked as admin
