@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   respond_to :html, :js, :csv
   before_filter :authenticate_admin, :except => [:new_registration, :create_registration, :confirmation]
   before_filter :authorize_patron, :only => [:new_registration, :create_registration, :confirmation]
+  before_filter :load_searchable_resource, :only => :index
+  before_filter :preprocess_params, :only => :create_registration
 
   # GET /users
   def index
-    @users = User.search(params[:q]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
-    
     respond_with(@users) do |format|
       format.csv { render :csv => @users, :filename => "marli_users_#{DateTime.now.strftime("%Y%m%d%H%m")}" }
     end
@@ -81,11 +81,10 @@ class UsersController < ApplicationController
   
   def create_registration
     @user = current_user
-    @user.user_attributes = { :school => params[:school], :department => params[:department], :marli_renewal => ((params[:renewal]) ? "Renewal" : "New Applicant"), :affiliation_text => affiliation_text }
-    @user.dob = params[:dob]
-    @user.barcode = params[:barcode]
-    @user.submitted_request = true
-    @user.submitted_at = Time.now
+    @user.assign_attributes(params[:user])
+    @user.user_attributes[:department] = params[:user][:user_attributes][:department]
+    @user.user_attributes[:school] = params[:user][:user_attributes][:school]
+    @user.user_attributes[:marli_renewal] = params[:user][:user_attributes][:marli_renewal]
 
     respond_with(@user) do |format|
       if @user.save
@@ -105,6 +104,15 @@ class UsersController < ApplicationController
   helper_method :sort_column
   
 private
+
+  def preprocess_params
+    params[:user][:user_attributes].merge!({ :marli_renewal => ((!params[:user][:user_attributes][:marli_renewal].to_i.zero?) ? "Renewal" : "New Applicant"), :affiliation_text => affiliation_text })
+    params[:user].merge!({:submitted_request => true, :submitted_at => Time.now})
+  end
+
+  def load_searchable_resource
+    @users ||= User.search(params[:q]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
+  end
   
   def marli_admin
     @marli_admin ||= (params[:user][:marli_admin].to_i == 1)

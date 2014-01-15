@@ -6,13 +6,13 @@
   <%= get_sanitized_detail('body_text') %>
 </p>
 
-<% if current_user.submitted_request %>
+<% if @user.submitted_request %>
 <div class="alert alert-info">
   <%=h get_sanitized_detail('already_submitted') %>  (<%= link_to "View confirmation", confirmation_url%>)
 </div>
 <% end %>
 
-<%= form_for :user, :url => {:controller => "users", :action => "create_registration"}, :html => {:class => "form-inline form-horizontal clearfix"} do %>
+<%= form_for @user, :url => {:controller => "users", :action => "create_registration"}, :html => {:class => "form-inline form-horizontal clearfix"} do |f|  %>
   <% if @user.errors.any? %>
     <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -24,48 +24,52 @@
       </ul>
     </div>
   <% end %>
-<fieldset<%=h (current_user.submitted_request?) ? ' disabled=true' : '' %>>
+<fieldset<%=h (@user.submitted_request?) ? ' disabled=true' : '' %>>
 <div class="well">
   <div class="control-group">
-    <%= label_tag :name, "Name", :class => "required control-label"%>
+    <%= f.label :fullname, "Name", :class => "required control-label"%>
     <div class="controls">
-      <%= text_field_tag :name, "#{current_user.firstname} #{current_user.lastname}", :disabled => true %>
+      <%= f.text_field :fullname, :disabled => true %>
     </div>
   </div>
   <div class="control-group">
-    <%= label_tag :dob, "Date of birth", :class => "required control-label" %>
+    <%= f.label :dob, "Date of birth", :class => "required control-label" %>
     <div class="controls">
-      <%= text_field_tag :dob, "#{(@user.dob) ? @user.dob : params[:dob]}" %>
+      <%= f.text_field :dob %>
       <a class="dob-popover" data-class="article-finding" rel="popover" target="_blank" data-original-title="Date of Birth Required" data-content="Date of birth information is required by<br /> Columbia University Library's systems"><i class="icons-famfamfam-information"></i></a>
       <span id="date_example" class="js_hide">YYYY-MM-DD</span>
     </div>
   </div>
+  <%= f.fields_for :user_attributes do |u| %>
   <div class="control-group">
-     <%= label_tag :school, "School", :class => "required control-label" %>
+     <%= u.label :school, "School", :class => "required control-label" %>
      <div class="controls">
-       <%= select_tag :school, options_for_select(t('schools'), :selected => "#{(current_user.user_attributes[:school]) ? current_user.user_attributes[:school] : params[:school]}"), {:include_blank => true} %>
+       <%= u.select :school, options_for_select(t('schools'), :selected => "#{(!@user.user_attributes[:school].blank?) ? @user.user_attributes[:school] : user_school}"), {:include_blank => true} %>
      </div>
   </div>
   <div class="control-group">
-    <%= label_tag :department, "Department", :class => "control-label" %>
+    <%= u.label :department, "Department", :class => "control-label" %>
     <div class="controls">
-    <%= text_field_tag :department, "#{(current_user.user_attributes[:department]) ? current_user.user_attributes[:department] : params[:department]}" %>
+    <%= u.text_field :department, :value => "#{(!@user.user_attributes[:department].blank?) ? @user.user_attributes[:department] : user_department}" %>
     </div>
   </div>
+  <% end %>
   <div class="control-group">
-    <%= label_tag :barcode, "New York Public Library Barcode", :class => "control-label" %>
+    <%= f.label :barcode, "New York Public Library Barcode", :class => "control-label" %>
     <div class="controls">
-      <%= text_field_tag :barcode, "#{(current_user.barcode) ? current_user.barcode : params[:barcode]}", :placeholder => "(if applicable)" %>
+      <%= f.text_field :barcode, :placeholder => "(if applicable)" %>
     </div>
   </div>
+  <%= f.fields_for :user_attributes do |u| %>
   <div class="control-group">
     <div class="controls">
       <label class="checkbox">
-        <%= check_box_tag :renewal %> Check here if this is a membership renewal
+        <%= u.check_box :marli_renewal, :checked => renewal_checked? %> Check here if this is a membership renewal
       </label>
     </div>
-    <button type="submit" class="btn" <%= (current_user.submitted_request) ? 'disabled' : ''%>><%=h get_sanitized_detail('submit') %></button>
+    <button type="submit" class="btn" <%= (@user.submitted_request) ? 'disabled' : ''%>><%=h get_sanitized_detail('submit') %></button>
   </div>
+  <% end %>
 </div>
 </fieldset>
 <% end %>

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include Marli::Affiliations
   
-  attr_accessible :dob, :submitted_request, :submitted_at
+  attr_accessible :dob, :submitted_request, :submitted_at, :barcode
   # Attributes used by authpds
   attr_accessible :crypted_password, :current_login_at, :current_login_ip, :email, :firstname, :last_login_at, :last_login_ip, :last_request_at, :lastname, :login_count, :mobile_phone, :password_salt, :persistence_token, :refreshed_at, :session_id, :user_attributes, :username
   
@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
   validate :require_dob, :on => :update, :if => Proc.new {|f| f.submitted_request }
 
   serialize :user_attributes  
+  
+  attr_accessor :fullname
+  
+  def fullname
+    "#{self.firstname} #{self.lastname}"
+  end
   
   acts_as_authentic do |c|
     c.validations_scope = :username

@@ -1,7 +1,5 @@
 # Manhattan Research Library Initiative (MaRLI) registration application
 
-[![Build Status](http://jenkins1.bobst.nyu.edu/buildStatus/icon?job=MaRLI Production)](http://jenkins1.bobst.nyu.edu/view/Production/job/MaRLI%20Production/)
-
 [![Build Status](https://travis-ci.org/NYULibraries/marli.png)](https://travis-ci.org/NYULibraries/marli)
 [![Dependency Status](https://gemnasium.com/NYULibraries/marli.png)](https://gemnasium.com/NYULibraries/marli)
 [![Code Climate](https://codeclimate.com/github/NYULibraries/marli.png)](https://codeclimate.com/github/NYULibraries/marli)

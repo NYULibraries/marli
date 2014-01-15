@@ -152,8 +152,8 @@ class UsersControllerTest < ActionController::TestCase
   test "submit registration successfully" do
     current_user = UserSession.create(users(:valid_patron))
     VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
-      post :create_registration, :school => "NYU", :dob => "1986-01-01"
-        
+      post :create_registration, :user => {:dob => "1986-01-01", :barcode => "", :user_attributes => {:school => "NYU", :department => "", :marli_renewal => "0"} }
+
       assert assigns(:user), "User instance var not set,"
       assert assigns(:user).submitted_request
       assert_redirected_to confirmation_url
@@ -163,7 +163,7 @@ class UsersControllerTest < ActionController::TestCase
   test "submit registration with error on no school" do
     current_user = UserSession.create(users(:valid_patron))
     VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
-      post :create_registration, :school => "", :dob => "1986-01-01"
+      post :create_registration, :user => {:dob => "1986-01-01", :barcode => "", :user_attributes => {:school => "", :department => "", :marli_renewal => "0"} }
       
       assert assigns(:user), "User instance var not set,"
       assert(!assigns(:user).submitted_request)
@@ -176,7 +176,7 @@ class UsersControllerTest < ActionController::TestCase
   test "submit registration with error on no DOB" do
     current_user = UserSession.create(users(:valid_patron))
     VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
-      post :create_registration, :school => "NYU", :dob => ""
+      post :create_registration, :user => {:dob => "", :barcode => "", :user_attributes => {:school => "NYU", :department => "", :marli_renewal => "0"} }
       
       assert assigns(:user), "User instance var not set,"
       assert(!assigns(:user).submitted_request)
