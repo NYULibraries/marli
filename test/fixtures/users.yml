@@ -49,6 +49,12 @@ admin:
   submitted_at: <%= Time.now %>
   lastname: Admin
   user_attributes: <%= {
+    :address => { 
+      :street_address => "123 Main St", 
+      :city => "New York City",
+      :state => "NY",
+      :postalcode => "00000"
+    },
     :school => "Arts",
     :marli_admin => true,
     :nyuidn => "N0000001", 

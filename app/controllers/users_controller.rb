@@ -85,6 +85,7 @@ class UsersController < ApplicationController
     @user.user_attributes[:department] = params[:user][:user_attributes][:department]
     @user.user_attributes[:school] = params[:user][:user_attributes][:school]
     @user.user_attributes[:marli_renewal] = params[:user][:user_attributes][:marli_renewal]
+    @user.user_attributes[:affiliation_text] = params[:user][:user_attributes][:affiliation_text]
 
     respond_with(@user) do |format|
       if @user.save
@@ -106,6 +107,7 @@ class UsersController < ApplicationController
 private
 
   def preprocess_params
+    # This doesn't work unfortunately and saves two versions in the hash, for removal next update
     params[:user][:user_attributes].merge!({ :marli_renewal => ((!params[:user][:user_attributes][:marli_renewal].to_i.zero?) ? "Renewal" : "New Applicant"), :affiliation_text => affiliation_text })
     params[:user].merge!({:submitted_request => true, :submitted_at => Time.now})
   end

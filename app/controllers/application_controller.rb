@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
 
   # For dev purposes
   def current_user_dev
-   @current_user ||= User.find_by_username("real_user")
+   @current_user ||= User.find_by_username("admin")
   end
   alias :current_user :current_user_dev if Rails.env == "development"
   
