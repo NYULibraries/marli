@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.17'
+gem 'rails', '~> 3.2.18'
 
 gem 'mysql2', '~> 0.3.11'
 
@@ -41,12 +41,12 @@ end
 
 gem 'exlibris-nyu', :git => 'git://github.com/NYULibraries/exlibris-nyu.git', :tag => 'v1.1.3'
 gem 'authpds-nyu', :git => 'git://github.com/NYULibraries/authpds-nyu.git', :tag => 'v1.1.3'
-gem 'nyulibraries-assets', :git => 'git://github.com/NYULibraries/nyulibraries-assets.git', :tag => 'v2.0.1'
+gem 'nyulibraries-assets', :git => 'git://github.com/NYULibraries/nyulibraries-assets.git', :tag => 'v2.1.1'
 gem 'nyulibraries-deploy', :git => 'git://github.com/NYULibraries/nyulibraries-deploy.git', :tag => 'v4.0.0'
 
 gem 'jquery-rails', '~> 3.0.4'
 gem 'jquery-ui-rails', '~> 4.1.1'
-  
+
 gem 'rails_config', '~> 0.3.3'
 
 gem 'kaminari', '~> 0.15.1'
@@ -54,7 +54,7 @@ gem 'kaminari', '~> 0.15.1'
 gem 'newrelic_rpm', '~> 3.7.0'
 
 gem 'mustache', '0.99.4'
-gem 'mustache-rails', '~> 0.2.3', :require => 'mustache/railtie'
+gem 'mustache-rails', github: 'josh/mustache-rails', require: 'mustache/railtie'
 
 # For memcached
 gem 'dalli', '~> 2.7.0'
