@@ -234,8 +234,6 @@ GEM
       activesupport (= 3.2.18)
       bundler (~> 1.0)
       railties (= 3.2.18)
-    rails_config (0.3.4)
-      activesupport (>= 3.0)
     railties (3.2.18)
       actionpack (= 3.2.18)
       activesupport (= 3.2.18)
@@ -335,7 +333,6 @@ DEPENDENCIES
   nyulibraries-assets!
   nyulibraries-deploy!
   rails (~> 3.2.18)
-  rails_config (~> 0.3.3)
   sass-rails (~> 3.2.3)
   simplecov
   simplecov-rcov

@@ -47,8 +47,6 @@ gem 'nyulibraries-deploy', :git => 'git://github.com/NYULibraries/nyulibraries-d
 gem 'jquery-rails', '~> 3.0.4'
 gem 'jquery-ui-rails', '~> 4.1.1'
 
-gem 'rails_config', '~> 0.3.3'
-
 gem 'kaminari', '~> 0.15.1'
 
 gem 'newrelic_rpm', '~> 3.7.0'
