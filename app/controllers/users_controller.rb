@@ -81,7 +81,7 @@ class UsersController < ApplicationController
   
   def create_registration
     @user = current_user
-    @user.assign_attributes(params[:user])
+    @user.assign_attributes(user_params)
     @user.user_attributes[:department] = params[:user][:user_attributes][:department]
     @user.user_attributes[:school] = params[:user][:user_attributes][:school]
     @user.user_attributes[:marli_renewal] = params[:user][:user_attributes][:marli_renewal]
@@ -103,8 +103,11 @@ class UsersController < ApplicationController
     super "User", "lastname"
   end
   helper_method :sort_column
-  
+
 private
+  def user_params
+    params.require(:user).permit(:dob, :submitted_request, :submitted_at, :barcode)
+  end
 
   def preprocess_params
     # This doesn't work unfortunately and saves two versions in the hash, for removal next update
