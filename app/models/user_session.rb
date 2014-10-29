@@ -8,13 +8,14 @@ class UserSession < Authlogic::Session::Base
     h = {}
     return h unless pds_user
     h[:marli_admin] = true if default_admins.include? pds_user.uid
-    patron = Exlibris::Aleph::Patron.new(patron_id: pds_user.nyuidn)
-    addr_info = patron.address
-    h[:address] = {}
-    h[:address][:street_address] = addr_info["z304_address_2"]["__content__"]
-    h[:address][:city] = addr_info["z304_address_3"]["__content__"]
-    h[:address][:state] = addr_info["z304_address_4"]["__content__"]
-    h[:address][:postal_code] = addr_info["z304_zip"]["__content__"]
+    patron = Exlibris::Aleph::Patron.new(pds_user.nyuidn)
+    address = patron.address
+    h[:address] = {
+      street_address: address.address2,
+      city: address.address3,
+      state: address.address4,
+      postal_code: address.zip
+    }
     return h
   end
 
