@@ -8,7 +8,7 @@ require 'authlogic'
 require 'authlogic/test_case'
 require 'pry'
 
-class User
+class User < ActiveRecord::Base
   def nyuidn
     user_attributes[:nyuidn]
   end
