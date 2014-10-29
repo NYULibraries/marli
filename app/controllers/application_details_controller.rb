@@ -20,7 +20,7 @@ class ApplicationDetailsController < ApplicationController
   # PUT /application_details/1
   def update
     @application_detail = ApplicationDetail.find(params[:id])
-    flash[:notice] = t('application_details.update_success') if @application_detail.update_attributes(params[:application_detail])
+    flash[:notice] = t('application_details.update_success') if @application_detail.update_attributes(application_detail_params)
 
     respond_with(@application_detail, :location => application_details_url)
   end
@@ -42,4 +42,8 @@ class ApplicationDetailsController < ApplicationController
     end
   end
 
+private
+  def application_detail_params
+    params.require(:application_detail).permit(:purpose, :the_text, :description)
+  end
 end
