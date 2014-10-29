@@ -7,14 +7,14 @@ before_script:
   - bundle exec rake tmp:cache:clear
 
 rvm:
-  - "1.9.3"
-  - "2.0.0"
+  - 1.9.3
+  - 2.0.0
+  - 2.1.3
+
+bundler_args: --without development
 
 env:
   - PRIVILEGES_BASE_URL=https://localhost/privileges_guide PRIVILEGES_SUBLIBRARY_CODE=marli
-
-git:
-  submodules: false
 
 notifications:
   email:
