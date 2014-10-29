@@ -10,6 +10,9 @@ rvm:
   - "1.9.3"
   - "2.0.0"
 
+env:
+  - PRIVILEGES_BASE_URL=https://localhost/privileges_guide PRIVILEGES_SUBLIBRARY_CODE=marli
+
 git:
   submodules: false
 
