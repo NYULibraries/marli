@@ -32,7 +32,9 @@ end
 
 gem 'json', '~> 1.8.0'
 
-gem 'debugger', :groups => [:development, :test]
+group :development, :test do
+  gem 'pry', '~> 0.10.0'
+end
 
 group :development do
   gem 'better_errors'
