@@ -9,15 +9,15 @@ module Views
         meta << tag(:meta, :name => "cleartype", :content => "on")
         meta << favicon_link_tag('https://library.nyu.edu/favicon.ico')
       end
-    
+
       def application_title
         get_sanitized_detail('title')
       end
-    
+
       def gauges_tracking_code
-        Settings.gauges.tracking_code
+        ENV['GAUGES_TOKEN']
       end
-    
+
       # Print breadcrumb navigation
       def breadcrumbs
         breadcrumbs = super
@@ -26,26 +26,26 @@ module Views
         breadcrumbs << link_to_unless_current(controller.controller_name.humanize, {:action => :index }) if is_in_admin_view?
         return breadcrumbs
       end
-    
+
       # Prepend modal dialog elements to the body
       def prepend_body
         content_tag(:div, nil, :class => "modal-container")+
         content_tag(:div, nil, :id => "ajax-modal", :class => "modal hide fade", :tabindex => "-1")
       end
-    
+
       # Prepend the flash message partial before yield
       def prepend_yield
         content_tag :div, :id => "main-flashses" do
         render :partial => 'common/flash_msg'
         end
       end
-    
+
       # Boolean for whether or not to show tabs
       # This application doesn't need tabs
       def show_tabs
         false
       end
-    
+
     end
   end
 end
