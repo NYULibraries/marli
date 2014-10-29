@@ -16,7 +16,7 @@ development: &development
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &test
-  <<: *privileges
+  <<: *marli
   username: <%= (ENV['MARLI_DB_USER'] || ENV['JENKINS_DB_USER'] || 'root') %>
   password: <%= (ENV['MARLI_DB_PASSWORD'] || ENV['JENKINS_DB_PASSWORD'] || '') %>
   database: <%= (ENV['MARLI_DB_DATABASE'] || 'marli_test') %>
