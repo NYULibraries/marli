@@ -1,13 +1,13 @@
 class UserSession < Authlogic::Session::Base
-  pds_url Settings.login.pds_url
-  calling_system Settings.login.calling_system
+  pds_url (ENV['PDS_URL'] || 'https://login.library.nyu.edu')
+  calling_system 'marli'
   anonymous true
-  redirect_logout_url Settings.login.redirect_logout_url
-  
+  redirect_logout_url 'http://bobcat.library.nyu.edu'
+
   def additional_attributes
     h = {}
     return h unless pds_user
-    h[:marli_admin] = true if Settings.login.default_admins.include? pds_user.uid
+    h[:marli_admin] = true if default_admins.include? pds_user.uid
     patron = Exlibris::Aleph::Patron.new(patron_id: pds_user.nyuidn)
     addr_info = patron.address
     h[:address] = {}
@@ -17,5 +17,9 @@ class UserSession < Authlogic::Session::Base
     h[:address][:postal_code] = addr_info["z304_zip"]["__content__"]
     return h
   end
-  
+
+  private
+  def default_admins
+    (Figs.env['MARLI_DEFAULT_ADMINS'] || [])
+  end
 end

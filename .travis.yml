@@ -1,7 +1,7 @@
 language: ruby
 
 before_script:
-  - mysql -e 'create database nyu_marli_test;'
+  - mysql -e 'create database marli_test;'
   - bundle exec rake db:schema:load
   - bundle exec rake db:fixtures:load
   - bundle exec rake tmp:cache:clear
@@ -9,6 +9,9 @@ before_script:
 rvm:
   - "1.9.3"
   - "2.0.0"
+
+env:
+  - PRIVILEGES_BASE_URL=https://localhost/privileges_guide PRIVILEGES_SUBLIBRARY_CODE=marli
 
 git:
   submodules: false
