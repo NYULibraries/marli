@@ -73,7 +73,7 @@
     </div>
   </div>
   <% end %>
-  <input type="submit" class="btn btn-primary" <%= (@user.submitted_request) ? 'disabled' : ''%>><%=h get_sanitized_detail('submit') %></input>
+  <input type="submit" class="btn btn-primary" <%= (@user.submitted_request) ? 'disabled' : ''%> value="<%=h get_sanitized_detail('submit') %>"/>
 </div>
 </fieldset>
 <% end %>
