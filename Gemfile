@@ -42,12 +42,12 @@ end
 gem 'exlibris-nyu', :git => 'git://github.com/NYULibraries/exlibris-nyu.git', :tag => 'v1.1.3'
 gem 'authpds-nyu', :git => 'git://github.com/NYULibraries/authpds-nyu.git', :tag => 'v1.1.3'
 gem 'nyulibraries-assets', :git => 'git://github.com/NYULibraries/nyulibraries-assets.git', :tag => 'v2.1.1'
-gem 'nyulibraries-deploy', :git => 'git://github.com/NYULibraries/nyulibraries-deploy.git', :tag => 'v4.0.0'
 
 gem 'jquery-rails', '~> 3.0.4'
 gem 'jquery-ui-rails', '~> 4.1.1'
 
 gem 'figs', '~> 2.0.2'
+gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.0.1'
 
 gem 'kaminari', '~> 0.15.1'
 
