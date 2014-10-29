@@ -16,9 +16,6 @@ bundler_args: --without development
 env:
   - PRIVILEGES_BASE_URL=https://localhost/privileges_guide PRIVILEGES_SUBLIBRARY_CODE=marli
 
-git:
-  submodules: false
-
 notifications:
   email:
     - barnaby.alter@nyu.edu
