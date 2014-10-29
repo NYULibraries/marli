@@ -19,13 +19,13 @@ class ApplicationDetailsControllerTest < ActionController::TestCase
   end
 
   test "should get edit action" do
-   get :edit, :id => ApplicationDetail.find(:first).id
+   get :edit, :id => ApplicationDetail.first.id
    assert_not_nil assigns(:application_detail)
    assert_response :success
   end
 
   test "should update application detail" do
-   put :update, :id => ApplicationDetail.find(:first).id, :application_detail => {:the_text => "updating this text"}
+   put :update, :id => ApplicationDetail.first.id, :application_detail => {:the_text => "updating this text"}
 
    assert assigns(:application_detail)
    assert_equal assigns(:application_detail).the_text, "updating this text"
@@ -33,7 +33,7 @@ class ApplicationDetailsControllerTest < ActionController::TestCase
   end
 
   test "should throw update error on no text" do
-   put :update, :id => ApplicationDetail.find(:first).id, :application_detail => {:the_text => ""}
+   put :update, :id => ApplicationDetail.first.id, :application_detail => {:the_text => ""}
 
    assert_template :edit
   end
