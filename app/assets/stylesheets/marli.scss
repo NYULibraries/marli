@@ -39,3 +39,9 @@ fieldset[disabled=true] {
   color: $brand-primary;
   font-size: medium;
 }
+
+.new_user {
+  input {
+    max-width: 40em;
+  }
+}

@@ -1,34 +1,34 @@
-<%= form_for @user, :html => {:class => ""} do |f| %>
-  <% if @user.errors.any? %>  
-    <div id="error_explanation" class="alert alert-error">  
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this record from being saved:</h2>  
-      <ul>  
-      <% @user.errors.full_messages.each do |msg| %>  
-        <li><%= msg %></li>  
-      <% end %>  
-      </ul>  
-    </div>  
+<%= form_for @user, class: 'user-form' do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation" class="alert alert-error">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this record from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
   <fieldset>
-    <%= f.label :username, :class => "control-label" do %>
-    Username <br />
-    <%= f.text_field :username %>
-    <% end -%>
+    <div class="form-group">
+      <%= f.label :username, class: 'control-label' %>
+      <%= f.text_field :username, class: 'form-control' %>
+    </div>
 
-    <%= f.label :email, :class => "control-label" do %>
-    E-mail <br />
-    <%= f.text_field :email %>
-    <% end -%>
+    <div class="form-group">
+      <%= f.label :email, :class => "control-label" %>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
 
-    <%= f.label "marli_admin", :class => "control-label" do %>
-      <%= check_box_tag "user[marli_admin]" %>
-      Admin
-    <% end %>
+    <div class="form-group">
+      <%= check_box_tag 'user[marli_admin]', class: 'form-control' %>
+      <%= f.label 'marli_admin', 'Admin', class: 'control-label' %>
+    </div>
 
-    <%= f.label "marli_exception", :class => "control-label" do %>
-      <%= check_box_tag "user[marli_exception]" %>
-      Exception
-    <% end %>
+    <div class="form-group">
+      <%= check_box_tag 'user[marli_exception]', class: 'form-control' %>
+      <%= f.label 'marli_exception', 'Exception', class: 'control-label' %>
+    </div>
   </fieldset>
   <p>
     <button class="btn" type="submit">Save changes</button>
