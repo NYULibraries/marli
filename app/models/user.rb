@@ -8,18 +8,18 @@ class User < ActiveRecord::Base
   validate :require_school, :on => :update, :if => Proc.new {|f| f.submitted_request }
   validate :require_dob, :on => :update, :if => Proc.new {|f| f.submitted_request }
 
-  serialize :user_attributes  
-  
+  serialize :user_attributes
+
   attr_accessor :fullname
-  
+
   def fullname
     "#{self.firstname} #{self.lastname}"
   end
-  
+
   acts_as_authentic do |c|
     c.validations_scope = :username
     c.validate_password_field = false
-    c.require_password_confirmation = false  
+    c.require_password_confirmation = false
     c.disable_perishable_token_maintenance = true
   end
 
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
       all
     end
   end
-  
+
   # Create a CSV format
   comma do
     username
@@ -45,19 +45,19 @@ class User < ActiveRecord::Base
     user_attributes "School" do |user_attributes| user_attributes[:school] end
     affiliation_text "Affiliation"
   end
-  
+
 private
-  
+
   def require_school
     if user_attributes[:school].blank?
       errors.add(:base, "School cannot be blank.")
     end
   end
-  
+
   def require_dob
     if dob.blank?
       errors.add(:base, "Date of birth cannot be blank.")
     end
   end
-  
+
 end

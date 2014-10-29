@@ -4,7 +4,7 @@
 class ApplicationDetailsController < ApplicationController
   before_filter :authenticate_admin
   respond_to :html, :js
-  
+
   # GET /application_details
   def index
     @application_details = ApplicationDetail.all
@@ -24,18 +24,18 @@ class ApplicationDetailsController < ApplicationController
 
     respond_with(@application_detail, :location => application_details_url)
   end
-  
+
   # Toggle status of application open/closed based on existence of a file
   def toggle_application_status
     @application_details = ApplicationDetail.all
     pid_file = "#{Rails.root}/config/app_is_inactive.pid"
-    
+
     if File.exists? pid_file
       File.delete pid_file
     else
-      File.open(pid_file, 'w'){|f| f.write Process.pid} 
+      File.open(pid_file, 'w'){|f| f.write Process.pid}
     end
-    
+
     respond_with(@application_details, :location => application_details_url) do |format|
       format.js
       format.html { redirect_to application_details_url }
