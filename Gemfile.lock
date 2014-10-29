@@ -350,7 +350,6 @@ DEPENDENCIES
   mustache (= 0.99.4)
   mustache-rails!
   mysql2 (~> 0.3.11)
-  newrelic_rpm (~> 3.9.0)
   nyulibraries-assets!
   pry (~> 0.10.0)
   rails (~> 3.2.18)

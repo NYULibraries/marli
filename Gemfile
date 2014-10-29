@@ -50,8 +50,6 @@ gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.0.1'
 
 gem 'kaminari', '~> 0.16.0'
 
-gem 'newrelic_rpm', '~> 3.9.0'
-
 gem 'mustache', '0.99.4'
 gem 'mustache-rails', github: 'josh/mustache-rails', require: 'mustache/railtie', tag: 'v0.2.3'
 
