@@ -39,10 +39,10 @@ class ApplicationDetailsControllerTest < ActionController::TestCase
   end
 
   test "should toggle application status" do
-    post :toggle_application_status 
+    post :toggle_application_status
     assert File.exists? "#{Rails.root}/config/app_is_inactive.pid"
     sleep 1
-    post :toggle_application_status 
+    post :toggle_application_status
     assert (!File.exists? "#{Rails.root}/config/app_is_inactive.pid")
   end
 
