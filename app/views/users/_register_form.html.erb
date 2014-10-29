@@ -12,7 +12,7 @@
 </div>
 <% end %>
 
-<%= form_for @user, :url => {:controller => "users", :action => "create_registration"}, :html => {:class => "form-inline form-horizontal clearfix"} do |f|  %>
+<%= form_for @user, url: {controller: "users", action: "create_registration"}, html: {class: "form-horizontal"} do |f|  %>
   <% if @user.errors.any? %>
     <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -26,50 +26,54 @@
   <% end %>
 <fieldset<%=h (@user.submitted_request?) ? ' disabled=true' : '' %>>
 <div class="well">
-  <div class="control-group">
-    <%= f.label :fullname, "Name", :class => "required control-label"%>
-    <div class="controls">
-      <%= f.text_field :fullname, :disabled => true %>
+  <div class="form-group">
+    <%= f.label :fullname, "Name", :class => "required control-label col-md-3"%>
+    <div class="col-md-4">
+      <%= f.text_field :fullname, disabled: true, class: 'form-control' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :dob, "Date of birth", :class => "required control-label" %>
-    <div class="controls">
-      <%= f.text_field :dob %>
-      <a class="dob-popover" data-class="article-finding" rel="popover" target="_blank" data-original-title="Date of Birth Required" data-content="Date of birth information is required by<br /> Columbia University Library's systems"><i class="icons-famfamfam-information"></i></a>
-      <span id="date_example" class="js_hide">YYYY-MM-DD</span>
+  <div class="form-group">
+    <%= f.label :dob, "Date of birth", :class => "required control-label col-md-3" %>
+    <div class="col-md-4">
+      <div class="input-group">
+        <%= f.text_field :dob, class: 'form-control' %>
+        <span class="input-group-addon">
+          <a class="dob-popover" data-class="article-finding" rel="popover" target="_blank" data-original-title="Date of Birth Required" data-content="Date of birth information is required by<br /> Columbia University Library's systems"><i class="glyphicon glyphicon-info-sign"></i></a>
+        </span>
+        <span id="date_example" class="js_hide">YYYY-MM-DD</span>
+      </div>
     </div>
   </div>
   <%= f.fields_for :user_attributes do |u| %>
-  <div class="control-group">
-     <%= u.label :school, "School", :class => "required control-label" %>
-     <div class="controls">
-       <%= u.select :school, options_for_select(t('schools'), :selected => "#{(!@user.user_attributes[:school].blank?) ? @user.user_attributes[:school] : user_school}"), {:include_blank => true} %>
+  <div class="form-group">
+     <%= u.label :school, "School", :class => "required control-label col-md-3" %>
+     <div class="col-md-4">
+       <%= u.select :school, options_for_select(t('schools'), selected: "#{(!@user.user_attributes[:school].blank?) ? @user.user_attributes[:school] : user_school}"), {include_blank: true}, {class: 'form-control'} %>
      </div>
   </div>
-  <div class="control-group">
-    <%= u.label :department, "Department", :class => "control-label" %>
-    <div class="controls">
-    <%= u.text_field :department, :value => "#{(!@user.user_attributes[:department].blank?) ? @user.user_attributes[:department] : user_department}" %>
+  <div class="form-group">
+    <%= u.label :department, "Department", :class => "control-label col-md-3" %>
+    <div class="col-md-4">
+    <%= u.text_field :department, value: "#{(!@user.user_attributes[:department].blank?) ? @user.user_attributes[:department] : user_department}", class: 'form-control' %>
     </div>
   </div>
   <% end %>
-  <div class="control-group">
-    <%= f.label :barcode, "New York Public Library Barcode", :class => "control-label" %>
-    <div class="controls">
-      <%= f.text_field :barcode, :placeholder => "(if applicable)" %>
+  <div class="form-group">
+    <%= f.label :barcode, "New York Public Library Barcode", :class => "control-label col-md-3" %>
+    <div class="col-md-4">
+      <%= f.text_field :barcode, placeholder: "(if applicable)", class: 'form-control' %>
     </div>
   </div>
   <%= f.fields_for :user_attributes do |u| %>
-  <div class="control-group">
-    <div class="controls">
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-4">
       <label class="checkbox">
         <%= u.check_box :marli_renewal, :checked => renewal_checked? %> Check here if this is a membership renewal
       </label>
     </div>
-    <button type="submit" class="btn" <%= (@user.submitted_request) ? 'disabled' : ''%>><%=h get_sanitized_detail('submit') %></button>
   </div>
   <% end %>
+  <input type="submit" class="btn btn-primary" <%= (@user.submitted_request) ? 'disabled' : ''%>><%=h get_sanitized_detail('submit') %></input>
 </div>
 </fieldset>
 <% end %>

@@ -24,3 +24,18 @@ fieldset[disabled=true] {
   opacity:0.4;
   filter:alpha(opacity=40);
 }
+
+.form-horizontal {
+  .control-label {
+    max-width: 11em;
+  }
+}
+
+.input-group-addon {
+  padding: 3px;
+}
+
+.glyphicon {
+  color: $brand-primary;
+  font-size: medium;
+}
