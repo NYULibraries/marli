@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'validate' => 'user_sessions#validate', :as => :validate
 
   get "new_registration" => "users#new_registration", as: :register
-  post "create_registration" => "users#create_registration"
+  patch "create_registration" => "users#create_registration"
   get "confirmation" => "users#confirmation"
 
   get '/robots.txt' => 'application#robots'
