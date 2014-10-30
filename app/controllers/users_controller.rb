@@ -11,18 +11,18 @@ class UsersController < ApplicationController
       format.csv { render :csv => @users, :filename => "marli_users_#{DateTime.now.strftime("%Y%m%d%H%m")}" }
     end
   end
-  
+
   # GET /users/new
   def new
     @user = User.new
     respond_with(@user)
   end
-  
+
   # POST /users
   def create
     @user = User.new(:username => params[:user][:username], :email => params[:user][:email])
     @user.user_attributes = { :marli_admin => marli_admin, :marli_exception => marli_exception }
-    
+
     # Avoid redirecting to SSO
     flash[:notice] = t('users.create_success') if @user.save_without_session_maintenance
     respond_with(@user)
@@ -41,16 +41,16 @@ class UsersController < ApplicationController
     flash[:notice] = t('users.update_success') if @user.update_attributes(:user_attributes => {:marli_admin => marli_admin, :marli_exception => marli_exception})
     respond_with(@user, :location => user_path(@user))
   end
-  
+
   # DELETE /users/1
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    
+
     respond_with(@user)
   end
-  
-  # Reset submitted request flag 
+
+  # Reset submitted request flag
   def reset_submissions
     if params[:id]
       @user = User.find(params[:id])
@@ -65,7 +65,7 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
     end
   end
-  
+
   # Delete all non-admin patrons
   def clear_patron_data
     if User.destroy_all("user_attributes not like '%:marli_admin: true%'")
@@ -73,15 +73,15 @@ class UsersController < ApplicationController
     end
     redirect_to users_url
   end
-  
-  def new_registration   
+
+  def new_registration
     @user = current_user
     respond_with(@user)
   end
-  
+
   def create_registration
     @user = current_user
-    @user.assign_attributes(params[:user])
+    @user.assign_attributes(user_params)
     @user.user_attributes[:department] = params[:user][:user_attributes][:department]
     @user.user_attributes[:school] = params[:user][:user_attributes][:school]
     @user.user_attributes[:marli_renewal] = params[:user][:user_attributes][:marli_renewal]
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
 
     respond_with(@user) do |format|
       if @user.save
-        RegistrationMailer.registration_email(@user).deliver 
+        RegistrationMailer.registration_email(@user).deliver
         format.html { redirect_to confirmation_url }
       else
         @user.submitted_request = false
@@ -103,8 +103,11 @@ class UsersController < ApplicationController
     super "User", "lastname"
   end
   helper_method :sort_column
-  
+
 private
+  def user_params
+    params.require(:user).permit(:dob, :submitted_request, :submitted_at, :barcode)
+  end
 
   def preprocess_params
     # This doesn't work unfortunately and saves two versions in the hash, for removal next update
@@ -115,13 +118,13 @@ private
   def load_searchable_resource
     @users ||= User.search(params[:q]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
   end
-  
+
   def marli_admin
     @marli_admin ||= (params[:user][:marli_admin].to_i == 1)
   end
-  
+
   def marli_exception
     @marli_exception ||= (params[:user][:marli_exception].to_i == 1)
   end
-    
+
 end
