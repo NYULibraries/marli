@@ -1,4 +1,5 @@
-Rails.application.configure do
+Marli::Application.configure do
+  config.action_controller.relative_url_root = '/marli'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
