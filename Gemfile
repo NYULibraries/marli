@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.1.8'
 
 # Use MySQL for the database
-gem 'mysql2', '~> 0.3.11'
+gem 'mysql2', '~> 0.3.17'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 5.0.0.beta1'
@@ -12,19 +12,19 @@ gem 'sass-rails', '>= 5.0.0.beta1'
 gem 'coffee-rails', '~> 4.1.0'
 
 # Use jQuery as the JavaScript library
-gem 'jquery-rails', '~> 3.1.0'
+gem 'jquery-rails', '~> 3.1.2'
 
 # Use jQuery UI was well
 gem 'jquery-ui-rails', '~> 5.0.2'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 2.5.0'
+gem 'uglifier', '~> 2.5.3'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '~> 0.12.0'
+gem 'therubyracer', '~> 0.12.1'
 
 # Use the Compass CSS framework for sprites, etc.
-gem 'compass-rails', '~> 2.0.0'
+gem 'compass-rails', '~> 2.0.1'
 
 # Use mustache for templating
 # Fix to 0.99.4 cuz 0.99.5 broke my shit.
@@ -41,21 +41,22 @@ gem 'authpds-nyu', github: 'NYULibraries/authpds-nyu', :tag => 'v2.0.1'
 gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.0.4'
 
 # Deploy the application with Formaggio deploy recipes
+
 gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.3.0'
 
 # Use Figs for setting the configuration in the Environment
 gem 'figs', '~> 2.0.2'
 
 # Use Kaminari for pagination
-gem 'kaminari', '~> 0.16.0'
+gem 'kaminari', '~> 0.16.1'
 
 # For memcached
-gem 'dalli', '~> 2.7.0'
+gem 'dalli', '~> 2.7.2'
 
 # Create CSVs from models
-gem 'comma', '~> 3.2.0'
+gem 'comma', '~> 3.2.2'
 
-gem 'httparty', '~> 0.13.0'
+gem 'httparty', '~> 0.13.3'
 
 group :development do
   gem 'better_errors', '~> 2.0.0'
@@ -64,13 +65,13 @@ end
 
 group :development, :test do
   # Use pry as the REPL
-  gem 'pry', '~> 0.10.0'
+  gem 'pry', '~> 0.10.1'
 end
 
 group :test do
   # Use Coveralls.io to track testing coverage
-  gem 'coveralls', '~> 0.7.0', :require => false
+  gem 'coveralls', '~> 0.7.2', :require => false
   # Use VCR with WebMock for testing with deterministic HTTP interactions
-  gem 'vcr', '~> 2.9.0'
-  gem 'webmock', '~> 1.20.0'
+  gem 'vcr', '~> 2.9.3'
+  gem 'webmock', '~> 1.20.4'
 end
