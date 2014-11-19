@@ -18,7 +18,7 @@ gem 'jquery-rails', '~> 3.1.2'
 gem 'jquery-ui-rails', '~> 5.0.3'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 2.6.0'
+gem 'uglifier', '~> 2.5.3'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.1'
@@ -41,8 +41,7 @@ gem 'authpds-nyu', github: 'NYULibraries/authpds-nyu', :tag => 'v2.0.1'
 gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.1.3'
 
 # Deploy the application with Formaggio deploy recipes
-
-gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.3.0'
+gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.2.0'
 
 # Use Figs for setting the configuration in the Environment
 gem 'figs', '~> 2.0.2'

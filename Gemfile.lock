@@ -20,7 +20,7 @@ GIT
 GIT
   remote: git://github.com/NYULibraries/formaggio.git
   revision: d421b3c07c9ee2341e3dac22b6d208e76eadb4db
-  tag: v1.3.0
+  tag: v1.2.0
   specs:
     formaggio (1.2.0)
       cap_git_tools (~> 0.9)
@@ -315,7 +315,7 @@ GEM
     tins (0.13.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.6.1)
+    uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)
@@ -359,6 +359,6 @@ DEPENDENCIES
   rails (~> 4.1.8)
   sass-rails (>= 5.0.0.beta1)
   therubyracer (~> 0.12.1)
-  uglifier (~> 2.6.0)
+  uglifier (~> 2.5.3)
   vcr (~> 2.9.3)
   webmock (~> 1.20.4)
