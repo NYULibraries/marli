@@ -15,10 +15,10 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails', '~> 3.1.2'
 
 # Use jQuery UI was well
-gem 'jquery-ui-rails', '~> 5.0.2'
+gem 'jquery-ui-rails', '~> 5.0.3'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 2.5.3'
+gem 'uglifier', '~> 2.6.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.1'
@@ -38,7 +38,7 @@ gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.1.3'
 gem 'authpds-nyu', github: 'NYULibraries/authpds-nyu', :tag => 'v2.0.1'
 
 # Use the NYU Libraries assets gem for shared NYU Libraries assets
-gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.0.4'
+gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.1.3'
 
 # Deploy the application with Formaggio deploy recipes
 
