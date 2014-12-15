@@ -1,23 +1,4 @@
 GIT
-  remote: git://github.com/NYULibraries/authpds-nyu.git
-  revision: 5c080afe3b09ad5b550ce34c4ab6f7b1ecd3ffc7
-  tag: v2.0.1
-  specs:
-    authpds-nyu (2.0.1)
-      authpds (~> 1.1.1)
-      require_all (~> 1.3.1)
-
-GIT
-  remote: git://github.com/NYULibraries/exlibris-nyu.git
-  revision: 56327a5f924e75aa3be274ab77502c6f71aa13a8
-  tag: v2.1.3
-  specs:
-    exlibris-nyu (2.1.3)
-      exlibris-aleph (~> 2.0.3)
-      exlibris-primo (~> 1.1.6)
-      require_all (~> 1.3)
-
-GIT
   remote: git://github.com/NYULibraries/formaggio.git
   revision: d421b3c07c9ee2341e3dac22b6d208e76eadb4db
   tag: v1.2.0
@@ -35,14 +16,21 @@ GIT
 
 GIT
   remote: git://github.com/NYULibraries/nyulibraries-assets.git
-  revision: 15eb7c40c7bcea8ee3e2217be08fa3c60ca8da09
-  tag: v4.1.3
+  revision: 4c3c07d74a32e7cef95464fa2f08a3d978a25765
+  tag: v4.2.0
   specs:
-    nyulibraries-assets (4.1.3)
+    nyulibraries-assets (4.2.0)
       bootstrap-sass (~> 3.2.0.2)
       compass (~> 1.0.1)
       font-awesome-rails (~> 4.2.0.0)
       institutions (~> 0.1.3)
+
+GIT
+  remote: git://github.com/NYULibraries/omniauth-nyulibraries.git
+  revision: 73e527844b90a7fdf3faf4a7a57d39fb1566f4c7
+  specs:
+    omniauth-nyulibraries (1.1.0)
+      omniauth-oauth2 (~> 1.2.0)
 
 GIT
   remote: git://github.com/josh/mustache-rails.git
@@ -83,22 +71,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    akami (1.2.2)
-      gyoku (>= 0.4.0)
-      nokogiri
     arel (5.0.1.20140414130214)
-    authlogic (3.4.4)
-      activerecord (>= 3.2)
-      activesupport (>= 3.2)
-      request_store (~> 1.0)
-      scrypt (~> 1.2)
-    authpds (1.1.5)
-      activerecord (>= 3.2.14)
-      activesupport (>= 3.2.14)
-      authlogic (~> 3.4.0)
-      institutions (~> 0.1.3)
-      nokogiri (~> 1.6.0)
-      require_all (~> 1.3.1)
+    bcrypt (3.1.9)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -153,70 +127,58 @@ GEM
       safe_yaml (~> 1.0.0)
     dalli (2.7.2)
     debug_inspector (0.0.2)
+    devise (3.4.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      responders
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     docile (1.1.5)
-    ensure_valid_encoding (0.5.3)
     erubis (2.7.0)
     execjs (2.2.2)
-    exlibris-aleph (2.0.4)
-      faraday (~> 0.9.0)
-      marc (~> 0.8.0)
-      multi_xml (~> 0.5.0)
-      require_all (~> 1.3.0)
-    exlibris-primo (1.1.9)
-      activesupport (>= 3.2.14)
-      iso-639 (~> 0.2.0)
-      json (~> 1.8.0)
-      nokogiri (~> 1.6.0)
-      require_all (~> 1.3.1)
-      savon (~> 2.8.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
+    faker (1.4.3)
+      i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
-    ffi-compiler (0.1.3)
-      ffi (>= 1.0.0)
-      rake
     figs (2.0.2)
       git (~> 1.2.6)
       rake (~> 10.1)
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
     git (1.2.8)
-    gyoku (1.2.2)
-      builder (>= 2.1.2)
+    hashie (3.3.2)
     highline (1.6.21)
     hike (1.2.3)
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    httpi (2.3.0)
-      rack
     i18n (0.7.0)
     institutions (0.1.3)
       ipaddr_range_set (~> 0.10.0)
       require_all (~> 1.3.1)
     ipaddr_range_set (0.10.0)
-    iso-639 (0.2.5)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.1)
+    jwt (1.2.0)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     libv8 (3.16.14.7)
-    macaddr (1.7.1)
-      systemu (~> 2.6.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    marc (0.8.2)
-      ensure_valid_encoding
-      scrub_rb (>= 1.0.1, < 2)
-      unf
     method_source (0.8.2)
-    mime-types (1.25.1)
-    mini_portile (0.6.2)
+    mime-types (2.4.3)
     minitest (5.5.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
@@ -231,9 +193,21 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     newrelic_rpm (3.9.9.275)
-    nokogiri (1.6.5)
-      mini_portile (~> 0.6.0)
-    nori (2.4.0)
+    oauth2 (1.0.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-oauth2 (1.2.0)
+      faraday (>= 0.8, < 0.10)
+      multi_json (~> 1.3)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+    orm_adapter (0.5.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -261,8 +235,9 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     ref (1.0.5)
-    request_store (1.1.0)
     require_all (1.3.2)
+    responders (1.1.2)
+      railties (>= 3.2, < 4.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rvm-capistrano (1.5.5)
@@ -275,19 +250,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
-    savon (2.8.0)
-      akami (~> 1.2)
-      builder (>= 2.1.2)
-      gyoku (~> 1.2)
-      httpi (~> 2.3)
-      nokogiri (>= 1.4.0)
-      nori (~> 2.4)
-      uuid (~> 2.3.7)
-      wasabi (= 3.3.0)
-    scrub_rb (1.0.1)
-    scrypt (1.2.1)
-      ffi-compiler (>= 0.0.2)
-      rake
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -303,7 +265,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    systemu (2.6.4)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
     therubyracer (0.12.1)
@@ -318,16 +279,9 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.6)
-    uuid (2.3.7)
-      macaddr (~> 1.0)
     vcr (2.9.3)
-    wasabi (3.3.0)
-      httpi (~> 2.0)
-      mime-types (< 2.0.0)
-      nokogiri (>= 1.4.0)
+    warden (1.2.3)
+      rack (>= 1.0)
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -336,7 +290,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  authpds-nyu!
   better_errors (~> 2.0.0)
   binding_of_caller (~> 0.7.2)
   coffee-rails (~> 4.1.0)
@@ -344,7 +297,9 @@ DEPENDENCIES
   compass-rails (~> 2.0.1)
   coveralls (~> 0.7.2)
   dalli (~> 2.7.2)
-  exlibris-nyu!
+  devise
+  factory_girl_rails (~> 4.5.0)
+  faker
   figs (~> 2.0.2)
   formaggio!
   httparty (~> 0.13.3)
@@ -355,6 +310,7 @@ DEPENDENCIES
   mustache-rails!
   mysql2 (~> 0.3.17)
   nyulibraries-assets!
+  omniauth-nyulibraries!
   pry (~> 0.10.1)
   rails (~> 4.1.8)
   sass-rails (>= 5.0.0.beta1)
