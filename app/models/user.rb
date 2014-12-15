@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Marli::Affiliations
+  devise :omniauthable,:omniauth_providers => [:nyulibraries]
 
   # attr_accessible :dob, :submitted_request, :submitted_at, :barcode
   # Attributes used by authpds
