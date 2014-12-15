@@ -20,9 +20,8 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(:username => params[:user][:username], :email => params[:user][:email])
-    @user.user_attributes = { :marli_admin => marli_admin, :marli_exception => marli_exception }
-    
+    @user = User.new( username: params[:user][:username], email: params[:user][:email],
+                      admin: admin, override_access: override_access, user_attributes: {})
     # Avoid redirecting to SSO
     flash[:notice] = t('users.create_success') if @user.save
     respond_with(@user)
@@ -38,7 +37,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    flash[:notice] = t('users.update_success') if @user.update_attributes(:user_attributes => {:marli_admin => marli_admin, :marli_exception => marli_exception})
+    flash[:notice] = t('users.update_success') if @user.update_attributes(admin: admin, override_access: override_access)
     respond_with(@user, :location => user_path(@user))
   end
 
@@ -68,7 +67,7 @@ class UsersController < ApplicationController
 
   # Delete all non-admin patrons
   def clear_patron_data
-    if User.destroy_all("user_attributes not like '%:marli_admin: true%'")
+    if User.destroy_all("admin not like 'true'" )
       flash[:success] = t('users.clear_patron_data_success')
     end
     redirect_to users_url
@@ -119,12 +118,12 @@ private
     @users ||= User.search(params[:q]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
   end
 
-  def marli_admin
-    @marli_admin ||= (params[:user][:marli_admin].to_i == 1)
+  def admin
+    @admin ||= (params[:user][:admin].to_i == 1)
   end
 
-  def marli_exception
-    @marli_exception ||= (params[:user][:marli_exception].to_i == 1)
+  def override_access
+    @override_access ||= (params[:user][:override_access].to_i == 1)
   end
 
 end
