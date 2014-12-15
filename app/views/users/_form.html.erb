@@ -21,13 +21,13 @@
     </div>
 
     <div class="form-group">
-      <%= check_box_tag 'user[marli_admin]', class: 'form-control' %>
+      <%= check_box_tag 'user[admin]' %>
       <%= f.label 'marli_admin', 'Admin', class: 'control-label' %>
     </div>
 
     <div class="form-group">
-      <%= check_box_tag 'user[marli_exception]', class: 'form-control' %>
-      <%= f.label 'marli_exception', 'Exception', class: 'control-label' %>
+      <%= check_box_tag 'user[override_access]' %>
+      <%= f.label 'override_access', 'Exception', class: 'control-label' %>
     </div>
   </fieldset>
   <p>

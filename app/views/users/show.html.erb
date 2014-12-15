@@ -22,7 +22,7 @@
 
   <dt>Street address:</dt>
   <dd>&nbsp;<%=h h[:address][:street_address] %></dd>
-  
+
 	<dt>City:</dt>
 	<dd>&nbsp;<%=h h[:address][:city] %></dd>
 
@@ -61,16 +61,16 @@
 
   <dt>Department:</dt>
   <dd>&nbsp;<%=h h[:department]%></dd>
-  
+
   <%= form_for @user, :remote => true, :class => "form-inline clearfix" do |f| %>
     <dt>Admin?</dt>
     <dd>
-    <%= f.check_box :marli_admin, :checked => h[:marli_admin], :disabled => (current_user.username == @user.username) %>
+    <%= f.check_box :admin, :checked => @user.admin?, :disabled => (current_user.username == @user.username) %>
     </dd>
 
     <dt>Exception?</dt>
     <dd>
-    <%= f.check_box :marli_exception, :checked => h[:marli_exception], :disabled => (current_user.username == @user.username) %>
+    <%= f.check_box :override_access, :checked => @user.override_access?, :disabled => (current_user.username == @user.username) %>
     </dd>
     <button type="submit" data-remote="true" class="btn" <%= (current_user.username == @user.username) ? "disabled" : ""%>>Update</button>
   <% end %>
