@@ -16,12 +16,12 @@ class User < ActiveRecord::Base
     "#{self.firstname} #{self.lastname}"
   end
 
-  acts_as_authentic do |c|
-    c.validations_scope = :username
-    c.validate_password_field = false
-    c.require_password_confirmation = false
-    c.disable_perishable_token_maintenance = true
-  end
+  # acts_as_authentic do |c|
+  #   c.validations_scope = :username
+  #   c.validate_password_field = false
+  #   c.require_password_confirmation = false
+  #   c.disable_perishable_token_maintenance = true
+  # end
 
   def self.search(search)
     if search

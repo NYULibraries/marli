@@ -22,9 +22,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(:username => params[:user][:username], :email => params[:user][:email])
     @user.user_attributes = { :marli_admin => marli_admin, :marli_exception => marli_exception }
-
+    
     # Avoid redirecting to SSO
-    flash[:notice] = t('users.create_success') if @user.save_without_session_maintenance
+    flash[:notice] = t('users.create_success') if @user.save
     respond_with(@user)
   end
 
