@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210213101) do
+ActiveRecord::Schema.define(version: 20141219193503) do
 
   create_table "application_details", force: true do |t|
     t.datetime "created_at"
@@ -92,6 +92,9 @@ ActiveRecord::Schema.define(version: 20141210213101) do
     t.boolean  "admin"
     t.string   "patron_status"
     t.boolean  "override_access"
+    t.string   "school"
+    t.string   "department"
+    t.text     "address"
   end
 
 end
