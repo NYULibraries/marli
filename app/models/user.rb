@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validate :require_dob, :on => :update, :if => Proc.new {|f| f.submitted_request }
 
   serialize :user_attributes
+  serialize :address
 
   attr_accessor :fullname
 
