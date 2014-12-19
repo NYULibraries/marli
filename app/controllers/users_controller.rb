@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 
   # Delete all non-admin patrons
   def clear_patron_data
-    if User.destroy_all("admin not like 'true'" )
+    if User.destroy_all(admin: [nil, false])
       flash[:success] = t('users.clear_patron_data_success')
     end
     redirect_to users_url
