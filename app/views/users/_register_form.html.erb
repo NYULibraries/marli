@@ -48,13 +48,13 @@
   <div class="form-group">
      <%= u.label :school, "School", :class => "required control-label col-md-3" %>
      <div class="col-md-4">
-       <%= u.select :school, options_for_select(t('schools'), selected: "#{(!@user.user_attributes[:school].blank?) ? @user.user_attributes[:school] : user_school}"), {include_blank: true}, {class: 'form-control'} %>
+       <%= u.select :school, options_for_select(t('schools'), selected: "#{(!@user.school.blank?) ? @user.school : user_school}"), {include_blank: true}, {class: 'form-control'} %>
      </div>
   </div>
   <div class="form-group">
     <%= u.label :department, "Department", :class => "control-label col-md-3" %>
     <div class="col-md-4">
-    <%= u.text_field :department, value: "#{(!@user.user_attributes[:department].blank?) ? @user.user_attributes[:department] : user_department}", class: 'form-control' %>
+    <%= u.text_field :department, value: "#{(!@user.department.blank?) ? @user.department : user_department}", class: 'form-control' %>
     </div>
   </div>
   <% end %>

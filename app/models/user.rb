@@ -43,15 +43,15 @@ class User < ActiveRecord::Base
     submitted_at {|submitted_at| submitted_at.strftime("%m/%d/%Y") unless submitted_at.nil? }
     dob "Date of birth"
     barcode "NYPL Barcode"
-    user_attributes "Department" do |user_attributes| user_attributes[:department] end
-    user_attributes "School" do |user_attributes| user_attributes[:school] end
+    department "Department"
+    school "School"
     affiliation_text "Affiliation"
   end
 
 private
 
   def require_school
-    if user_attributes[:school].blank?
+    if school.blank?
       errors.add(:base, "School cannot be blank.")
     end
   end

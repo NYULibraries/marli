@@ -81,8 +81,8 @@ class UsersController < ApplicationController
   def create_registration
     @user = current_user
     @user.assign_attributes(user_params)
-    @user.user_attributes[:department] = params[:user][:user_attributes][:department]
-    @user.user_attributes[:school] = params[:user][:user_attributes][:school]
+    @user.department = params[:user][:user_attributes][:department]
+    @user.school = params[:user][:user_attributes][:school]
     @user.user_attributes[:marli_renewal] = params[:user][:user_attributes][:marli_renewal]
     @user.user_attributes[:affiliation_text] = params[:user][:user_attributes][:affiliation_text]
 
