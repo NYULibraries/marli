@@ -1,14 +1,12 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  
-  setup :activate_authlogic
-  
+
   test "user search" do
-    assert_not_empty User.search("Marcus T")
-    assert_not_empty User.search("Admin")
-    assert_not_empty User.search("admin")
-    assert_empty User.search("noemail@university.edu")
+    user = FactoryGirl.create(:user)
+    assert_not_empty User.search(user.firstname)
+    assert_not_empty User.search(user.lastname)
+    assert_empty User.search(Faker::Internet.free_email)
   end
-  
+
 end
