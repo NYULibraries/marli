@@ -18,19 +18,19 @@
   <dt>Date of Request:</dt>
   <dd>&nbsp;<%=h @user.submitted_at %></dd>
 
-<% unless h[:address].nil? %>
+<% unless @user.address.nil? %>
 
   <dt>Street address:</dt>
-  <dd>&nbsp;<%=h h[:address][:street_address] %></dd>
+  <dd>&nbsp;<%=h @user.address[:street_address] %></dd>
 
 	<dt>City:</dt>
-	<dd>&nbsp;<%=h h[:address][:city] %></dd>
+	<dd>&nbsp;<%=h @user.address[:city] %></dd>
 
 	<dt>State:</dt>
-	<dd>&nbsp;<%=h h[:address][:state] %></dd>
+	<dd>&nbsp;<%=h @user.address[:state] %></dd>
 
 	<dt>Postal code:</dt>
-	<dd>&nbsp;<%=h h[:address][:postal_code] %></dd>
+	<dd>&nbsp;<%=h @user.address[:postal_code] %></dd>
 
 <% end %>
 
@@ -54,13 +54,13 @@
 
 <dl class="dl-horizontal">
   <dt>N #:</dt>
-  <dd>&nbsp;<%=h h[:nyuidn] %></dd>
+  <dd>&nbsp;<%=h @user.aleph_id %></dd>
 
   <dt>School:</dt>
-  <dd>&nbsp;<%=h h[:school]%></dd>
+  <dd>&nbsp;<%=h @user.school%></dd>
 
   <dt>Department:</dt>
-  <dd>&nbsp;<%=h h[:department]%></dd>
+  <dd>&nbsp;<%=h @user.department%></dd>
 
   <%= form_for @user, :remote => true, :class => "form-inline clearfix" do |f| %>
     <dt>Admin?</dt>
