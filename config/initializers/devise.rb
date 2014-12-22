@@ -1,6 +1,6 @@
 Devise.setup do |config|
   require 'devise/orm/active_record'
-  config.secret_key = ENV['ROOMS_SECRET_TOKEN']
+  config.secret_key = ENV['MARLI_SECRET_TOKEN']
   config.strip_whitespace_keys = [ :email ]
   config.skip_session_storage = [:http_auth]
   config.stretches = Rails.env.test? ? 1 : 10
