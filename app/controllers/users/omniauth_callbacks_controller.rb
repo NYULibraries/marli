@@ -25,6 +25,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @find_user_without_provider ||= User.where(username: omniauth.uid, provider: "")
   end
 
+  def is_admin?
+    (Figs.env["MARLI_DEFAULT_ADMINS"] or []).include?(@user.username)
+  end
+
   def require_valid_omniauth
     head :bad_request unless valid_omniauth?
   end
