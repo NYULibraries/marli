@@ -3,6 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def nyulibraries
     @user = find_user_with_or_without_provider.first_or_initialize(attributes_from_omniauth)
     @user.update_attributes(attributes_from_omniauth)
+    @user.admin = true if is_admin?
     @user.save!
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
