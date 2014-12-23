@@ -28,25 +28,3 @@ FactoryGirl.define do
     end
   end
 end
-
-#
-# valid_patron:
-# dob Faker::Date.between(20.years.ago, 19.years.ago).strftime("%Y-%m-%d")
-# username Faker::Internet.user_name
-# email Faker::Internet.free_email
-# firstname Faker::Name.first_name
-# lastname Faker::Name.last_name
-# user_attributes({
-#   :address => {
-#     :street_address => Faker::Address.street_address,
-#     :city => Faker::Address.city,
-#     :state => Faker::Address.state,
-#     :postalcode => Faker::Address.zip_code
-#   },
-#   :school => Faker::Company.name,
-#   :nyuidn => "N0000001",
-#   :primary_institution => "INST01",
-#   :institutions => ["INST01"],
-#   :bor_status => "54",
-#   :aleph_permissions => {}
-# })
