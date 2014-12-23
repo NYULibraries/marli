@@ -7,7 +7,7 @@ module Marli
 
     # Retrieve the web text for this borrower affiliation based on the status
     def affiliation
-      @affiliation ||= auth_types_collection[attrs[:bor_status]] unless attrs[:bor_status].nil?
+      @affiliation ||= auth_types_collection[attrs[:patron_status]] unless attrs[:patron_status].nil?
     end
 
     # Get the affiliation title if it exists or the default text otherwise
@@ -41,7 +41,7 @@ module Marli
     end
 
     def attrs
-      (defined?(current_user)) ? current_user.user_attributes : user_attributes
+      defined?(current_user) ? { patron_status: current_user.patron_status } : { patron_status: patron_status }
     end
 
   end
