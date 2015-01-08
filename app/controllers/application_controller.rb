@@ -11,9 +11,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  #Authpds user functions
-  # include Authpds::Controllers::AuthpdsController
-
   def connection_error
     render 'user_sessions/unexpected_error', :layout => false, :status => 500 and return
   end
