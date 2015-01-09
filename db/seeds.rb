@@ -14,16 +14,17 @@ if Rails.env.development? and User.find_by_username(username).nil?
     firstname: 'Dev',
     lastname: 'Eloper',
     email: 'dev.eloper@library.edu',
-    password_salt: salt,
-    crypted_password: #Authlogic::CryptoProviders::Sha512.encrypt(username + salt),
-    persistence_token: #Authlogic::Random.hex_token,
+    aleph_id: (ENV['BOR_ID'] || 'BOR_ID'),
+    dob: "2014/12/01",
+    barcode: "12345",
+    provider: "nyulibraries",
+    institution_code: "NYU",
+    admin: true,
+    patron_status: '51',
+    override_access: false,
+    school: "Bobst",
+    department: "Division of Libs",
+    address: {street_address: "123 Main St", city: "Des Moines", state: "Grace", postal_code: "12345"}
   })
-  user.user_attributes = {
-    nyuidn: (ENV['BOR_ID'] || 'BOR_ID'),
-    primary_institution: :NYU,
-    institutions: [:NYU],
-    bor_status: '51',
-    marli_admin: true
-  }
   user.save!
 end
