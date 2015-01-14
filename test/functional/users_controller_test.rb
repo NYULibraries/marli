@@ -148,7 +148,7 @@ class UsersControllerTest < ActionController::TestCase
     post :clear_patron_data
 
     assert_equal flash[:success], "Deleted all non-admin patron data"
-    assert_equal 1, User.count(:admin)
+    assert_equal User.count, User.count(:admin)
     assert_redirected_to users_url
   end
 
