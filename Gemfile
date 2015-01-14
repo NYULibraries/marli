@@ -71,4 +71,10 @@ group :test do
   gem 'webmock', '~> 1.20.4'
   gem 'faker'
   gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'phantomjs', '>= 1.9.0'
+  gem 'poltergeist', '~> 1.5.0'
+  gem 'selenium-webdriver'
+  gem 'rspec-rails', '~> 2.99.0'
 end
