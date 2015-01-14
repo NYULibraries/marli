@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user.save!
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
-      set_flash_message(:notice, :success, kind: "NYU Libraries") #if is_navigational_format?
+      set_flash_message(:notice, :success, kind: "NYU Libraries") if is_navigational_format?
     else
       session["devise.nyulibraries_data"] = request.env["omniauth.auth"]
       redirect_to root_path
