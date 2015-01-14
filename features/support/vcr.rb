@@ -14,7 +14,7 @@ VCR.configure do |c|
   c.default_cassette_options = { allow_playback_repeats: true }
   # c.debug_logger = $stdout
   c.hook_into :webmock
-  c.cassette_library_dir     = 'features/cassettes'
+  c.cassette_library_dir     = 'test/vcr_cassettes'
 end
 
 VCR.cucumber_tags do |t|
