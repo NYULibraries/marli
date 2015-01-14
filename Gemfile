@@ -23,6 +23,9 @@ gem 'uglifier', '~> 2.5.3'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.1'
 
+# Use Exlibris::Nyu for NYU Exlibris customizations, etc.
+gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.1.3'
+
 # Use the Compass CSS framework for sprites, etc.
 gem 'compass-rails', '~> 2.0.1'
 
