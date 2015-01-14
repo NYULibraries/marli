@@ -7,8 +7,8 @@ before_script:
   - bundle exec rake tmp:cache:clear
 
 script:
+  - RAILS_ENV=test bundle exec rake testcucumber
   - RAILS_ENV=test bundle exec cucumber
-  - RAILS_ENV=test bundle exec rake test
 
 rvm:
   - 1.9.3
