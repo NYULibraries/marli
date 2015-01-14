@@ -7,12 +7,11 @@ FactoryGirl.define do
     lastname {Faker::Name.last_name}
     school {Faker::Company.name}
     patron_status "3"
-    user_attributes({})
     address({
         street_address: Faker::Address.street_address,
         city:           Faker::Address.city,
         state:          Faker::Address.state,
-        postalcode:     Faker::Address.zip_code
+        postal_code:     Faker::Address.zip_code
       })
 
     factory :admin do
