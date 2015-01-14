@@ -62,13 +62,29 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       institution_code: omniauth_institution,
       aleph_id: omniauth_aleph_id,
       provider:  omniauth.provider
-    }.merge(aleph_attributes_from_omniauth)
+    }.merge(aleph_attributes)
+  end
+
+  def aleph_attributes
+    return {} if omniauth_aleph_identity.blank?
+    aleph_attributes_from_omniauth.merge(aleph_address_attributes)
   end
 
   def aleph_attributes_from_omniauth
-    return {} if omniauth_aleph_identity.blank?
     {
       patron_status: omniauth_aleph_properties.patron_status,
+    }
+  end
+
+  def aleph_address_attributes
+    address = Exlibris::Aleph::Patron.new(omniauth_aleph_id).address
+    {
+      address: {
+        street_address: address.address2,
+        city: address.address3,
+        state: address.address4,
+        postal_code: address.zip
+      }
     }
   end
 
