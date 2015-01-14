@@ -5,10 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-# require 'authlogic'
 username = 'admin'
 if Rails.env.development? and User.find_by_username(username).nil?
-  # salt = Authlogic::Random.hex_token
   user = User.create!({
     username: username,
     firstname: 'Dev',
