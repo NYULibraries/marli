@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def connection_error
-    render 'user_sessions/unexpected_error', :layout => false, :status => 500 and return
+    render 'errors/unexpected_error', :layout => false, :status => 500 and return
   end
   protected :connection_error
 
@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     if is_admin? or is_exception? or is_authorized?
       return true
     elsif !current_user.nil?
-      render 'user_sessions/unauthorized_patron'
+      render 'errors/unauthorized_patron'
     else
       redirect_to login_url unless performed?
     end

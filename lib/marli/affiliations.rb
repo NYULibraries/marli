@@ -37,7 +37,7 @@ module Marli
       @auth_types ||= HTTParty.get("#{ENV['PRIVILEGES_BASE_URL']}/patrons.json?sublibrary_code=#{ENV['PRIVILEGES_SUBLIBRARY_CODE']}").parsed_response
     rescue Timeout::Error => e
       @error = e
-      render 'user_sessions/timeout_error'
+      render 'errors/timeout_error'
     end
 
     def attrs

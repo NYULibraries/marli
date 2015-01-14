@@ -211,7 +211,7 @@ class UsersControllerTest < ActionController::TestCase
     VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
       get :new_registration
 
-      assert_template 'user_sessions/unauthorized_patron'
+      assert_template 'errors/unauthorized_patron'
     end
   end
 
