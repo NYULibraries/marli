@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219193503) do
+ActiveRecord::Schema.define(version: 20150112223118) do
 
   create_table "application_details", force: true do |t|
     t.datetime "created_at"
@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(version: 20141219193503) do
     t.datetime "current_login_at"
     t.datetime "expiration_date"
     t.datetime "last_login_at"
-    t.text     "user_attributes"
     t.datetime "refreshed_at"
     t.string   "provider"
     t.string   "institution_code"
@@ -95,6 +94,8 @@ ActiveRecord::Schema.define(version: 20141219193503) do
     t.string   "school"
     t.string   "department"
     t.text     "address"
+    t.text     "marli_renewal"
+    t.text     "affiliation_text"
   end
 
 end
