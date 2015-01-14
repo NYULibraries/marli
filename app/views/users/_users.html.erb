@@ -43,7 +43,6 @@
   </thead>
   <tbody>
    <% @users.each do |user| %>
-   <% h = user.user_attributes %>
   	<tr <%= (user_submitted(user)) ? "class=success" : ''%>>
     	<td><%=h user.username %></td>
     	<td class="hidden-phone"><%=h user.firstname %></td>

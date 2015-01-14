@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new( username: params[:user][:username], email: params[:user][:email],
-                      admin: admin, override_access: override_access, user_attributes: {})
+                      admin: admin, override_access: override_access)
     # Avoid redirecting to SSO
     flash[:notice] = t('users.create_success') if @user.save
     respond_with(@user)
@@ -81,10 +81,10 @@ class UsersController < ApplicationController
   def create_registration
     @user = current_user
     @user.assign_attributes(user_params)
-    @user.department = params[:user][:user_attributes][:department]
-    @user.school = params[:user][:user_attributes][:school]
-    @user.user_attributes[:marli_renewal] = params[:user][:user_attributes][:marli_renewal]
-    @user.user_attributes[:affiliation_text] = params[:user][:user_attributes][:affiliation_text]
+    @user.department = params[:user][:department]
+    @user.school = params[:user][:school]
+    @user.marli_renewal = params[:user][:marli_renewal]
+    @user.affiliation_text = params[:user][:affiliation_text]
 
     respond_with(@user) do |format|
       if @user.save
@@ -110,7 +110,7 @@ private
 
   def preprocess_params
     # This doesn't work unfortunately and saves two versions in the hash, for removal next update
-    params[:user][:user_attributes].merge!({ :marli_renewal => ((!params[:user][:user_attributes][:marli_renewal].to_i.zero?) ? "Renewal" : "New Applicant"), :affiliation_text => affiliation_text })
+    params[:user].merge!({ :marli_renewal => ((!params[:user][:marli_renewal].to_i.zero?) ? "Renewal" : "New Applicant"), :affiliation_text => affiliation_text })
     params[:user].merge!({:submitted_request => true, :submitted_at => Time.now})
   end
 

@@ -169,7 +169,7 @@ class UsersControllerTest < ActionController::TestCase
     @request.env["devise.mapping"] = Devise.mappings[:valid_patron]
     sign_in FactoryGirl.create(:valid_patron)
     VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
-      post :create_registration, :user => {:dob => "1986-01-01", :barcode => "", :user_attributes => {:school => "NYU", :department => "", :marli_renewal => "0"} }
+      post :create_registration, :user => {:dob => "1986-01-01", :barcode => "", :school => "NYU", :department => "", :marli_renewal => "0" }
 
       assert assigns(:user), "User instance var not set,"
       assert assigns(:user).submitted_request
@@ -181,7 +181,7 @@ class UsersControllerTest < ActionController::TestCase
     @request.env["devise.mapping"] = Devise.mappings[:valid_patron]
     sign_in FactoryGirl.create(:valid_patron)
     VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
-      post :create_registration, :user => {:dob => "1986-01-01", :barcode => "", :user_attributes => {:school => "", :department => "", :marli_renewal => "0"} }
+      post :create_registration, :user => {:dob => "1986-01-01", :barcode => "", :school => "", :department => "", :marli_renewal => "0" }
 
       assert assigns(:user), "User instance var not set,"
       assert(!assigns(:user).submitted_request)
@@ -195,7 +195,7 @@ class UsersControllerTest < ActionController::TestCase
     @request.env["devise.mapping"] = Devise.mappings[:valid_patron]
     sign_in FactoryGirl.create(:valid_patron)
     VCR.use_cassette('get privileges from api', :match_requests_on => [:path]) do
-      post :create_registration, :user => {:dob => "", :barcode => "", :user_attributes => {:school => "NYU", :department => "", :marli_renewal => "0"} }
+      post :create_registration, :user => {:dob => "", :barcode => "", :school => "NYU", :department => "", :marli_renewal => "0" }
 
       assert assigns(:user), "User instance var not set,"
       assert(!assigns(:user).submitted_request)

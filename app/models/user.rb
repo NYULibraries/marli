@@ -2,14 +2,9 @@ class User < ActiveRecord::Base
   include Marli::Affiliations
   devise :omniauthable,:omniauth_providers => [:nyulibraries]
 
-  # attr_accessible :dob, :submitted_request, :submitted_at, :barcode
-  # Attributes used by authpds
-  # attr_accessible :crypted_password, :current_login_at, :current_login_ip, :email, :firstname, :last_login_at, :last_login_ip, :last_request_at, :lastname, :login_count, :mobile_phone, :password_salt, :persistence_token, :refreshed_at, :session_id, :user_attributes, :username
-
   validate :require_school, :on => :update, :if => Proc.new {|f| f.submitted_request }
   validate :require_dob, :on => :update, :if => Proc.new {|f| f.submitted_request }
 
-  serialize :user_attributes
   serialize :address
 
   attr_accessor :fullname
