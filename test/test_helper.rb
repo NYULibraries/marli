@@ -4,30 +4,8 @@ Coveralls.wear!
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'authlogic'
-require 'authlogic/test_case'
 require 'pry'
 
-class User < ActiveRecord::Base
-  def nyuidn
-    user_attributes[:nyuidn]
-  end
-
-  def error; end
-
-  def uid
-    username
-  end
-end
-
-class ActiveSupport::TestCase
-  fixtures :all
-
-  def set_dummy_pds_user(user_session)
-    user_session.instance_variable_set("@pds_user".to_sym, users(:real_user))
-  end
-
-end
 
 # VCR is used to 'record' HTTP interactions with
 # third party services used in tests, and play em

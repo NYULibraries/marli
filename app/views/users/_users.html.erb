@@ -43,14 +43,13 @@
   </thead>
   <tbody>
    <% @users.each do |user| %>
-   <% h = user.user_attributes %>
   	<tr <%= (user_submitted(user)) ? "class=success" : ''%>>
     	<td><%=h user.username %></td>
     	<td class="hidden-phone"><%=h user.firstname %></td>
     	<td class="hidden-phone"><%=h user.lastname %></td>
     	<td class="hidden-phone"><%=h word_break user.email %></td>
-    	<td class="hidden-phone"><%=h h[:department]%></td>
-  	  <td class="hidden-phone"><%=h h[:school]%></td>
+    	<td class="hidden-phone"><%=h user.department%></td>
+  	  <td class="hidden-phone"><%=h user.school%></td>
   	  <td class="hidden-phone"><%= (user_submitted(user)) ? "<i class=\"icon-ok\"></i>".html_safe : ''%></td>
   	  <td class="hidden-phone"><%= (user.submitted_at?) ? user.submitted_at.strftime("%Y/%m/%d") : '' %></td>
     	<td class="hidden-phone"><%=h user_status(user) %></td>
@@ -63,7 +62,3 @@
 </table>
 
 <%= paginate @users, :theme => "bootstrap" %>
-
-
-
-

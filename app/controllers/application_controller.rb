@@ -11,11 +11,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  #Authpds user functions
-  include Authpds::Controllers::AuthpdsController
-
   def connection_error
-    render 'user_sessions/unexpected_error', :layout => false, :status => 500 and return
+    render 'errors/unexpected_error', :layout => false, :status => 500 and return
   end
   protected :connection_error
 
@@ -37,7 +34,7 @@ class ApplicationController < ActionController::Base
     if is_admin? or is_exception? or is_authorized?
       return true
     elsif !current_user.nil?
-      render 'user_sessions/unauthorized_patron'
+      render 'errors/unauthorized_patron'
     else
       redirect_to login_url unless performed?
     end
@@ -45,7 +42,7 @@ class ApplicationController < ActionController::Base
 
   # Return true if user is marked as admin
   def is_admin
-  	(!current_user.nil? and current_user.user_attributes[:marli_admin])
+    (!current_user.nil? and current_user.admin?)
   end
   alias :is_admin? :is_admin
   helper_method :is_admin?
@@ -54,13 +51,13 @@ class ApplicationController < ActionController::Base
   # * An 'exception' is a user who doesn't have admin privileges and isn't
   #   an authorized patron status but still is granted access to this app
   def is_exception
-    (!current_user.nil? and current_user.user_attributes[:marli_exception])
+    (!current_user.nil? and current_user.override_access?)
   end
   alias :is_exception? :is_exception
 
   # Return true if user is an authorized patron status
   def is_authorized
-    (!current_user.nil? and auth_types_array.include? current_user.user_attributes[:bor_status])
+    (!current_user.nil? and auth_types_array.include? current_user.patron_status)
   end
   alias :is_authorized? :is_authorized
 

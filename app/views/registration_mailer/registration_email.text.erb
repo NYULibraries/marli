@@ -2,7 +2,7 @@ A request has been submitted.
 
 --------------------------------------------------
 
-Type: <%= @user_data.user_attributes[:marli_renewal] %>
+Type: <%= @user_data.marli_renewal %>
 
 First name: <%= @user_data.firstname %>
 
@@ -12,13 +12,13 @@ Date of birth: <%= @user_data.dob.strftime('%Y%m%d') %>
 
 Date of request: <%= @user_data.submitted_at.strftime('%Y%m%d') %>
 
-Street address: <%= @user_data.user_attributes[:address][:street_address] %>
+Street address: <%= @user_data.address[:street_address] %>
 
-City: <%= @user_data.user_attributes[:address][:city] %>
+City: <%= @user_data.address[:city] %>
 
-State: <%= @user_data.user_attributes[:address][:state] %>
+State: <%= @user_data.address[:state] %>
 
-Postal code: <%= @user_data.user_attributes[:address][:postal_code] %>
+Postal code: <%= @user_data.address[:postal_code] %>
 
 E-mail: <%= @user_data.email %>
 
@@ -26,7 +26,7 @@ Home Library: NYU
 
 Institution ID: <%= @user_data.username %>
 
-Affiliation: <%= @user_data.user_attributes[:affiliation_text] %>
+Affiliation: <%= @user_data.affiliation_text %>
 
 NYPL Barcode: <%= @user_data.barcode %>
 
