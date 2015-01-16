@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user.save!
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
-      logger.info(find_message(:success, kind: "NYU Libraries")) if is_navigational_format?
+      logger.info(find_message(:success, kind: "NYU Libraries"))
     else
       session["devise.nyulibraries_data"] = request.env["omniauth.auth"]
       redirect_to root_path
