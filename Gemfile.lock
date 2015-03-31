@@ -418,7 +418,7 @@ DEPENDENCIES
   cucumber-rails
   dalli (~> 2.7.2)
   database_cleaner
-  devise
+  devise (~> 3.4.1)
   exlibris-nyu!
   factory_girl_rails (~> 4.5.0)
   faker
