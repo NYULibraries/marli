@@ -40,7 +40,7 @@ gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.
 # Deploy the application with Formaggio deploy recipes
 gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.2.0'
 gem 'omniauth-nyulibraries', github: 'NYULibraries/omniauth-nyulibraries'
-gem 'devise'
+gem 'devise', '~> 3.4.1'
 
 # Use Figs for setting the configuration in the Environment
 gem 'figs', '~> 2.0.2'
