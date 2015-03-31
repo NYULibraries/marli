@@ -14,9 +14,11 @@ VCR.configure do |c|
   c.default_cassette_options = { allow_playback_repeats: true }
   # c.debug_logger = $stdout
   c.hook_into :webmock
-  c.cassette_library_dir     = 'test/vcr_cassettes'
+  c.cassette_library_dir = 'features/cassettes'
+  c.filter_sensitive_data("https://localhost") { ENV['PRIVILEGES_BASE_URL'] }
+  c.filter_sensitive_data("marli") { ENV['PRIVILEGES_SUBLIBRARY_CODE'] }
 end
 
 VCR.cucumber_tags do |t|
-  t.tag '@vcr', use_scenario_name: true, record: :new_episodes
+  t.tag '@vcr', use_scenario_name: true, record: :once, match_requests_on: [:path]
 end

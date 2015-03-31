@@ -17,7 +17,7 @@ rvm:
 bundler_args: --without development
 
 env:
-  - PRIVILEGES_BASE_URL=https://localhost/privileges_guide PRIVILEGES_SUBLIBRARY_CODE=marli
+  - PRIVILEGES_BASE_URL=https://localhost PRIVILEGES_SUBLIBRARY_CODE=marli
 
 notifications:
   email:

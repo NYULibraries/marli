@@ -18,11 +18,13 @@ require 'webmock'
 
 # To allow us to do real HTTP requests in a VCR.turned_off, we
 # have to tell webmock to let us.
-WebMock.allow_net_connect!
+# WebMock.allow_net_connect!
 
 VCR.configure do |c|
   c.cassette_library_dir = 'test/vcr_cassettes'
+  c.default_cassette_options = { allow_playback_repeats: true, record: :new_episodes }
   # webmock needed for HTTPClient testing
   c.hook_into :webmock
-  #c.filter_sensitive_data("localhost") { "" }
+  c.filter_sensitive_data("https://localhost") { ENV['PRIVILEGES_BASE_URL'] }
+  c.filter_sensitive_data("marli") { ENV['PRIVILEGES_SUBLIBRARY_CODE'] }
 end
