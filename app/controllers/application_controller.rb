@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 require 'json'
 class ApplicationController < ActionController::Base
+  prepend_before_filter :passive_login
   layout Proc.new{ |controller| (controller.request.xhr?) ? false : "application" }
   rescue_from Faraday::ConnectionFailed, :with => :connection_error
 
@@ -25,6 +26,17 @@ class ApplicationController < ActionController::Base
     end
   end
   protected :authenticate_admin
+
+  def passive_login
+    if !cookies[:_check_passive_login]
+      cookies[:_check_passive_login] = true
+      redirect_to passive_login_url
+    end
+  end
+
+  def passive_login_url
+    "#{ENV['PASSIVE_LOGIN_URL']}?client_id=#{ENV['APP_ID']}&return_uri=#{request.url}&login_path=#{Rails.application.config.action_controller.relative_url_root}/login"
+  end
 
   # Authorize patron access to this application
   # * Has access if authorized, exception or admin
