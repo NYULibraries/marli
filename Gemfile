@@ -79,5 +79,5 @@ group :test do
   gem 'phantomjs', '>= 1.9.0'
   gem 'poltergeist', '~> 1.5.0'
   gem 'selenium-webdriver'
-  gem 'rspec-rails', '~> 2.99.0'
+  gem 'rspec-rails', '~> 2.14.0'
 end
