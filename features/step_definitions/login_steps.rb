@@ -6,6 +6,8 @@ end
 
 Given(/^I am logged in$/) do
   OmniAuth.config.mock_auth[:nyulibraries] = omniauth_hash
+  ignore_passive_login("/login")
+  @ignored = true
   visit '/login'
 end
 
@@ -15,6 +17,8 @@ end
 
 Given(/^I am logged in as a non aleph user$/) do
   OmniAuth.config.mock_auth[:nyulibraries] = non_aleph_omniauth_hash
+  ignore_passive_login("/login")
+  @ignored = true
   visit '/login'
 end
 
@@ -37,5 +41,6 @@ Then(/^I should see "(.*?)" as the text of the logout link$/) do |text|
 end
 
 Given(/^I am on the homepage$/) do
+  ignore_passive_login unless @ignored
   visit '/'
 end
