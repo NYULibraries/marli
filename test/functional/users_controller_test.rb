@@ -6,6 +6,7 @@ class UsersControllerTest < ActionController::TestCase
 
   setup do
     @request.env["devise.mapping"] = Devise.mappings[:admin]
+    @request.cookies["_check_passive_login"] = true
     sign_in FactoryGirl.create(:admin)
   end
 

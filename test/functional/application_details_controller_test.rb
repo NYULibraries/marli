@@ -4,9 +4,10 @@ class ApplicationDetailsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   setup do
     @request.env["devise.mapping"] = Devise.mappings[:admin]
+    @request.cookies["_check_passive_login"] = true
     sign_in FactoryGirl.create(:admin)
   end
-  
+
   test "should get index" do
     get :index
     assert_not_nil assigns(:application_details)
