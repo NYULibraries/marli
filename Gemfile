@@ -6,7 +6,7 @@ gem 'rails', '~> 4.1.8'
 gem 'mysql2', '~> 0.3.17'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 5.0.0.beta1'
+gem 'sass-rails', '5.0.0.beta1'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
@@ -77,7 +77,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'phantomjs', '>= 1.9.0'
-  gem 'poltergeist', '~> 1.5.0'
+  gem 'poltergeist', '~> 1.6.0'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 2.99.0'
 end

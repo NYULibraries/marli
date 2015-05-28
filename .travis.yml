@@ -11,8 +11,8 @@ script:
   - RAILS_ENV=test bundle exec cucumber
 
 rvm:
-  - 1.9.3
   - 2.1.3
+  - 2.1.6
 
 bundler_args: --without development
 
