@@ -2,7 +2,6 @@
 
 ## 2014-12-11
 - Rails 4, Ruby 2.1.x
-- Updated :gems:; Poltergeist
 
 ## 2013-10-25
 
