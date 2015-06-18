@@ -26,6 +26,16 @@ class ApplicationController < ActionController::Base
   end
   protected :authenticate_admin
 
+  # After signing out from the local application,
+  # redirect to the logout path for the Login app
+  def after_sign_out_path_for(resource_or_scope)
+    if ENV['SSO_LOGOUT_URL'].present?
+      ENV['SSO_LOGOUT_URL']
+    else
+      super(resource_or_scope)
+    end
+  end
+
   # Authorize patron access to this application
   # * Has access if authorized, exception or admin
   # * If logged in but not authorized, rendered an error page
