@@ -1,5 +1,8 @@
 language: ruby
 
+env:
+  - SSO_LOGOUT_URL=https://dev.login.library.nyu.edu/logout
+
 before_script:
   - mysql -e 'create database marli_test;'
   - bundle exec rake db:schema:load
