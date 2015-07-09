@@ -22,7 +22,7 @@ Feature: Log in/out links
     And I am on the homepage
     Then I should have access denied
 
-  @omniauth_test
+  @omniauth_test @wip-travis
   Scenario: A logged in user clicks logout
     Given I am logged in
     And I am on the homepage
