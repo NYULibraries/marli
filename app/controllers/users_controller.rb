@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users
   def index
     respond_with(@users) do |format|
-      format.csv { render :csv => User.search(params[:q]).order(sort_column + " " + sort_direction), :filename => "marli_users_#{DateTime.now.strftime("%Y%m%d%H%m")}" }
+      format.csv { render :csv => User.all, :filename => "marli_users_#{DateTime.now.strftime("%Y%m%d%H%m")}" }
     end
   end
 

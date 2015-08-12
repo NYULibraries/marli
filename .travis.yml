@@ -18,4 +18,6 @@ env:
 
 notifications:
   email:
-    - barnaby.alter@nyu.edu
+    - lib-webservices@nyu.edu
+
+sudo: false
