@@ -21,7 +21,9 @@ gem 'jquery-ui-rails', '~> 5.0.2'
 gem 'uglifier', '~> 2.5.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', '~> 0.12.0'
+# If you can't install this locally on Mac OS X use the following command
+# gem install libv8 -v '3.16.14.11' -- --with-system-v8
+gem 'therubyracer', '~> 0.12'
 
 # Use the Compass CSS framework for sprites, etc.
 gem 'compass-rails', '~> 2.0.0'
