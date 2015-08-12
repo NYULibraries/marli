@@ -21,7 +21,7 @@ gem 'jquery-ui-rails', '~> 5.0.2'
 gem 'uglifier', '~> 2.5.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '~> 0.12.0'
+# gem 'therubyracer', '~> 0.12.0'
 
 # Use the Compass CSS framework for sprites, etc.
 gem 'compass-rails', '~> 2.0.0'
