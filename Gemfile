@@ -21,7 +21,9 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'uglifier', '~> 2.5.3'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '~> 0.12.1'
+# If you can't install this locally on Mac OS X use the following command
+# gem install libv8 -v '3.16.14.11' -- --with-system-v8
+gem 'therubyracer', '~> 0.12'
 
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
 gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.1.3'
