@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:1891/rest-dlf/patron/BOR_ID/patronInformation/address
+    uri: http://aleph.library.edu/rest-dlf/patron/BOR_ID/patronInformation/address
     body:
       encoding: US-ASCII
       string: ''
@@ -25,25 +25,71 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 31 Mar 2015 14:29:37 GMT
+      - Fri, 28 Aug 2015 17:29:08 GMT
     body:
       encoding: UTF-8
       string: '<?xml version = "1.0" encoding = "UTF-8"?><get-pat-adrs><reply-text>ok</reply-text><reply-code>0000</reply-code><address-information
-        updateable="Y"><z304-address-1 usage="Mandatory" max_len="200">NAME</z304-address-1><z304-address-2
-        usage="Optional" max_len="200">ADDRESS</z304-address-2><z304-address-3 usage="Optional"
-        max_len="200">CITY</z304-address-3><z304-address-4 usage="Optional" max_len="200">STATE</z304-address-4><z304-address-5
-        usage="Optional" max_len="200"></z304-address-5><z304-date-from usage="Mandatory">DAY</z304-date-from><z304-date-to
-        usage="Mandatory">20200101</z304-date-to><z304-zip usage="Optional" max_len="9">ZIP</z304-zip><z304-telephone-1
-        usage="Optional" max_len="30"></z304-telephone-1><z304-telephone-2 usage="Optional"
-        max_len="30"></z304-telephone-2><z304-telephone-3 usage="Optional" max_len="30"></z304-telephone-3><z304-telephone-4
-        usage="Optional" max_len="30"></z304-telephone-4><z304-sms-number usage="Optional"
-        max_len="30"></z304-sms-number><z303-want-sms usage="Optional">N</z303-want-sms><z303-plain-html
-        usage="Optional" code="P">Email Body Only</z303-plain-html><z304-email-address
-        usage="Optional" max_len="60">EMAIL</z304-email-address><mail-options usage="Read-Only"><mail-option
-        code="P">Email Body Only</mail-option><mail-option code="H">Attachment Only</mail-option><mail-option
-        code="B">Attachment and Email Body</mail-option><mail-option code="L">L</mail-option></mail-options></address-information></get-pat-adrs> '
-    http_version:
-  recorded_at: Tue, 31 Mar 2015 14:29:37 GMT
+        updateable="Y"><z304-address-1 usage="Mandatory" max_len="200">Eloper, Dev</z304-address-1><z304-address-2
+        usage="Optional" max_len="200">70 WASHINGTON SQUARE SOUTH</z304-address-2><z304-address-3
+        usage="Optional" max_len="200">SUNNYSIDE</z304-address-3><z304-address-4 usage="Optional"
+        max_len="200">NY</z304-address-4><z304-address-5 usage="Optional" max_len="200"></z304-address-5><z304-date-from
+        usage="Mandatory">20150826</z304-date-from><z304-date-to usage="Mandatory">20200101</z304-date-to><z304-zip
+        usage="Optional" max_len="9">11104</z304-zip><z304-telephone-1 usage="Optional"
+        max_len="30"></z304-telephone-1><z304-telephone-2 usage="Optional" max_len="30"></z304-telephone-2><z304-telephone-3
+        usage="Optional" max_len="30"></z304-telephone-3><z304-telephone-4 usage="Optional"
+        max_len="30"></z304-telephone-4><z304-sms-number usage="Optional" max_len="30"></z304-sms-number><z303-want-sms
+        usage="Optional">N</z303-want-sms><z303-plain-html usage="Optional" code="P">Email
+        Body Only</z303-plain-html><z304-email-address usage="Optional" max_len="60">email@nyu.edu</z304-email-address><mail-options
+        usage="Read-Only"><mail-option code="P">Email Body Only</mail-option><mail-option
+        code="H">Attachment Only</mail-option><mail-option code="B">Attachment and
+        Email Body</mail-option><mail-option code="L">L</mail-option></mail-options></address-information></get-pat-adrs> '
+    http_version: 
+  recorded_at: Fri, 28 Aug 2015 17:29:08 GMT
+- request:
+    method: get
+    uri: http://aleph.library.edu/rest-dlf/patron/BOR_ID/patronInformation/address
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache-Coyote/1.1
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Fri, 28 Aug 2015 17:29:08 GMT
+    body:
+      encoding: UTF-8
+      string: '<?xml version = "1.0" encoding = "UTF-8"?><get-pat-adrs><reply-text>ok</reply-text><reply-code>0000</reply-code><address-information
+        updateable="Y"><z304-address-1 usage="Mandatory" max_len="200">Eloper, Dev</z304-address-1><z304-address-2
+        usage="Optional" max_len="200">70 WASHINGTON SQUARE SOUTH</z304-address-2><z304-address-3
+        usage="Optional" max_len="200">SUNNYSIDE</z304-address-3><z304-address-4 usage="Optional"
+        max_len="200">NY</z304-address-4><z304-address-5 usage="Optional" max_len="200"></z304-address-5><z304-date-from
+        usage="Mandatory">20150826</z304-date-from><z304-date-to usage="Mandatory">20200101</z304-date-to><z304-zip
+        usage="Optional" max_len="9">11104</z304-zip><z304-telephone-1 usage="Optional"
+        max_len="30"></z304-telephone-1><z304-telephone-2 usage="Optional" max_len="30"></z304-telephone-2><z304-telephone-3
+        usage="Optional" max_len="30"></z304-telephone-3><z304-telephone-4 usage="Optional"
+        max_len="30"></z304-telephone-4><z304-sms-number usage="Optional" max_len="30"></z304-sms-number><z303-want-sms
+        usage="Optional">N</z303-want-sms><z303-plain-html usage="Optional" code="P">Email
+        Body Only</z303-plain-html><z304-email-address usage="Optional" max_len="60">email@nyu.edu</z304-email-address><mail-options
+        usage="Read-Only"><mail-option code="P">Email Body Only</mail-option><mail-option
+        code="H">Attachment Only</mail-option><mail-option code="B">Attachment and
+        Email Body</mail-option><mail-option code="L">L</mail-option></mail-options></address-information></get-pat-adrs> '
+    http_version: 
+  recorded_at: Fri, 28 Aug 2015 17:29:08 GMT
 - request:
     method: get
     uri: https://localhost/patrons.json?sublibrary_code=marli
@@ -63,27 +109,27 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 31 Mar 2015 14:42:28 GMT
+      - Fri, 28 Aug 2015 17:29:08 GMT
       Server:
       - Apache/2.2.15 (Red Hat)
-      Strict-Transport-Security:
-      - max-age=31536000
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
-      Etag:
-      - '"9975fbe3063a211351d6fc23955f7395"'
       Cache-Control:
       - max-age=0, private, must-revalidate
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Xss-Protection:
+      - 1; mode=block
       X-Request-Id:
-      - 07c0a75a-5b53-48f8-8f9e-a59565ee9108
+      - 8818ba1a-776f-420c-921f-71a2606ffdc5
+      Etag:
+      - '"3eb97ebe1ead363e8704c09dc24408a2"'
+      X-Frame-Options:
+      - SAMEORIGIN
       X-Runtime:
-      - '0.100239'
+      - '0.129482'
+      X-Content-Type-Options:
+      - nosniff
       X-Powered-By:
-      - Phusion Passenger 4.0.53
+      - Phusion Passenger 5.0.14
       Status:
       - 200 OK
       Connection:
@@ -98,9 +144,9 @@ http_interactions:
         Emeritus/Retired Faculty","description":null,"from_aleph":false,"created_at":"2010-02-03T02:00:38.000Z","updated_at":"2010-02-03T02:00:38.000Z","visible":true,"id_type":"NYU
         ID","under_header":"NYU","keywords":"Retired Faculty, Emeritus Faculty, Retired,
         Emeritus"},{"id":28,"code":"50","original_text":"NYU Full Time Faculty","web_text":"NYU
-        Full-time Faculty","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:45.000Z","updated_at":"2015-03-27T06:07:40.000Z","visible":true,"id_type":"NYUcard","under_header":"NYU","keywords":"Faculty
+        Full-time Faculty","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:45.000Z","updated_at":"2015-08-28T06:07:34.000Z","visible":true,"id_type":"NYUcard","under_header":"NYU","keywords":"Faculty
         Full time, Full-time, Faculty"},{"id":54,"code":"54","original_text":"NYU
-        PhD student","web_text":"NYU PhD student","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:46.000Z","updated_at":"2015-03-27T06:07:40.000Z","visible":true,"id_type":"NYU
+        PhD student","web_text":"NYU PhD student","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:46.000Z","updated_at":"2015-08-28T06:07:34.000Z","visible":true,"id_type":"NYU
         card","under_header":"NYU","keywords":"Phd, graduate student, Doctoral"},{"id":61,"code":"nyu_ag_noaleph_dental_faculty","original_text":null,"web_text":"NYU
         Dental Faculty","description":"","from_aleph":false,"created_at":"2009-08-30T16:13:22.000Z","updated_at":"2013-01-30T16:39:13.000Z","visible":true,"id_type":"NYUcard","under_header":"NYU
         Dental School","keywords":"Dental, Faculty, Dental Faculty, Dental School"},{"id":59,"code":"nyu_ag_noaleph_law_faculty","original_text":null,"web_text":"NYU
@@ -109,9 +155,9 @@ http_interactions:
         Medical School Faculty","description":"","from_aleph":false,"created_at":"2009-08-30T16:28:11.000Z","updated_at":"2013-01-30T16:39:13.000Z","visible":true,"id_type":"NYU
         Card","under_header":"NYU Medical School","keywords":"Med School, NYU Med
         School, Medical School"},{"id":39,"code":"74","original_text":"NYU Poly PHD
-        Students","web_text":"NYU Poly PHD Student","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:46.000Z","updated_at":"2015-03-27T06:07:43.000Z","visible":true,"id_type":"Polycard","under_header":"NYU
+        Students","web_text":"NYU Poly PHD Student","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:46.000Z","updated_at":"2015-08-28T06:07:36.000Z","visible":true,"id_type":"Polycard","under_header":"NYU
         Polytechnic","keywords":"Poly, Polytechnic, Poly Phd, Phd "},{"id":16,"code":"70","original_text":"NYU
-        Poly Faculty","web_text":"NYU Polytechnic Faculty","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:44.000Z","updated_at":"2015-03-27T06:07:43.000Z","visible":true,"id_type":"Polycard","under_header":"NYU
+        Poly Faculty","web_text":"NYU Polytechnic Faculty","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:44.000Z","updated_at":"2015-08-28T06:07:36.000Z","visible":true,"id_type":"Polycard","under_header":"NYU
         Polytechnic","keywords":"Poly, Polytechnic, Poly Tech"},{"id":84,"code":"nyu_ag_noaleph_NYU_SCPS_Degree_Faculty","original_text":null,"web_text":"NYU
         SCPS Degree Faculty","description":null,"from_aleph":false,"created_at":"2009-11-10T01:31:06.000Z","updated_at":"2009-11-10T01:31:06.000Z","visible":true,"id_type":"NYU
         Card","under_header":"NYU SCPS","keywords":"SCPS, Degree, Faculty, SCPS Faculty"},{"id":93,"code":"85","original_text":"Columbia
@@ -128,7 +174,7 @@ http_interactions:
         to both institutions and your credentials will be ready for pick up in two
         business days. For further information about the initiative, including participating
         libraries, please see \u003ca href = \"http://marli.libguides.com/welcome\"\u003ehttp://marli.libguides.com/welcome\u003c/a\u003e.
-        ","from_aleph":true,"created_at":"2011-03-11T07:00:18.000Z","updated_at":"2015-03-27T06:06:22.000Z","visible":true,"id_type":"Present
+        ","from_aleph":true,"created_at":"2011-03-11T07:00:18.000Z","updated_at":"2015-08-28T06:06:19.000Z","visible":true,"id_type":"Present
         photo ID to Bobst Library Privileges Office to obtain MaRLI borrowers pass.
         \u003ca href = \"http://marli.libguides.com/welcome/\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""},{"id":92,"code":"84","original_text":"Columbia
@@ -145,7 +191,7 @@ http_interactions:
         to both institutions and your credentials will be ready for pick up in two
         business days. For further information about the initiative, including participating
         libraries, please see \u003ca href = \"http://library.nyu.edu/marli\"\u003ehttp://library.nyu.edu/marli\u003c/a\u003e.
-        ","from_aleph":true,"created_at":"2011-03-11T07:00:18.000Z","updated_at":"2015-03-27T06:06:22.000Z","visible":true,"id_type":"Present
+        ","from_aleph":true,"created_at":"2011-03-11T07:00:18.000Z","updated_at":"2015-08-28T06:06:19.000Z","visible":true,"id_type":"Present
         photo ID to Bobst Library Privileges Office to obtain MaRLI borrowers pass.
         \u003ca href = \"https://webapps.library.nyu.edu/marli/\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""},{"id":94,"code":"86","original_text":"NYPL
@@ -162,12 +208,12 @@ http_interactions:
         and your credentials will be ready for pick up in two business days. For further
         information about the initiative, including participating libraries, please
         see \u003ca href = \"http://marli.libguides.com/welcome\"\u003ehttp://marli.libguides.com/welcome\u003c/a\u003e.
-        \r\n\r\n","from_aleph":true,"created_at":"2011-03-11T07:00:19.000Z","updated_at":"2015-03-27T06:06:22.000Z","visible":true,"id_type":"Present
+        \r\n\r\n","from_aleph":true,"created_at":"2011-03-11T07:00:19.000Z","updated_at":"2015-08-28T06:06:19.000Z","visible":true,"id_type":"Present
         photo ID to Bobst Library Privileges Office to obtain MaRLI borrowers pass.
         \u003ca href = \"http://marli.libguides.com/welcome\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""}]'
-    http_version:
-  recorded_at: Tue, 31 Mar 2015 14:42:28 GMT
+    http_version: 
+  recorded_at: Fri, 28 Aug 2015 17:29:09 GMT
 - request:
     method: get
     uri: https://localhost/patrons.json?sublibrary_code=marli
@@ -187,27 +233,27 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 31 Mar 2015 14:42:28 GMT
+      - Fri, 28 Aug 2015 17:29:09 GMT
       Server:
       - Apache/2.2.15 (Red Hat)
-      Strict-Transport-Security:
-      - max-age=31536000
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
-      Etag:
-      - '"9975fbe3063a211351d6fc23955f7395"'
       Cache-Control:
       - max-age=0, private, must-revalidate
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Xss-Protection:
+      - 1; mode=block
       X-Request-Id:
-      - 319375f0-50a7-4785-a69c-a1ef80f17956
+      - 0a1d7d52-e8d0-4e8e-8551-fed17eb44c85
+      Etag:
+      - '"3eb97ebe1ead363e8704c09dc24408a2"'
+      X-Frame-Options:
+      - SAMEORIGIN
       X-Runtime:
-      - '1.428855'
+      - '0.066676'
+      X-Content-Type-Options:
+      - nosniff
       X-Powered-By:
-      - Phusion Passenger 4.0.53
+      - Phusion Passenger 5.0.14
       Status:
       - 200 OK
       Connection:
@@ -222,9 +268,9 @@ http_interactions:
         Emeritus/Retired Faculty","description":null,"from_aleph":false,"created_at":"2010-02-03T02:00:38.000Z","updated_at":"2010-02-03T02:00:38.000Z","visible":true,"id_type":"NYU
         ID","under_header":"NYU","keywords":"Retired Faculty, Emeritus Faculty, Retired,
         Emeritus"},{"id":28,"code":"50","original_text":"NYU Full Time Faculty","web_text":"NYU
-        Full-time Faculty","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:45.000Z","updated_at":"2015-03-27T06:07:40.000Z","visible":true,"id_type":"NYUcard","under_header":"NYU","keywords":"Faculty
+        Full-time Faculty","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:45.000Z","updated_at":"2015-08-28T06:07:34.000Z","visible":true,"id_type":"NYUcard","under_header":"NYU","keywords":"Faculty
         Full time, Full-time, Faculty"},{"id":54,"code":"54","original_text":"NYU
-        PhD student","web_text":"NYU PhD student","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:46.000Z","updated_at":"2015-03-27T06:07:40.000Z","visible":true,"id_type":"NYU
+        PhD student","web_text":"NYU PhD student","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:46.000Z","updated_at":"2015-08-28T06:07:34.000Z","visible":true,"id_type":"NYU
         card","under_header":"NYU","keywords":"Phd, graduate student, Doctoral"},{"id":61,"code":"nyu_ag_noaleph_dental_faculty","original_text":null,"web_text":"NYU
         Dental Faculty","description":"","from_aleph":false,"created_at":"2009-08-30T16:13:22.000Z","updated_at":"2013-01-30T16:39:13.000Z","visible":true,"id_type":"NYUcard","under_header":"NYU
         Dental School","keywords":"Dental, Faculty, Dental Faculty, Dental School"},{"id":59,"code":"nyu_ag_noaleph_law_faculty","original_text":null,"web_text":"NYU
@@ -233,9 +279,9 @@ http_interactions:
         Medical School Faculty","description":"","from_aleph":false,"created_at":"2009-08-30T16:28:11.000Z","updated_at":"2013-01-30T16:39:13.000Z","visible":true,"id_type":"NYU
         Card","under_header":"NYU Medical School","keywords":"Med School, NYU Med
         School, Medical School"},{"id":39,"code":"74","original_text":"NYU Poly PHD
-        Students","web_text":"NYU Poly PHD Student","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:46.000Z","updated_at":"2015-03-27T06:07:43.000Z","visible":true,"id_type":"Polycard","under_header":"NYU
+        Students","web_text":"NYU Poly PHD Student","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:46.000Z","updated_at":"2015-08-28T06:07:36.000Z","visible":true,"id_type":"Polycard","under_header":"NYU
         Polytechnic","keywords":"Poly, Polytechnic, Poly Phd, Phd "},{"id":16,"code":"70","original_text":"NYU
-        Poly Faculty","web_text":"NYU Polytechnic Faculty","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:44.000Z","updated_at":"2015-03-27T06:07:43.000Z","visible":true,"id_type":"Polycard","under_header":"NYU
+        Poly Faculty","web_text":"NYU Polytechnic Faculty","description":"","from_aleph":true,"created_at":"2009-08-14T18:11:44.000Z","updated_at":"2015-08-28T06:07:36.000Z","visible":true,"id_type":"Polycard","under_header":"NYU
         Polytechnic","keywords":"Poly, Polytechnic, Poly Tech"},{"id":84,"code":"nyu_ag_noaleph_NYU_SCPS_Degree_Faculty","original_text":null,"web_text":"NYU
         SCPS Degree Faculty","description":null,"from_aleph":false,"created_at":"2009-11-10T01:31:06.000Z","updated_at":"2009-11-10T01:31:06.000Z","visible":true,"id_type":"NYU
         Card","under_header":"NYU SCPS","keywords":"SCPS, Degree, Faculty, SCPS Faculty"},{"id":93,"code":"85","original_text":"Columbia
@@ -252,7 +298,7 @@ http_interactions:
         to both institutions and your credentials will be ready for pick up in two
         business days. For further information about the initiative, including participating
         libraries, please see \u003ca href = \"http://marli.libguides.com/welcome\"\u003ehttp://marli.libguides.com/welcome\u003c/a\u003e.
-        ","from_aleph":true,"created_at":"2011-03-11T07:00:18.000Z","updated_at":"2015-03-27T06:06:22.000Z","visible":true,"id_type":"Present
+        ","from_aleph":true,"created_at":"2011-03-11T07:00:18.000Z","updated_at":"2015-08-28T06:06:19.000Z","visible":true,"id_type":"Present
         photo ID to Bobst Library Privileges Office to obtain MaRLI borrowers pass.
         \u003ca href = \"http://marli.libguides.com/welcome/\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""},{"id":92,"code":"84","original_text":"Columbia
@@ -269,7 +315,7 @@ http_interactions:
         to both institutions and your credentials will be ready for pick up in two
         business days. For further information about the initiative, including participating
         libraries, please see \u003ca href = \"http://library.nyu.edu/marli\"\u003ehttp://library.nyu.edu/marli\u003c/a\u003e.
-        ","from_aleph":true,"created_at":"2011-03-11T07:00:18.000Z","updated_at":"2015-03-27T06:06:22.000Z","visible":true,"id_type":"Present
+        ","from_aleph":true,"created_at":"2011-03-11T07:00:18.000Z","updated_at":"2015-08-28T06:06:19.000Z","visible":true,"id_type":"Present
         photo ID to Bobst Library Privileges Office to obtain MaRLI borrowers pass.
         \u003ca href = \"https://webapps.library.nyu.edu/marli/\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""},{"id":94,"code":"86","original_text":"NYPL
@@ -286,10 +332,10 @@ http_interactions:
         and your credentials will be ready for pick up in two business days. For further
         information about the initiative, including participating libraries, please
         see \u003ca href = \"http://marli.libguides.com/welcome\"\u003ehttp://marli.libguides.com/welcome\u003c/a\u003e.
-        \r\n\r\n","from_aleph":true,"created_at":"2011-03-11T07:00:19.000Z","updated_at":"2015-03-27T06:06:22.000Z","visible":true,"id_type":"Present
+        \r\n\r\n","from_aleph":true,"created_at":"2011-03-11T07:00:19.000Z","updated_at":"2015-08-28T06:06:19.000Z","visible":true,"id_type":"Present
         photo ID to Bobst Library Privileges Office to obtain MaRLI borrowers pass.
         \u003ca href = \"http://marli.libguides.com/welcome\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""}]'
-    http_version:
-  recorded_at: Tue, 31 Mar 2015 14:42:30 GMT
+    http_version: 
+  recorded_at: Fri, 28 Aug 2015 17:29:09 GMT
 recorded_with: VCR 2.9.3

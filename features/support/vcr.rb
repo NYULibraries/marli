@@ -14,9 +14,14 @@ VCR.configure do |c|
   c.default_cassette_options = { allow_playback_repeats: true }
   # c.debug_logger = $stdout
   c.hook_into :webmock
+  # c.allow_http_connections_when_no_cassette = true
   c.cassette_library_dir = 'features/cassettes'
   c.filter_sensitive_data("https://localhost") { ENV['PRIVILEGES_BASE_URL'] }
   c.filter_sensitive_data("marli") { ENV['PRIVILEGES_SUBLIBRARY_CODE'] }
+  c.filter_sensitive_data("BOR_ID") { ENV['BOR_ID'] }
+  c.filter_sensitive_data("aleph.library.edu") { ENV['ALEPH_HOST'] }
+  c.filter_sensitive_data("email@nyu.edu") { ENV['BOR_EMAIL'] }
+  c.filter_sensitive_data("Eloper, Dev") { ENV['BOR_NAME'] }
 end
 
 VCR.cucumber_tags do |t|
