@@ -77,6 +77,11 @@ class ApplicationController < ActionController::Base
   end
   alias :current_user :current_user_dev if Rails.env == "development"
 
+  # Alias new_session_path as login_path for default devise config
+  def new_session_path(scope)
+    login_path
+  end
+
   # Protect against SQL injection by forcing column to be an actual column name in the model
   def sort_column klass, default_column = "title_sort"
     klass.constantize.column_names.include?(params[:sort]) ? params[:sort] : default_column

@@ -45,10 +45,33 @@
     </div>
   </div>
 
+
+  <div class="form-group">
+    <%= f.label :school, "School", :class => "required control-label col-md-3" %>
+    <div class="col-md-4">
+    <%= f.select :school, options_for_select(t('schools'), selected: "#{(!@user.school.blank?) ? @user.school : user_school}"), {include_blank: true}, {class: 'form-control'} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :department, "Department", :class => "control-label col-md-3" %>
+    <div class="col-md-4">
+    <%= f.text_field :department, value: "#{(!@user.department.blank?) ? @user.department : user_department}", class: 'form-control' %>
+    </div>
+  </div>
+
+
   <div class="form-group">
     <%= f.label :barcode, "New York Public Library Barcode", :class => "control-label col-md-3" %>
     <div class="col-md-4">
       <%= f.text_field :barcode, placeholder: "(if applicable)", class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-4">
+    <label class="checkbox">
+      <%= f.check_box :marli_renewal, :checked => renewal_checked? %> Check here if this is a membership renewal
+    </label>
     </div>
   </div>
 
