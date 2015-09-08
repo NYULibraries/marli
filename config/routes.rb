@@ -8,9 +8,11 @@ Rails.application.routes.draw do
     get "toggle_application_status" => "application_details#toggle_application_status"
   end
 
-  get 'login' => 'user_sessions#new', :as => :login
-  get 'logout' => 'user_sessions#destroy', :as => :logout
-  get 'validate' => 'user_sessions#validate', :as => :validate
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"}
+  devise_scope :user do
+    get 'logout', to: 'devise/sessions#destroy', as: :logout
+    get 'login', to: redirect("#{ENV['MARLI_RELATIVE_URL_ROOT']}/users/auth/nyulibraries"), as: :login
+  end
 
   get "new_registration" => "users#new_registration", as: :register
   patch "create_registration" => "users#create_registration"
