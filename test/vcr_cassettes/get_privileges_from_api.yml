@@ -122,6 +122,6 @@ http_interactions:
         photo ID to Bobst Library Privileges Office to obtain MaRLI borrowers pass.
         \u003ca href = \"http://marli.libguides.com/welcome\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""}]'
-    http_version: 
+    http_version:
   recorded_at: Thu, 28 May 2015 15:36:31 GMT
 recorded_with: VCR 2.9.3
