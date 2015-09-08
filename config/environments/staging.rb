@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_controller.relative_url_root = '/marli'
+  config.action_controller.relative_url_root = ENV['MARLI_RELATIVE_URL_ROOT']
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests

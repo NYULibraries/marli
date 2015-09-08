@@ -1,6 +1,6 @@
 module Marli
   module ApplicationDetails
-    
+
     def self.included(base)
     end
 
@@ -20,6 +20,6 @@ module Marli
      text = detail_by_purpose(purpose)
      return !(text.nil? || text.the_text.empty?)
     end
-    
+
   end
 end

@@ -1,16 +1,12 @@
 require 'test_helper'
 
 class ApplicationDetailsControllerTest < ActionController::TestCase
-
+  include Devise::TestHelpers
   setup do
-    activate_authlogic
-    # Pretend we've already checked PDS/Shibboleth for the session
-    # and we have a session
-    @request.cookies[:attempted_sso] = { value: "true" }
-    @controller.session[:session_id] = "FakeSessionID"
-    current_user = UserSession.create(users(:admin))
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    sign_in FactoryGirl.create(:admin)
   end
-
+  
   test "should get index" do
     get :index
     assert_not_nil assigns(:application_details)
@@ -19,13 +15,13 @@ class ApplicationDetailsControllerTest < ActionController::TestCase
   end
 
   test "should get edit action" do
-   get :edit, :id => ApplicationDetail.first.id
+   get :edit, :id => FactoryGirl.create(:random_application_detail).id
    assert_not_nil assigns(:application_detail)
    assert_response :success
   end
 
   test "should update application detail" do
-   put :update, :id => ApplicationDetail.first.id, :application_detail => {:the_text => "updating this text"}
+   put :update, :id => FactoryGirl.create(:random_application_detail).id, :application_detail => {:the_text => "updating this text"}
 
    assert assigns(:application_detail)
    assert_equal assigns(:application_detail).the_text, "updating this text"
@@ -33,7 +29,7 @@ class ApplicationDetailsControllerTest < ActionController::TestCase
   end
 
   test "should throw update error on no text" do
-   put :update, :id => ApplicationDetail.first.id, :application_detail => {:the_text => ""}
+   put :update, :id => FactoryGirl.create(:random_application_detail).id, :application_detail => {:the_text => ""}
 
    assert_template :edit
   end
