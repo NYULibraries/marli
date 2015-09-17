@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
     elsif !current_user.nil?
       render 'errors/unauthorized_patron'
     else
-      redirect_to login_url unless performed?
+      redirect_to login_url(origin: request.url) unless performed?
     end
   end
 
