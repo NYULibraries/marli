@@ -18,7 +18,7 @@ gem 'jquery-rails', '~> 3.1.2'
 gem 'jquery-ui-rails', '~> 5.0.3'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 2.5.3'
+gem 'uglifier', '~> 2.7.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # If you can't install this locally on Mac OS X use the following command
