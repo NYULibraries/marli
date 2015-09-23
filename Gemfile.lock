@@ -388,7 +388,7 @@ GEM
     tins (1.6.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.5.3)
+    uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)
@@ -449,6 +449,6 @@ DEPENDENCIES
   sass-rails (= 5.0.0.beta1)
   selenium-webdriver
   therubyracer (~> 0.12)
-  uglifier (~> 2.5.3)
+  uglifier (~> 2.7.0)
   vcr (~> 2.9.3)
   webmock (~> 1.20.4)
