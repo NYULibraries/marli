@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114185326) do
+ActiveRecord::Schema.define(version: 20151005201955) do
 
   create_table "application_details", force: true do |t|
     t.datetime "created_at"
@@ -76,15 +76,9 @@ ActiveRecord::Schema.define(version: 20150114185326) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username",          default: "", null: false
-    t.string   "mobile_phone"
-    t.string   "crypted_password"
-    t.string   "password_salt"
-    t.datetime "last_request_at"
-    t.datetime "current_login_at"
     t.datetime "expiration_date"
-    t.datetime "last_login_at"
     t.datetime "refreshed_at"
-    t.string   "provider"
+    t.string   "provider",          default: "", null: false
     t.string   "institution_code"
     t.string   "aleph_id"
     t.boolean  "admin"
