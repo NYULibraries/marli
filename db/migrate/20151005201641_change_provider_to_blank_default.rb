@@ -1,6 +1,12 @@
 class ChangeProviderToBlankDefault < ActiveRecord::Migration
   def up
-    change_column :users, :provider, :string, null: false, default: ""
+    say_with_time "Migrating provider from NULL to blank" do
+      User.all.each do |user|
+        user.provider = '' if user.provider.nil?
+        user.save(:validate => false)
+      end
+    end
+    change_column :users, :provider, :string, default: "", null: false
   end
   def down
     change_column :users, :provider, :string, null: true
