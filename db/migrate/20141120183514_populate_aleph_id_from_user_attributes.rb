@@ -1,4 +1,3 @@
-require 'pry'
 class PopulateAlephIdFromUserAttributes < ActiveRecord::Migration
   def up
     say_with_time "Migrating Aleph ID." do
