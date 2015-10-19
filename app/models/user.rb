@@ -2,12 +2,12 @@ class User < ActiveRecord::Base
   include Marli::Affiliations
   devise :omniauthable,:omniauth_providers => [:nyulibraries]
 
-  validate :require_school, :on => :update, :if => Proc.new {|f| f.submitted_request }
-  validate :require_dob, :on => :update, :if => Proc.new {|f| f.submitted_request }
+  validate :require_school, on: :update, if: -> { self.validate_fields? }
+  validate :require_dob, on: :update, if: -> { self.validate_fields? }
 
   serialize :address
 
-  attr_accessor :fullname
+  attr_accessor :fullname, :validate_fields
 
   def fullname
     "#{self.firstname} #{self.lastname}"
@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     else
       all
     end
+  end
+
+  def validate_fields?
+    (self.validate_fields) ? true : false
   end
 
   # Create a CSV format
@@ -47,6 +51,8 @@ private
   def require_dob
     if dob.blank?
       errors.add(:base, "Date of birth cannot be blank.")
+    elsif dob > 16.years.ago
+      errors.add(:base, "Please select a valid date of birth, before #{16.years.ago.year}.")
     end
   end
 
