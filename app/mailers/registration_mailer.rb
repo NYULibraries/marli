@@ -1,10 +1,10 @@
 class RegistrationMailer < ActionMailer::Base
-  default from: "no-reply@library.nyu.edu"
+  default from: "lib-no-reply@nyu.edu"
 
   def registration_email(user)
     @user_data = user
     emails = registration_emails.collect { |email| email["email"] }
-    mail(to: emails, subject: t('send_email.subject')) if emails.present?
+    mail(to: emails, cc: @user_data.email, subject: t('send_email.subject')) if emails.present?
   end
 
   private

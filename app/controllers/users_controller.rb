@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_filter :authenticate_admin, :except => [:new_registration, :create_registration, :confirmation]
   before_filter :authorize_patron, :only => [:new_registration, :create_registration, :confirmation]
   before_filter :load_searchable_resource, :only => :index
-  before_filter :preprocess_params, :only => :create_registration
 
   # GET /users
   def index
@@ -20,7 +19,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new( username: params[:user][:username], email: params[:user][:email],
+    @user = User.new( username: user_params[:username], email: user_params[:email],
                       admin: admin, override_access: override_access)
     # Avoid redirecting to SSO
     flash[:notice] = t('users.create_success') if @user.save
@@ -81,10 +80,11 @@ class UsersController < ApplicationController
   def create_registration
     @user = current_user
     @user.assign_attributes(user_params)
-    @user.department = params[:user][:department]
-    @user.school = params[:user][:school]
-    @user.marli_renewal = params[:user][:marli_renewal]
-    @user.affiliation_text = params[:user][:affiliation_text]
+    @user.marli_renewal = (!user_params[:marli_renewal].to_i.zero?) ? "Renewal" : "New Applicant"
+    @user.affiliation_text = affiliation_text
+    @user.submitted_request = true
+    @user.submitted_at = Time.now
+    @user.validate_fields = true
 
     respond_with(@user) do |format|
       if @user.save
@@ -104,14 +104,9 @@ class UsersController < ApplicationController
   helper_method :sort_column
 
 private
-  def user_params
-    params.require(:user).permit(:dob, :submitted_request, :submitted_at, :barcode)
-  end
 
-  def preprocess_params
-    # This doesn't work unfortunately and saves two versions in the hash, for removal next update
-    params[:user].merge!({ :marli_renewal => ((!params[:user][:marli_renewal].to_i.zero?) ? "Renewal" : "New Applicant"), :affiliation_text => affiliation_text })
-    params[:user].merge!({:submitted_request => true, :submitted_at => Time.now})
+  def user_params
+    params.require(:user).permit(:username, :email, :dob, :submitted_request, :submitted_at, :barcode, :school, :department, :marli_renewal, :affiliation_text, :override_access, :admin)
   end
 
   def load_searchable_resource
@@ -119,11 +114,11 @@ private
   end
 
   def admin
-    @admin ||= (params[:user][:admin].to_i == 1)
+    @admin ||= (user_params[:admin].to_i == 1)
   end
 
   def override_access
-    @override_access ||= (params[:user][:override_access].to_i == 1)
+    @override_access ||= (user_params[:override_access].to_i == 1)
   end
 
 end
