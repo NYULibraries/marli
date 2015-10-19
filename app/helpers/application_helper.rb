@@ -39,7 +39,7 @@ module ApplicationHelper
   end
 
   def renewal_checked?
-    (!params[:user].nil? && !params[:user][:marli_renewal].nil? && params[:user][:marli_renewal] == "Renewal")
+    @user.present? && @user.marli_renewal == "Renewal"
   end
 
   def user_school
