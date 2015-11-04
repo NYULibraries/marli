@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   validate :require_school, on: :update, if: -> { self.validate_fields? }
   validate :require_dob, on: :update, if: -> { self.validate_fields? }
+  validates_presence_of :username, :email
 
   serialize :address
 

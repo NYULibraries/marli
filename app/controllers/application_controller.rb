@@ -34,6 +34,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user_dev
+    @current_user ||= User.new(admin: true, username: 'tst123', firstname: "Cleo")
+  end
+  alias_method :current_user, :current_user_dev if Rails.env.development?
+
   # This makes sure you redirect to the correct location after passively
   # logging in or after getting sent back not logged in
   def after_sign_in_path_for(resource)
