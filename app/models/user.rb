@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     "#{self.firstname} #{self.lastname}"
   end
 
+  def authorized?
+    auth_types_array.include? current_user.patron_status
+  end
+
   def validate_fields?
     (self.validate_fields) ? true : false
   end

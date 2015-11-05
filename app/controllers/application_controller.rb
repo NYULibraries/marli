@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   # Filter users to root if not admin
   def authenticate_admin
-    if !is_admin?
+    if current_user.nil? || !current_user.admin?
       redirect_to root_url and return unless performed?
     else
       return true
@@ -60,35 +60,16 @@ class ApplicationController < ActionController::Base
   # * If logged in but not authorized, rendered an error page
   # * Otherwise redirect to login page, no anonymous access allowed
   def authorize_patron
-    if is_admin? or is_exception? or is_authorized?
-      return true
-    elsif !current_user.nil?
-      render 'errors/unauthorized_patron'
+    unless current_user.nil?
+      if current_user.admin? or current_user.override_access? or current_user.authorized?
+        return true
+      else !current_user.nil?
+        render 'errors/unauthorized_patron'
+      end
     else
       redirect_to login_url(origin: request.url) unless performed?
     end
   end
-
-  # Return true if user is marked as admin
-  def is_admin
-    (!current_user.nil? and current_user.admin?)
-  end
-  alias :is_admin? :is_admin
-  helper_method :is_admin?
-
-  # Return true if user is marked as an exception
-  # * An 'exception' is a user who doesn't have admin privileges and isn't
-  #   an authorized patron status but still is granted access to this app
-  def is_exception
-    (!current_user.nil? and current_user.override_access?)
-  end
-  alias :is_exception? :is_exception
-
-  # Return true if user is an authorized patron status
-  def is_authorized
-    (!current_user.nil? and auth_types_array.include? current_user.patron_status)
-  end
-  alias :is_authorized? :is_authorized
 
   # For dev purposes
   def current_user_dev
