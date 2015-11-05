@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def authorized?
-    auth_types_array.include? current_user.patron_status
+    auth_types_array.include?(self.patron_status)
   end
 
   def validate_fields?
