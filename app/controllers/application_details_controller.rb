@@ -42,7 +42,8 @@ class ApplicationDetailsController < ApplicationController
     end
   end
 
-private
+ private
+
   def application_detail_params
     params.require(:application_detail).permit(:purpose, :the_text, :description)
   end

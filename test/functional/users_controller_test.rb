@@ -85,8 +85,6 @@ class UsersControllerTest < ActionController::TestCase
       assert assigns(:user)
       assert_response :success
       assert_template :show
-      assert_select "dd", {:count=>1, :text=>"&nbsp;NYU PhD Student"},
-            "Wrong affiliation text or more than one element containing it"
     end
   end
 

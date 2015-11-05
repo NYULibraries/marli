@@ -22,7 +22,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new( username: user_params[:username], email: user_params[:email],
                       admin: admin, override_access: override_access)
-    # Avoid redirecting to SSO
     flash.now[:notice] = t('users.create_success') if @user.save
     respond_with(@user)
   end
@@ -89,7 +88,7 @@ class UsersController < ApplicationController
 
     respond_with(@user) do |format|
       if @user.save
-        RegistrationMailer.registration_email(@user).deliver
+        RegistrationMailer.registration_email(@user).deliver_now
         format.html { redirect_to confirmation_url }
       else
         @user.submitted_request = false

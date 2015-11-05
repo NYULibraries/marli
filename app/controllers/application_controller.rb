@@ -3,18 +3,12 @@
 require 'json'
 class ApplicationController < ActionController::Base
   layout Proc.new{ |controller| (controller.request.xhr?) ? false : "application" }
-  rescue_from Faraday::ConnectionFailed, :with => :connection_error
 
   include Marli::Affiliations
   helper_method :affiliation_text, :affiliation, :auth_types
   helper_method :detail_by_purpose, :get_sanitized_detail, :text_exists
 
   protect_from_forgery
-
-  def connection_error
-    render 'errors/unexpected_error', :layout => false, :status => 500 and return
-  end
-  protected :connection_error
 
   # Filter users to root if not admin
   def authenticate_admin
@@ -63,19 +57,13 @@ class ApplicationController < ActionController::Base
     unless current_user.nil?
       if current_user.admin? or current_user.override_access? or current_user.authorized?
         return true
-      else !current_user.nil?
+      else
         render 'errors/unauthorized_patron'
       end
     else
       redirect_to login_url(origin: request.url) unless performed?
     end
   end
-
-  # For dev purposes
-  def current_user_dev
-   @current_user ||= User.find_by_username("admin")
-  end
-  # alias :current_user :current_user_dev if Rails.env == "development"
 
   # Alias new_session_path as login_path for default devise config
   def new_session_path(scope)
@@ -105,7 +93,7 @@ class ApplicationController < ActionController::Base
   # Set robots.txt per environment
   def robots
     robots = File.read(Rails.root + "public/robots.#{Rails.env}.txt")
-    render :text =>@robots, :layout => false, :content_type => "text/plain"
+    render :text => @robots, :layout => false, :content_type => "text/plain"
   end
 
   private
