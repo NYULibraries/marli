@@ -50,6 +50,8 @@ gem 'figs', '~> 2.0.2'
 # Use Kaminari for pagination
 gem 'kaminari', '~> 0.16.1'
 
+gem 'acts_as_indexed', '~> 0.8.0'
+
 # For memcached
 gem 'dalli', '~> 2.7.2'
 
