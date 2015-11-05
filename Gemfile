@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.11'
+gem 'rails', '~> 4.2.4'
 
 # Use MySQL for the database
 gem 'mysql2', '~> 0.3.17'
@@ -42,7 +42,7 @@ gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.
 # Deploy the application with Formaggio deploy recipes
 gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.5.2'
 gem 'omniauth-nyulibraries', github: 'NYULibraries/omniauth-nyulibraries', tag: 'v2.0.0'
-gem 'devise', '~> 3.4.1'
+gem 'devise', '~> 3.5.2'
 
 # Use Figs for setting the configuration in the Environment
 gem 'figs', '~> 2.0.2'
@@ -81,5 +81,5 @@ group :test do
   gem 'phantomjs', '>= 1.9.0'
   gem 'poltergeist', '~> 1.6.0'
   gem 'selenium-webdriver'
-  gem 'rspec-rails', '~> 2.99.0'
+  gem 'rspec-rails', '~> 3.0'
 end
