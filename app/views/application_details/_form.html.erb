@@ -13,9 +13,8 @@
     <%= sanitize(@application_detail.description.html_safe) %>
   </div>
   <div class="form-group">
-    <%= f.label :the_text, class: 'control-label col-md-3' %>
-    <div class="col-md-6">
-      <%= f.text_area :the_text, rows: 3, class: 'form-control' %>
+    <div class="col-md-12">
+      <%= f.text_area :the_text, rows: 10, class: 'form-control' %>
     </div>
   </div>
   <p>

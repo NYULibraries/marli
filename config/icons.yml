@@ -1,2 +1,4 @@
 # External config to match actions to sprite image names
 destroy: "icons-famfamfam-cross"
+sort_asc: "glyphicon glyphicon-chevron-down"
+sort_desc: "glyphicon glyphicon-chevron-up"
