@@ -54,6 +54,28 @@ describe User do
     end
   end
 
+  describe '#admin?' do
+    subject { user.admin? }
+    context 'when user is not an admin' do
+      it { is_expected.to be false }
+    end
+    context 'when user is an admin' do
+      let(:user) { create(:admin) }
+      it { is_expected.to be true }
+    end
+  end
+
+  describe '#override_access?' do
+    subject { user.override_access? }
+    context 'when user does not have override access' do
+      it { is_expected.to be false }
+    end
+    context 'when user has override access' do
+      let(:user) { create(:override_access) }
+      it { is_expected.to be true }
+    end
+  end
+
   describe "#fullname" do
     subject { user.fullname }
     it { is_expected.to eql "#{user.firstname} #{user.lastname}" }
