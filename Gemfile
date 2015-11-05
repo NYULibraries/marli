@@ -84,4 +84,5 @@ group :test do
   gem 'poltergeist', '~> 1.6.0'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-its'
 end
