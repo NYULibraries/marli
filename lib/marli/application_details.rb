@@ -1,9 +1,6 @@
 module Marli
   module ApplicationDetails
 
-    def self.included(base)
-    end
-
     # Fetch application detail text by purpose
     def detail_by_purpose(purpose)
       ApplicationDetail.find_by_purpose(purpose)
