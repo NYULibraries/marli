@@ -3,6 +3,10 @@
 require 'json'
 class ApplicationController < ActionController::Base
   layout Proc.new{ |controller| (controller.request.xhr?) ? false : "application" }
+  # Rescue all timeout exceptions and render an error
+  rescue_from Timeout::Error, with: :timeout_error
+  # Resuce exlibris-nyu connection error
+  rescue_from Faraday::ConnectionFailed, with: :connection_error
 
   include Marli::Affiliations
   helper_method :affiliation_text, :affiliation, :auth_types
@@ -20,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
   protected :authenticate_admin
 
-  prepend_before_filter :passive_login
+  prepend_before_filter :passive_login, unless: -> { user_signed_in? }
   def passive_login
     if !cookies[:_check_passive_login]
       cookies[:_check_passive_login] = true
@@ -29,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_dev
-    @current_user ||= User.new(admin: true, username: 'tst123', firstname: "Cleo")
+    @current_user ||= User.find_by_username('admin') || User.new
   end
   alias_method :current_user, :current_user_dev if Rails.env.development?
 
@@ -70,19 +74,6 @@ class ApplicationController < ActionController::Base
     login_path
   end
 
-  # Protect against SQL injection by forcing column to be an actual column name in the model
-  def sort_column klass, default_column = "title_sort"
-    klass.constantize.column_names.include?(params[:sort]) ? params[:sort] : default_column
-  end
-  protected :sort_column
-
-  # Protect against SQL injection by forcing direction to be valid
-  def sort_direction default_direction = "asc"
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : default_direction
-  end
-  helper_method :sort_direction
-  protected :sort_direction
-
   # Return boolean matching the url to find out if we are in the admin view
   def is_in_admin_view
     !request.path.match("/admin").nil?
@@ -90,13 +81,28 @@ class ApplicationController < ActionController::Base
   alias :is_in_admin_view? :is_in_admin_view
   helper_method :is_in_admin_view?
 
-  # Set robots.txt per environment
-  def robots
-    robots = File.read(Rails.root + "public/robots.#{Rails.env}.txt")
-    render :text => @robots, :layout => false, :content_type => "text/plain"
+ protected
+
+  # Protect against SQL injection by forcing column to be an actual column name in the model
+  def sort_column klass, default_column = "title_sort"
+    klass.constantize.column_names.include?(params[:sort]) ? params[:sort] : default_column
   end
 
-  private
+  # Protect against SQL injection by forcing direction to be valid
+  def sort_direction default_direction = "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : default_direction
+  end
+  helper_method :sort_direction
+
+  def connection_error
+    render 'errors/unexpected_error', :layout => false, :status => 500 and return
+  end
+
+  def timeout_error
+    render 'errors/timeout_error' and return
+  end
+
+ private
 
   def logout_path
     if ENV['LOGIN_URL'].present? && ENV['SSO_LOGOUT_PATH'].present?

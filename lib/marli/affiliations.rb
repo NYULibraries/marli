@@ -32,9 +32,6 @@ module Marli
     # * Get patron statuses with access to the MaRLi sublibrary
     def auth_types
       @auth_types ||= HTTParty.get("#{ENV['PRIVILEGES_BASE_URL']}/patrons.json?sublibrary_code=#{ENV['PRIVILEGES_SUBLIBRARY_CODE']}").parsed_response
-    rescue Timeout::Error => e
-      @error = e
-      render 'errors/timeout_error'
     end
 
     def attrs

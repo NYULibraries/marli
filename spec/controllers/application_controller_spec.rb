@@ -19,8 +19,4 @@ describe ApplicationController do
     subject { @controller.send(:is_in_admin_view) }
     it { is_expected.to be false }
   end
-  describe '#timeout_error' do
-    subject { @controller.send(:timeout_error) }
-    it { is_expected.to eql '' }
-  end
 end
