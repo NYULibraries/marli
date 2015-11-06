@@ -60,6 +60,8 @@ gem 'comma', '~> 3.2.2'
 
 gem 'httparty', '~> 0.13.3'
 
+gem 'roboto', '~> 0.2.0'
+
 group :development do
   gem 'better_errors', '~> 2.0.0'
   gem 'binding_of_caller', '~> 0.7.2'

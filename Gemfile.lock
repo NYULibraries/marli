@@ -344,6 +344,9 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    roboto (0.2.0)
+      actionpack (>= 3.0.0)
+      rails (>= 3.1.0)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -473,6 +476,7 @@ DEPENDENCIES
   poltergeist (~> 1.6.0)
   pry (~> 0.10.1)
   rails (~> 4.2.4)
+  roboto (~> 0.2.0)
   rspec-its
   rspec-rails (~> 3.0)
   sass-rails (= 5.0.0.beta1)
