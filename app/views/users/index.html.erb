@@ -1,15 +1,20 @@
+<div class="well">
 <h1>Listing users</h1>
-
-<%= form_tag users_path, :class => "form-inline clearfix", :method => :get do %>
-  <p>
+<br />
+<%= form_tag users_path, :class => "form clearfix", :method => :get do %>
+<div class="row">
+  <div class="form-group col-md-10">
     <%= hidden_field_tag :direction, params[:direction] %>
     <%= hidden_field_tag :sort, params[:sort] %>
     <label for="q" class="sr-only">Search...</label>
     <input class="form-control q" id="q" name="q" placeholder="Search..." type="text" />
-    <input type="submit" class="btn btn-primary" id="search" />
-  </p>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-2">
+    <button type="submit" style="width:100%;" class="btn btn-primary" id="search">Submit</button>
+  </div>
+</div>
 <% end %>
-
+</div>
 <div id="table">
   <%= render "users" %>
 </div>

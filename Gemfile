@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.11'
+gem 'rails', '~> 4.2.4'
 
 # Use MySQL for the database
 gem 'mysql2', '~> 0.3.17'
@@ -42,13 +42,15 @@ gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.
 # Deploy the application with Formaggio deploy recipes
 gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.5.2'
 gem 'omniauth-nyulibraries', github: 'NYULibraries/omniauth-nyulibraries', tag: 'v2.0.0'
-gem 'devise', '~> 3.4.1'
+gem 'devise', '~> 3.5.2'
 
 # Use Figs for setting the configuration in the Environment
 gem 'figs', '~> 2.0.2'
 
 # Use Kaminari for pagination
 gem 'kaminari', '~> 0.16.1'
+
+gem 'acts_as_indexed', '~> 0.8.0'
 
 # For memcached
 gem 'dalli', '~> 2.7.2'
@@ -57,6 +59,8 @@ gem 'dalli', '~> 2.7.2'
 gem 'comma', '~> 3.2.2'
 
 gem 'httparty', '~> 0.13.3'
+
+gem 'roboto', '~> 0.2.0'
 
 group :development do
   gem 'better_errors', '~> 2.0.0'
@@ -81,5 +85,6 @@ group :test do
   gem 'phantomjs', '>= 1.9.0'
   gem 'poltergeist', '~> 1.6.0'
   gem 'selenium-webdriver'
-  gem 'rspec-rails', '~> 2.99.0'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-its'
 end

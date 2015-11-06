@@ -3,7 +3,10 @@
 require 'json'
 class ApplicationController < ActionController::Base
   layout Proc.new{ |controller| (controller.request.xhr?) ? false : "application" }
-  rescue_from Faraday::ConnectionFailed, :with => :connection_error
+  # Rescue all timeout exceptions and render an error
+  rescue_from Timeout::Error, with: :timeout_error
+  # Resuce exlibris-nyu connection error
+  rescue_from Faraday::ConnectionFailed, with: :connection_error
 
   include Marli::Affiliations
   helper_method :affiliation_text, :affiliation, :auth_types
@@ -11,14 +14,9 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  def connection_error
-    render 'errors/unexpected_error', :layout => false, :status => 500 and return
-  end
-  protected :connection_error
-
   # Filter users to root if not admin
   def authenticate_admin
-    if !is_admin?
+    if current_user.nil? || !current_user.admin?
       redirect_to root_url and return unless performed?
     else
       return true
@@ -26,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
   protected :authenticate_admin
 
-  prepend_before_filter :passive_login
+  prepend_before_filter :passive_login, unless: -> { user_signed_in? }
   def passive_login
     if !cookies[:_check_passive_login]
       cookies[:_check_passive_login] = true
@@ -35,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_dev
-    @current_user ||= User.new(admin: true, username: 'tst123', firstname: "Cleo")
+    @current_user ||= User.find_by_username('admin') || User.new
   end
   alias_method :current_user, :current_user_dev if Rails.env.development?
 
@@ -60,59 +58,21 @@ class ApplicationController < ActionController::Base
   # * If logged in but not authorized, rendered an error page
   # * Otherwise redirect to login page, no anonymous access allowed
   def authorize_patron
-    if is_admin? or is_exception? or is_authorized?
-      return true
-    elsif !current_user.nil?
-      render 'errors/unauthorized_patron'
+    unless current_user.nil?
+      if current_user.admin? or current_user.override_access? or current_user.authorized?
+        return true
+      else
+        render 'errors/unauthorized_patron'
+      end
     else
       redirect_to login_url(origin: request.url) unless performed?
     end
   end
 
-  # Return true if user is marked as admin
-  def is_admin
-    (!current_user.nil? and current_user.admin?)
-  end
-  alias :is_admin? :is_admin
-  helper_method :is_admin?
-
-  # Return true if user is marked as an exception
-  # * An 'exception' is a user who doesn't have admin privileges and isn't
-  #   an authorized patron status but still is granted access to this app
-  def is_exception
-    (!current_user.nil? and current_user.override_access?)
-  end
-  alias :is_exception? :is_exception
-
-  # Return true if user is an authorized patron status
-  def is_authorized
-    (!current_user.nil? and auth_types_array.include? current_user.patron_status)
-  end
-  alias :is_authorized? :is_authorized
-
-  # For dev purposes
-  def current_user_dev
-   @current_user ||= User.find_by_username("admin")
-  end
-  # alias :current_user :current_user_dev if Rails.env == "development"
-
   # Alias new_session_path as login_path for default devise config
   def new_session_path(scope)
     login_path
   end
-
-  # Protect against SQL injection by forcing column to be an actual column name in the model
-  def sort_column klass, default_column = "title_sort"
-    klass.constantize.column_names.include?(params[:sort]) ? params[:sort] : default_column
-  end
-  protected :sort_column
-
-  # Protect against SQL injection by forcing direction to be valid
-  def sort_direction default_direction = "asc"
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : default_direction
-  end
-  helper_method :sort_direction
-  protected :sort_direction
 
   # Return boolean matching the url to find out if we are in the admin view
   def is_in_admin_view
@@ -121,13 +81,28 @@ class ApplicationController < ActionController::Base
   alias :is_in_admin_view? :is_in_admin_view
   helper_method :is_in_admin_view?
 
-  # Set robots.txt per environment
-  def robots
-    robots = File.read(Rails.root + "public/robots.#{Rails.env}.txt")
-    render :text =>@robots, :layout => false, :content_type => "text/plain"
+ protected
+
+  # Protect against SQL injection by forcing column to be an actual column name in the model
+  def sort_column klass, default_column = "title_sort"
+    klass.constantize.column_names.include?(params[:sort]) ? params[:sort] : default_column
   end
 
-  private
+  # Protect against SQL injection by forcing direction to be valid
+  def sort_direction default_direction = "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : default_direction
+  end
+  helper_method :sort_direction
+
+  def connection_error
+    render 'errors/unexpected_error', :layout => false, :status => 500 and return
+  end
+
+  def timeout_error
+    render 'errors/timeout_error' and return
+  end
+
+ private
 
   def logout_path
     if ENV['LOGIN_URL'].present? && ENV['SSO_LOGOUT_PATH'].present?
