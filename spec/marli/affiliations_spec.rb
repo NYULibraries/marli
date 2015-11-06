@@ -33,7 +33,8 @@ describe Marli::Affiliations do
 
   describe '#auth_types' do
     subject { current_user.auth_types }
-    it { is_expected.to include({"id"=>88,
+    context 'when http request is successful' do
+      it { is_expected.to include({"id"=>88,
                                   "code"=>"nyu_ag_noaleph_NYU_Emeritus/Retired_Faculty",
                                   "original_text"=>nil,
                                   "web_text"=>"NYU Emeritus/Retired Faculty",
@@ -45,6 +46,13 @@ describe Marli::Affiliations do
                                   "id_type"=>"NYU ID",
                                   "under_header"=>"NYU",
                                   "keywords"=>"Retired Faculty, Emeritus Faculty, Retired, Emeritus"}) }
+    end
+    context 'when http request results in a timeout to the privileges guide' do
+      before { allow(HTTParty).to receive(:get).and_raise(Timeout::Error) }
+      it 'raises a Timeout error' do
+        expect { subject }.to raise_error Timeout::Error
+      end
+    end
   end
 
   describe '#attrs' do

@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 describe ApplicationController do
+  before { @request.cookies[:_check_passive_login] = true }
+
   describe '#current_user_dev' do
     subject { @controller.send(:current_user_dev) }
-    it { is_expected.to be_a_new User }
+    it { is_expected.to be_a User }
   end
   describe '#sort_column' do
     subject { @controller.send(:sort_column, "User") }
@@ -16,5 +18,9 @@ describe ApplicationController do
   describe '#is_in_admin_view' do
     subject { @controller.send(:is_in_admin_view) }
     it { is_expected.to be false }
+  end
+  describe '#timeout_error' do
+    subject { @controller.send(:timeout_error) }
+    it { is_expected.to eql '' }
   end
 end
