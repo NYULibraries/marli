@@ -6,7 +6,7 @@ FactoryGirl.define do
     factory :random_application_detail do
       purpose {Faker::Lorem.word}
       the_text {Faker::Lorem.sentence}
-      description {Faker::Lorem.paragraph(2)}      
+      description {Faker::Lorem.paragraph(2)}
     end
   end
 end

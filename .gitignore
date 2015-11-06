@@ -35,3 +35,5 @@ config/settings/*.local.yml
 config/environments/*.local.yml
 
 *.old
+
+config/app_is_inactive.pid

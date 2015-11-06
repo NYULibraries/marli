@@ -1,9 +1,10 @@
 @import "nyulibraries";
 
-.q {
-  padding-top: 6px !important;
-  padding-bottom: 6px !important;
-  line-height: 20px !important;
+table.table {
+  i.glyphicon {
+    font-size: 12px;
+    margin-left: 5px;
+  }
 }
 
 form label.required:after {

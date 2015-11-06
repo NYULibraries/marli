@@ -2,10 +2,11 @@ class UsersController < ApplicationController
   respond_to :html, :js, :csv
   before_filter :authenticate_admin, :except => [:new_registration, :create_registration, :confirmation]
   before_filter :authorize_patron, :only => [:new_registration, :create_registration, :confirmation]
-  before_filter :load_searchable_resource, :only => :index
 
   # GET /users
   def index
+    @users = User.all.order(sort_column + " " + sort_direction).page(params[:page]).per(30)
+    @users = @users.with_query(params[:q]) if params[:q]
     respond_with(@users) do |format|
       format.csv { render :csv => User.all, :filename => "marli_users_#{DateTime.now.strftime("%Y%m%d%H%m")}" }
     end
@@ -21,8 +22,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new( username: user_params[:username], email: user_params[:email],
                       admin: admin, override_access: override_access)
-    # Avoid redirecting to SSO
-    flash[:notice] = t('users.create_success') if @user.save
+    flash.now[:notice] = t('users.create_success') if @user.save
     respond_with(@user)
   end
 
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    flash[:notice] = t('users.update_success') if @user.update_attributes(admin: admin, override_access: override_access)
+    flash.now[:notice] = t('users.update_success') if @user.update_attributes(admin: admin, override_access: override_access)
     respond_with(@user, :location => user_path(@user))
   end
 
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
 
     respond_with(@user) do |format|
       if @user.save
-        RegistrationMailer.registration_email(@user).deliver
+        RegistrationMailer.registration_email(@user).deliver_now
         format.html { redirect_to confirmation_url }
       else
         @user.submitted_request = false
@@ -107,10 +107,6 @@ private
 
   def user_params
     params.require(:user).permit(:username, :email, :dob, :submitted_request, :submitted_at, :barcode, :school, :department, :marli_renewal, :affiliation_text, :override_access, :admin)
-  end
-
-  def load_searchable_resource
-    @users ||= User.search(params[:q]).order(sort_column + " " + sort_direction).page(params[:page]).per(30)
   end
 
   def admin

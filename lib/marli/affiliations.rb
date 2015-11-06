@@ -2,9 +2,6 @@ module Marli
   module Affiliations
     include Marli::ApplicationDetails
 
-    def self.included(base)
-    end
-
     # Retrieve the web text for this borrower affiliation based on the status
     def affiliation
       @affiliation ||= auth_types_collection[attrs[:patron_status]] unless attrs[:patron_status].nil?
@@ -13,7 +10,7 @@ module Marli
     # Get the affiliation title if it exists or the default text otherwise
     def affiliation_text
       return affiliation unless affiliation.nil?
-      get_sanitized_detail("default_patron_type")
+      get_sanitized_detail("default_patron_type") || I18n.t('default_patron_type')
     end
 
     # Create a hash of :code => :web_text pairs for auth_types
@@ -35,9 +32,6 @@ module Marli
     # * Get patron statuses with access to the MaRLi sublibrary
     def auth_types
       @auth_types ||= HTTParty.get("#{ENV['PRIVILEGES_BASE_URL']}/patrons.json?sublibrary_code=#{ENV['PRIVILEGES_SUBLIBRARY_CODE']}").parsed_response
-    rescue Timeout::Error => e
-      @error = e
-      render 'errors/timeout_error'
     end
 
     def attrs

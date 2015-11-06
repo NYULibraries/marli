@@ -1,5 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :require_valid_omniauth, only: :nyulibraries
+  skip_before_filter :passive_login
+
   def nyulibraries
     @user = find_user_with_or_without_provider.first_or_initialize(attributes_from_omniauth)
     @user.update_attributes(attributes_from_omniauth)

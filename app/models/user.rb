@@ -4,8 +4,11 @@ class User < ActiveRecord::Base
 
   validate :require_school, on: :update, if: -> { self.validate_fields? }
   validate :require_dob, on: :update, if: -> { self.validate_fields? }
+  validates_presence_of :username, :email
 
   serialize :address
+
+  acts_as_indexed fields: [:fullname, :username, :email]
 
   attr_accessor :fullname, :validate_fields
 
@@ -13,13 +16,8 @@ class User < ActiveRecord::Base
     "#{self.firstname} #{self.lastname}"
   end
 
-  def self.search(search)
-    if search
-      q = "%#{search}%"
-      where('firstname LIKE ? || lastname LIKE ? || username LIKE ? || email LIKE ?', q, q, q, q)
-    else
-      all
-    end
+  def authorized?
+    auth_types_array.include?(self.patron_status)
   end
 
   def validate_fields?
