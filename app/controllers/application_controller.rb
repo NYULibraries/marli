@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_dev
-    @current_user ||= User.find_by_username('admin') || User.new
+    @current_user ||= User.find_or_create_by(username: 'admin', email: 'admin@admin.com', admin: true)
   end
   alias_method :current_user, :current_user_dev if Rails.env.development?
 
