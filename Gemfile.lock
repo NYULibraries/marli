@@ -307,8 +307,6 @@ GEM
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     nori (2.6.0)
-    nyulibraries_images (0.0.1)
-      rails (~> 4.1)
     nyulibraries_institutions (0.0.2)
       institutions (~> 0.1.3)
       rails (~> 4.1)
@@ -505,7 +503,6 @@ DEPENDENCIES
   mustache-rails!
   mysql2 (~> 0.3.17)
   nyulibraries_errors!
-  nyulibraries_images
   nyulibraries_javascripts!
   nyulibraries_stylesheets!
   nyulibraries_templates!

@@ -42,7 +42,6 @@ gem 'nyulibraries_errors', github: 'NYULibraries/nyulibraries_errors', tag: 'v1.
 gem 'nyulibraries_stylesheets', github: 'NYULibraries/nyulibraries_stylesheets'
 gem 'nyulibraries_templates', github: 'NYULibraries/nyulibraries_templates'
 gem 'nyulibraries_javascripts', github: 'NYULibraries/nyulibraries_javascripts'
-gem 'nyulibraries_images'
 
 # Deploy the application with Formaggio deploy recipes
 gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.5.2'
