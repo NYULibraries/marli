@@ -40,8 +40,9 @@ gem 'mustache-rails', github: 'NYULibraries/mustache-rails', require: 'mustache/
 gem 'nyulibraries_errors', github: 'NYULibraries/nyulibraries_errors', tag: 'v1.0.0'
 # gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.4.3'
 gem 'nyulibraries_stylesheets', github: 'NYULibraries/nyulibraries_stylesheets'
-gem 'nyulibraries_templates', github: 'NYULibraries/nyulibraries_templates'
 gem 'nyulibraries_javascripts', github: 'NYULibraries/nyulibraries_javascripts'
+gem 'nyulibraries_templates', github: 'NYULibraries/nyulibraries_templates', branch: 'feature/better_testing'
+gem 'nyulibraries_institutions', github: 'NYULibraries/nyulibraries_institutions', branch: 'feature/improve_tests'
 
 # Deploy the application with Formaggio deploy recipes
 gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.5.2'
