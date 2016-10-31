@@ -1,5 +1,5 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require nyulibraries
+//= require nyulibraries_javascripts/nyulibraries
 //= require marli
