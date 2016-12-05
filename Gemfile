@@ -26,7 +26,7 @@ gem 'uglifier', '~> 2.7.0'
 gem 'therubyracer', '~> 0.12'
 
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
-gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.1.3'
+gem 'exlibris-nyu', git: 'https://github.com/NYULibraries/exlibris-nyu', tag: 'v2.1.3'
 
 # Use the Compass CSS framework for sprites, etc.
 gem 'compass-rails', '~> 2.0.1'
@@ -34,19 +34,19 @@ gem 'compass-rails', '~> 2.0.1'
 # Use mustache for templating
 # Fix to 0.99.4 cuz 0.99.5 broke my shit.
 gem 'mustache', '0.99.4'
-gem 'mustache-rails', github: 'NYULibraries/mustache-rails', require: 'mustache/railtie', tag: 'v0.2.3'
+gem 'mustache-rails', git: 'https://github.com/NYULibraries/mustache-rails', require: 'mustache/railtie', tag: 'v0.2.3'
 
 # Use the NYU Libraries assets gem for shared NYU Libraries assets
-gem 'nyulibraries_errors', github: 'NYULibraries/nyulibraries_errors', tag: 'v1.0.0'
+gem 'nyulibraries_errors', git: 'https://github.com/NYULibraries/nyulibraries_errors', tag: 'v1.0.0'
 # gem 'nyulibraries-assets', github: 'NYULibraries/nyulibraries-assets', tag: 'v4.4.3'
-gem 'nyulibraries_stylesheets', github: 'NYULibraries/nyulibraries_stylesheets'
-gem 'nyulibraries_javascripts', github: 'NYULibraries/nyulibraries_javascripts'
-gem 'nyulibraries_templates', github: 'NYULibraries/nyulibraries_templates'
-gem 'nyulibraries_institutions', github: 'NYULibraries/nyulibraries_institutions'
+gem 'nyulibraries_stylesheets', git: 'https://github.com/NYULibraries/nyulibraries_stylesheets', tag: 'v1.0.0'
+gem 'nyulibraries_javascripts', git: 'https://github.com/NYULibraries/nyulibraries_javascripts', tag: 'v1.0.0'
+gem 'nyulibraries_templates', git: 'https://github.com/NYULibraries/nyulibraries_templates', tag: 'v1.0.0'
+gem 'nyulibraries_institutions', git: 'https://github.com/NYULibraries/nyulibraries_institutions', tag: 'v1.0.0'
 
 # Deploy the application with Formaggio deploy recipes
-gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.5.2'
-gem 'omniauth-nyulibraries', github: 'NYULibraries/omniauth-nyulibraries', tag: 'v2.0.0'
+gem 'formaggio', git: 'https://github.com/NYULibraries/formaggio', tag: 'v1.5.2'
+gem 'omniauth-nyulibraries', git: 'https://github.com/NYULibraries/omniauth-nyulibraries', tag: 'v2.0.0'
 gem 'devise', '~> 3.5.2'
 
 # Use Figs for setting the configuration in the Environment
@@ -85,7 +85,8 @@ group :test do
   gem 'webmock', '~> 1.20.4'
   gem 'faker'
   gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', require: false
+  gem 'cucumber', '~> 2.3.2'
   gem 'database_cleaner'
   gem 'phantomjs', '>= 1.9.0'
   gem 'poltergeist', '~> 1.6.0'
