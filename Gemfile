@@ -85,8 +85,7 @@ group :test do
   gem 'webmock', '~> 1.20.4'
   gem 'faker'
   gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'cucumber-rails', require: false
-  gem 'cucumber', '~> 2.3.2'
+  gem 'cucumber-rails', '~> 1.4.5', require: false
   gem 'database_cleaner'
   gem 'phantomjs', '>= 1.9.0'
   gem 'poltergeist', '~> 1.6.0'
