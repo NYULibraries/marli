@@ -41,7 +41,7 @@ describe Marli::Affiliations do
                                   "description"=>nil,
                                   "from_aleph"=>false,
                                   "created_at"=>"2010-02-03T02:00:38.000Z",
-                                  "updated_at"=>"2015-11-18T15:23:21.000Z",
+                                  "updated_at"=>"2010-02-03T02:00:38.000Z",
                                   "visible"=>true,
                                   "id_type"=>"NYU ID",
                                   "under_header"=>"NYU",
