@@ -31,7 +31,7 @@ RSpec.configure do |config|
   # Include Factory Girl convenience methods
   config.include FactoryGirl::Syntax::Methods
 
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, :type => :controller
   config.extend LoginMacros, :type => :controller
 
   # ## Mock Framework
