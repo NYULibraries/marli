@@ -26,11 +26,10 @@ gem 'uglifier', '~> 3.0.0'
 gem 'therubyracer', '~> 0.12'
 
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
-gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.1.3'
+gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.0'
 
 # Use the Compass CSS framework for sprites, etc.
 gem 'compass-rails', '~> 3.0.2'
-
 
 # Use the NYU Libraries assets gem for shared NYU Libraries assets
 gem 'nyulibraries_errors', github: 'NYULibraries/nyulibraries_errors', tag: 'v1.0.1'
