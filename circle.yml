@@ -9,6 +9,10 @@ machine:
     PRIVILEGES_BASE_URL: https://privileges.library.nyu.edu
     PRIVILEGES_SUBLIBRARY_CODE: nyu_ag_noaleph_MaRLI
 
+dependencies:
+  pre:
+    - bundle config --global github.https true
+
 database:
   override:
     - mysql -e 'create database marli_test;'

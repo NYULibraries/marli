@@ -25,5 +25,5 @@ VCR.configure do |c|
 end
 
 VCR.cucumber_tags do |t|
-  t.tag '@vcr', use_scenario_name: true, record: :none, match_requests_on: [:path]
+  t.tag '@vcr', use_scenario_name: true, record: :new_episodes, match_requests_on: [:path]
 end

@@ -55,7 +55,7 @@ module RoomsFeatures
         provider: 'aleph',
         uid: (ENV['BOR_ID'] || 'BOR_ID'),
         properties: {
-          patron_status: '51'
+          patron_status: '86'
         }
       }
     end

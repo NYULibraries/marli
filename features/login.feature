@@ -4,7 +4,7 @@ Feature: Log in/out links
   As a user
   I want to see the appropriate link
 
-  @wip-travis @wip
+  @wip
   Scenario: A non logged in guest user should be redirected to login page
     Given I am not logged in
     And I am on the homepage
@@ -23,7 +23,7 @@ Feature: Log in/out links
     And I am on the homepage
     Then I should have access denied
 
-  @omniauth_test @wip-travis
+  @omniauth_test
   Scenario: A logged in user clicks logout
     Given I am logged in
     And I am on the homepage

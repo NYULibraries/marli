@@ -102,10 +102,12 @@ RSpec.configure do |config|
 end
 
 VCR.configure do |c|
-  # c.filter_sensitive_data('&sub_library=BET') { "&sub_library=#{ENV["ALEPH_SUB_LIBRARY"]}" }
   c.default_cassette_options = { :record => :new_episodes, :allow_playback_repeats => true }
   c.cassette_library_dir = 'spec/vcr_cassettes'
   c.configure_rspec_metadata!
   c.hook_into :webmock
-  # c.filter_sensitive_data("https://localhost") { ENV['PRIVILEGES_BASE_URL'] }
+  c.filter_sensitive_data("https://localhost") { ENV['PRIVILEGES_BASE_URL'] }
+  c.filter_sensitive_data("marli") { ENV['PRIVILEGES_SUBLIBRARY_CODE'] }
+  c.filter_sensitive_data("BOR_ID") { ENV['BOR_ID'] }
+  c.filter_sensitive_data("aleph.library.edu") { ENV['ALEPH_HOST'] }
 end

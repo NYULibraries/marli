@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get "auth_settings" => "users#auth_types", as: "auth_settings"
     get "reset_submissions(/:id)" => "users#reset_submissions", as: "reset_submissions"
     get "clear_patron_data" => "users#clear_patron_data"
-    get "toggle_application_status" => "application_details#toggle_application_status"
+    post "toggle_application_status" => "application_details#toggle_application_status"
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"}

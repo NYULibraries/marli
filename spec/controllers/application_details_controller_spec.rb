@@ -46,9 +46,9 @@ describe ApplicationDetailsController do
     it { is_expected.to redirect_to application_details_url }
   end
 
-  describe 'GET /toggle_application_status' do
+  describe 'POST /toggle_application_status' do
     login_admin
-    before { get :toggle_application_status }
+    before { post :toggle_application_status }
     subject { response }
     it 'should return all application details objects' do
       expect(assigns(:application_details)).to_not be_nil
