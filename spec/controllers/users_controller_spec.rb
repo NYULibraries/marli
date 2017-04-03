@@ -9,7 +9,7 @@ describe UsersController do
   let(:override_access) { '0' }
 
   context 'when user is not logged in' do
-    
+
   end
   context 'when user is logged in' do
     before { @request.cookies[:_check_passive_login] = true }

@@ -94,7 +94,7 @@ RSpec.configure do |config|
 
   config.around(:each) do |example|
     DatabaseCleaner.start
-    VCR.use_cassette('aleph bor info') do
+    VCR.use_cassette('privileges api') do
       example.run
     end
     DatabaseCleaner.clean
@@ -107,4 +107,5 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr_cassettes'
   c.configure_rspec_metadata!
   c.hook_into :webmock
+  # c.filter_sensitive_data("https://localhost") { ENV['PRIVILEGES_BASE_URL'] }
 end
