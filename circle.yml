@@ -6,8 +6,8 @@ machine:
   environment:
     LOGIN_URL: https://dev.login.library.nyu.edu
     SSO_LOGOUT_PATH: /logout
-    PRIVILEGES_BASE_URL: https://localhost
-    PRIVILEGES_SUBLIBRARY_CODE: marli
+    PRIVILEGES_BASE_URL: https://privileges.library.nyu.edu
+    PRIVILEGES_SUBLIBRARY_CODE: nyu_ag_noaleph_MaRLI
 
 database:
   override:
