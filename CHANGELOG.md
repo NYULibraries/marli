@@ -1,5 +1,9 @@
 # Change Log
 
+## 2017-04-03
+- Updated for nokogiri security patch
+- Added CircleCI and removed TravisCI
+
 ## 2014-12-11
 - Rails 4, Ruby 2.1.x
 

@@ -1,6 +1,6 @@
 # Manhattan Research Library Initiative (MaRLI) registration application
 
-[![Build Status](https://travis-ci.org/NYULibraries/marli.png)](https://travis-ci.org/NYULibraries/marli)
+[![CircleCI](https://circleci.com/gh/NYULibraries/marli.svg?style=svg)](https://circleci.com/gh/NYULibraries/marli)
 [![Dependency Status](https://gemnasium.com/NYULibraries/marli.png)](https://gemnasium.com/NYULibraries/marli)
 [![Code Climate](https://codeclimate.com/github/NYULibraries/marli.png)](https://codeclimate.com/github/NYULibraries/marli)
 [![Coverage Status](https://coveralls.io/repos/NYULibraries/marli/badge.png)](https://coveralls.io/r/NYULibraries/marli)
