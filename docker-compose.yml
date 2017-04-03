@@ -1,0 +1,25 @@
+web:
+  dockerfile: Dockerfile.web
+  build: .
+  volumes:
+    - .:/marli
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  environment:
+    MARLI_DB_DATABASE: marli_test
+    MARLI_DB_PASSWORD: test1234
+    MARLI_DB_HOST: db
+    PRIVILEGES_BASE_URL: https://localhost
+    PRIVILEGES_SUBLIBRARY_CODE: marli
+    LOGIN_URL: https://dev.login.library.nyu.edu
+    SSO_LOGOUT_PATH: /logout
+    ALEPH_HOST: aleph.library.edu
+    CI: 'true'
+db:
+  image: library/mysql:5.6.22
+  ports:
+    - "13306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: test1234

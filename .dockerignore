@@ -1,0 +1,6 @@
+.git*
+log/
+tmp/
+coverage/
+*.sql
+*_test.sh
