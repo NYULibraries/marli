@@ -1,0 +1,16 @@
+machine:
+
+  ruby:
+    version: 2.3.3
+
+  environment:
+    LOGIN_URL: https://dev.login.library.nyu.edu
+    SSO_LOGOUT_PATH: /logout
+    PRIVILEGES_BASE_URL: https://localhost
+    PRIVILEGES_SUBLIBRARY_CODE: marli
+
+database:
+  override:
+    - mysql -e 'create database marli_test;'
+    - bundle exec rake db:schema:load
+    - bundle exec rake db:fixtures:load
