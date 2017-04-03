@@ -19,25 +19,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 03 Apr 2017 21:02:02 GMT
+      - Mon, 03 Apr 2017 21:22:12 GMT
       Server:
       - Apache/2.2.15 (Red Hat)
       Cache-Control:
       - max-age=0, private, must-revalidate
       Strict-Transport-Security:
       - max-age=31536000
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - 4796b082-2186-4e67-954a-d877e000bd8a
       Etag:
       - W/"528db6019e96813627fae9bfebb896e8"
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
+      X-Runtime:
+      - '0.117591'
       X-Content-Type-Options:
       - nosniff
-      X-Runtime:
-      - '0.166353'
-      X-Request-Id:
-      - 6393f449-fda0-4428-9a5b-04e239b6ccc3
       X-Powered-By:
       - Phusion Passenger 5.1.2
       Status:
@@ -119,7 +119,7 @@ http_interactions:
         \u003ca href = \"http://marli.libguides.com/welcome\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""}]'
     http_version: 
-  recorded_at: Mon, 03 Apr 2017 21:02:02 GMT
+  recorded_at: Mon, 03 Apr 2017 21:22:12 GMT
 - request:
     method: get
     uri: https://localhost/patrons.json?sublibrary_code=marli
@@ -139,25 +139,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 03 Apr 2017 21:02:03 GMT
+      - Mon, 03 Apr 2017 21:22:13 GMT
       Server:
       - Apache/2.2.15 (Red Hat)
       Cache-Control:
       - max-age=0, private, must-revalidate
       Strict-Transport-Security:
       - max-age=31536000
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - bfc4b4cd-b440-45f7-b3db-3513f9c2338b
       Etag:
       - W/"528db6019e96813627fae9bfebb896e8"
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
+      X-Runtime:
+      - '0.151028'
       X-Content-Type-Options:
       - nosniff
-      X-Runtime:
-      - '0.123280'
-      X-Request-Id:
-      - 5af3acce-ecbe-487b-bd6f-868bfc8684b5
       X-Powered-By:
       - Phusion Passenger 5.1.2
       Status:
@@ -239,5 +239,5 @@ http_interactions:
         \u003ca href = \"http://marli.libguides.com/welcome\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""}]'
     http_version: 
-  recorded_at: Mon, 03 Apr 2017 21:02:03 GMT
+  recorded_at: Mon, 03 Apr 2017 21:22:13 GMT
 recorded_with: VCR 2.9.3

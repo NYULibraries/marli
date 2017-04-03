@@ -19,8 +19,7 @@ VCR.configure do |c|
   c.filter_sensitive_data("https://localhost") { ENV['PRIVILEGES_BASE_URL'] }
   c.filter_sensitive_data("marli") { ENV['PRIVILEGES_SUBLIBRARY_CODE'] }
   c.filter_sensitive_data("BOR_ID") { ENV['BOR_ID'] }
-  c.filter_sensitive_data("aleph.library.edu") { ENV['ALEPH_HOST'] }
-  c.filter_sensitive_data("email@nyu.edu") { ENV['BOR_EMAIL'] }
+  c.filter_sensitive_data("http://aleph.library.edu") { ENV['ALEPH_HOST'] }
   c.filter_sensitive_data("Eloper, Dev") { ENV['BOR_NAME'] }
 end
 

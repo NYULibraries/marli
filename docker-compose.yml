@@ -11,12 +11,10 @@ web:
     MARLI_DB_DATABASE: marli_test
     MARLI_DB_PASSWORD: test1234
     MARLI_DB_HOST: db
-    PRIVILEGES_BASE_URL: https://localhost
-    PRIVILEGES_SUBLIBRARY_CODE: marli
+    PRIVILEGES_BASE_URL: https://privileges.library.nyu.edu
+    PRIVILEGES_SUBLIBRARY_CODE: nyu_ag_noaleph_MaRLI
     LOGIN_URL: https://dev.login.library.nyu.edu
     SSO_LOGOUT_PATH: /logout
-    ALEPH_HOST: aleph.library.edu
-    CI: 'true'
 db:
   image: library/mysql:5.6.22
   ports:

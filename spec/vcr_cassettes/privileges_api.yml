@@ -19,25 +19,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 03 Apr 2017 21:01:51 GMT
+      - Mon, 03 Apr 2017 21:22:02 GMT
       Server:
       - Apache/2.2.15 (Red Hat)
       Cache-Control:
       - max-age=0, private, must-revalidate
       Strict-Transport-Security:
       - max-age=31536000
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - 0ec97cd4-c0e5-44ab-bbf7-c883c5391422
       Etag:
       - W/"528db6019e96813627fae9bfebb896e8"
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
+      X-Runtime:
+      - '0.184185'
       X-Content-Type-Options:
       - nosniff
-      X-Runtime:
-      - '0.137691'
-      X-Request-Id:
-      - b5bb7b47-b4a3-4ff5-b8dd-27aaf7e017a4
       X-Powered-By:
       - Phusion Passenger 5.1.2
       Status:
@@ -119,5 +119,5 @@ http_interactions:
         \u003ca href = \"http://marli.libguides.com/welcome\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""}]'
     http_version: 
-  recorded_at: Mon, 03 Apr 2017 21:01:51 GMT
+  recorded_at: Mon, 03 Apr 2017 21:22:03 GMT
 recorded_with: VCR 2.9.3

@@ -25,11 +25,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Mon, 03 Apr 2017 21:02:04 GMT
+      - Mon, 03 Apr 2017 21:22:14 GMT
     body:
       encoding: UTF-8
       string: '<?xml version = "1.0" encoding = "UTF-8"?><get-pat-adrs><reply-text>ok</reply-text><reply-code>0000</reply-code><address-information
-        updateable="Y"><z304-address-1 usage="Mandatory" max_len="200">Alter, Barnaby</z304-address-1><z304-address-2
+        updateable="Y"><z304-address-1 usage="Mandatory" max_len="200">Eloper, Dev</z304-address-1><z304-address-2
         usage="Optional" max_len="200">70 WASHINGTON SQUARE SOUTH</z304-address-2><z304-address-3
         usage="Optional" max_len="200"></z304-address-3><z304-address-4 usage="Optional"
         max_len="200"></z304-address-4><z304-address-5 usage="Optional" max_len="200"></z304-address-5><z304-date-from
@@ -44,7 +44,7 @@ http_interactions:
         code="H">Attachment Only</mail-option><mail-option code="B">Attachment and
         Email Body</mail-option><mail-option code="L">L</mail-option></mail-options></address-information></get-pat-adrs> '
     http_version: 
-  recorded_at: Mon, 03 Apr 2017 21:02:04 GMT
+  recorded_at: Mon, 03 Apr 2017 21:22:14 GMT
 - request:
     method: get
     uri: http://aleph.library.edu/rest-dlf/patron/BOR_ID/patronInformation/address
@@ -70,11 +70,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Mon, 03 Apr 2017 21:02:04 GMT
+      - Mon, 03 Apr 2017 21:22:14 GMT
     body:
       encoding: UTF-8
       string: '<?xml version = "1.0" encoding = "UTF-8"?><get-pat-adrs><reply-text>ok</reply-text><reply-code>0000</reply-code><address-information
-        updateable="Y"><z304-address-1 usage="Mandatory" max_len="200">Alter, Barnaby</z304-address-1><z304-address-2
+        updateable="Y"><z304-address-1 usage="Mandatory" max_len="200">Eloper, Dev</z304-address-1><z304-address-2
         usage="Optional" max_len="200">70 WASHINGTON SQUARE SOUTH</z304-address-2><z304-address-3
         usage="Optional" max_len="200"></z304-address-3><z304-address-4 usage="Optional"
         max_len="200"></z304-address-4><z304-address-5 usage="Optional" max_len="200"></z304-address-5><z304-date-from
@@ -89,7 +89,7 @@ http_interactions:
         code="H">Attachment Only</mail-option><mail-option code="B">Attachment and
         Email Body</mail-option><mail-option code="L">L</mail-option></mail-options></address-information></get-pat-adrs> '
     http_version: 
-  recorded_at: Mon, 03 Apr 2017 21:02:04 GMT
+  recorded_at: Mon, 03 Apr 2017 21:22:14 GMT
 - request:
     method: get
     uri: https://localhost/patrons.json?sublibrary_code=marli
@@ -109,25 +109,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 03 Apr 2017 21:02:04 GMT
+      - Mon, 03 Apr 2017 21:22:14 GMT
       Server:
       - Apache/2.2.15 (Red Hat)
       Cache-Control:
       - max-age=0, private, must-revalidate
       Strict-Transport-Security:
       - max-age=31536000
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - 276e3228-96d8-4559-be4d-8479542ab02f
       Etag:
       - W/"528db6019e96813627fae9bfebb896e8"
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
+      X-Runtime:
+      - '0.160379'
       X-Content-Type-Options:
       - nosniff
-      X-Runtime:
-      - '0.162274'
-      X-Request-Id:
-      - 7ab0615a-915a-49d0-9acc-697c8bf1dfe2
       X-Powered-By:
       - Phusion Passenger 5.1.2
       Status:
@@ -209,7 +209,7 @@ http_interactions:
         \u003ca href = \"http://marli.libguides.com/welcome\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""}]'
     http_version: 
-  recorded_at: Mon, 03 Apr 2017 21:02:04 GMT
+  recorded_at: Mon, 03 Apr 2017 21:22:14 GMT
 - request:
     method: get
     uri: https://localhost/patrons.json?sublibrary_code=marli
@@ -229,25 +229,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 03 Apr 2017 21:02:04 GMT
+      - Mon, 03 Apr 2017 21:22:14 GMT
       Server:
       - Apache/2.2.15 (Red Hat)
       Cache-Control:
       - max-age=0, private, must-revalidate
       Strict-Transport-Security:
       - max-age=31536000
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - 989bccf7-6bbd-4228-922a-d2ed59c1deab
       Etag:
       - W/"528db6019e96813627fae9bfebb896e8"
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
+      X-Runtime:
+      - '0.156100'
       X-Content-Type-Options:
       - nosniff
-      X-Runtime:
-      - '0.144406'
-      X-Request-Id:
-      - 8db2e02f-a9f6-4651-ab53-0ad030b38ec0
       X-Powered-By:
       - Phusion Passenger 5.1.2
       Status:
@@ -329,5 +329,5 @@ http_interactions:
         \u003ca href = \"http://marli.libguides.com/welcome\"\u003e(Must pre-register
         online.)\u003c/a\u003e","under_header":"Other","keywords":""}]'
     http_version: 
-  recorded_at: Mon, 03 Apr 2017 21:02:04 GMT
+  recorded_at: Mon, 03 Apr 2017 21:22:14 GMT
 recorded_with: VCR 2.9.3
