@@ -26,6 +26,4 @@ staging:
 
 production:
   <<: *marli
-
-cucumber:
-  <<: *test
+  

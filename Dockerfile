@@ -2,7 +2,7 @@ FROM ruby:2.3
 RUN apt-get update -qq && apt-get install -y build-essential nodejs npm nodejs-legacy mysql-client vim
 RUN npm install -g phantomjs-prebuilt
 
-ENV INSTALL_PATH /marli
+ENV INSTALL_PATH /apps/marli
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
@@ -17,5 +17,3 @@ RUN gem install bundler && bundle install --jobs 20 --retry 5
 COPY . .
 
 EXPOSE 3000:3000
-
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

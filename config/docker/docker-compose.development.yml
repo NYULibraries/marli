@@ -1,0 +1,19 @@
+web:
+  extends:
+    file: docker-compose.yml
+    service: web
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  environment:
+    MARLI_DB_HOST: db
+    PRIVILEGES_BASE_URL: https://privileges.library.nyu.edu
+    PRIVILEGES_SUBLIBRARY_CODE: nyu_ag_noaleph_MaRLI
+    LOGIN_URL: https://dev.login.library.nyu.edu
+    SSO_LOGOUT_PATH: /logout
+    RAILS_ENV: development
+db:
+  extends:
+    file: docker-compose.test.yml
+    service: db

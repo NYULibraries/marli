@@ -15,25 +15,26 @@ Users login to NYU's SSO using [NYU's Login application](https://github.com/NYUL
 
 Once a user is logged into through NYU's Login, the application uses the [exlibris-nyu](https://github.com/NYULibraries/exlibris-nyu) gem to get additional patron information from [ExLibris's Aleph](http://www.exlibris-usa.com/category/Aleph) ILS.
 
-## Dev environment
+## Environments
+
+### Test
 
 Assuming docker is setup and running in your development environment:
 
 ```bash
-~$ docker-compose build
-~$ docker-compose run --service-ports --rm web bash
-# Now entering the container shell
-web_1$ rake db:create
-web_1$ rake db:schema:load
-web_1$ rake db:seed
+~$ docker-compose -f config/docker/docker-compose.test.yml up -d
+~$ docker-compose -f config/docker/docker-compose.test.yml run web rake db:create
+~$ docker-compose -f config/docker/docker-compose.test.yml run web rake db:schema:load
 # Run tests
-web_1$ rake
+~$ docker-compose -f config/docker/docker-compose.test.yml run web rake
 ```
 
-After that is setup then you can either run the dev server directly from the container or exit out and run `up`:
+### Development
 
 ```bash
-web_1$ rails s -b 0.0.0.0
-# OR
-~$ docker-compose up
+~$ docker-compose -f config/docker/docker-compose.development.yml up -d
+~$ docker-compose -f config/docker/docker-compose.test.yml run web rake db:create
+~$ docker-compose -f config/docker/docker-compose.test.yml run web rake db:schema:load
+# Run the server
+~$ docker-compose -f config/docker/docker-compose.development.yml run web bundle exec rails server -b 0.0.0.0
 ```
