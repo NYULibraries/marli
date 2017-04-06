@@ -18,3 +18,7 @@ database:
     - mysql -e 'create database marli_test;'
     - bundle exec rake db:schema:load
     - bundle exec rake db:fixtures:load
+
+test:
+  override:
+    - RAILS_ENV=test bundle exec rake
