@@ -33,8 +33,9 @@ Assuming docker is setup and running in your development environment:
 
 ```bash
 ~$ docker-compose -f config/docker/docker-compose.development.yml up -d
-~$ docker-compose -f config/docker/docker-compose.test.yml run web rake db:create
-~$ docker-compose -f config/docker/docker-compose.test.yml run web rake db:schema:load
+~$ docker-compose -f config/docker/docker-compose.development.yml run web rake db:create
+~$ docker-compose -f config/docker/docker-compose.development.yml run web rake db:schema:load
+~$ docker-compose -f config/docker/docker-compose.development.yml run web rake db:seed
 # Run the server
-~$ docker-compose -f config/docker/docker-compose.development.yml run web bundle exec rails server -b 0.0.0.0
+~$ docker-compose -f config/docker/docker-compose.development.yml run --service-ports web bundle exec rails server -b 0.0.0.0
 ```
