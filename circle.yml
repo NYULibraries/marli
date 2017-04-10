@@ -12,3 +12,7 @@ dependencies:
 test:
   override:
     - docker-compose -f config/docker/docker-compose.test.yml run web rake
+
+database:
+  override:
+    - echo "Database running in docker..."
