@@ -1,26 +1,14 @@
 machine:
-
-  ruby:
-    version: 2.3.3
-
-  environment:
-    LOGIN_URL: https://dev.login.library.nyu.edu
-    SSO_LOGOUT_PATH: /logout
-    PRIVILEGES_BASE_URL: https://privileges.library.nyu.edu
-    PRIVILEGES_SUBLIBRARY_CODE: nyu_ag_noaleph_MaRLI
+  services:
+    - docker
 
 dependencies:
-  pre:
-    - bundle config --global github.https true
-
-database:
   override:
-    - mysql -e 'create database marli_test;'
-    - bundle exec rake db:schema:load
-    - bundle exec rake db:fixtures:load
+    - docker-compose version
+    - docker-compose -f config/docker/docker-compose.test.yml up -d
+    - docker-compose -f config/docker/docker-compose.test.yml run web rake db:create
+    - docker-compose -f config/docker/docker-compose.test.yml run web rake db:schema:load
 
 test:
   override:
-    - RAILS_ENV=test bundle exec rake spec
-    - RAILS_ENV=test bundle exec rake cucumber
-    - RAILS_ENV=test bundle exec rake coveralls:push
+    - docker-compose -f config/docker/docker-compose.test.yml run web rake
