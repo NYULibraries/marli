@@ -5,9 +5,9 @@ machine:
 dependencies:
   override:
     - docker-compose version
-    - docker-compose -f config/docker/docker-compose.test.yml up -d
-    - docker-compose -f config/docker/docker-compose.test.yml run web rake db:create
-    - docker-compose -f config/docker/docker-compose.test.yml run web rake db:schema:load
+    - docker-compose up -d
+    - docker-compose run web rake db:create
+    - docker-compose run -e RAILS_ENV=test web rake db:schema:load
 
 database:
   override:
@@ -15,4 +15,4 @@ database:
 
 test:
   override:
-    - docker-compose -f config/docker/docker-compose.test.yml run -e CI=$CI -e CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN -e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN web rake
+    - docker-compose run -e RAILS_ENV=test -e CI=$CI -e CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN -e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN web rake
