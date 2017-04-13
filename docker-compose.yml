@@ -12,6 +12,9 @@ web:
     PRIVILEGES_SUBLIBRARY_CODE: nyu_ag_noaleph_MaRLI
     LOGIN_URL: https://dev.login.library.nyu.edu
     SSO_LOGOUT_PATH: /logout
+    CI:
+    CODECLIMATE_REPO_TOKEN:
+    COVERALLS_REPO_TOKEN:
 db:
   image: library/mysql:5.6.22
   expose:

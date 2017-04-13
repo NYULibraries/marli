@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-xdescribe ApplicationController do
+describe ApplicationController do
   before { @request.cookies[:_check_passive_login] = true }
 
   describe '#current_user_dev' do
