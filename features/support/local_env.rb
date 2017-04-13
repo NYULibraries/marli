@@ -1,7 +1,7 @@
 require 'coveralls'
-require 'selenium-webdriver'
 Coveralls.wear_merged!('rails')
 
+require 'selenium-webdriver'
 require 'pry'
 
 # # Require support classes in spec/support and its subdirectories.
