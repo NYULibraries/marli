@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.4
+    working_directory: ~/marli
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install Docker Compose
+          command: |
+            set -x
+            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+
+      - run:
+          name: Start container and verify it's working
+          command: |
+            set -x
+            docker-compose up -d
+            docker-compose run --network container:marli \
+              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:3000
+
+      - run:
+          name: Run test suite
+          command: docker-compose run web rake
