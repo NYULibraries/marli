@@ -20,7 +20,7 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            docker-compose run --network container:marli \
+            docker run --network container:marli \
               appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:3000
 
       - run:
