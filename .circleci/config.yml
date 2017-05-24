@@ -16,16 +16,12 @@ jobs:
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
       - run:
-          name: Start container and verify it's working
+          name: Start container and run tests
           command: |
-            set -x
             docker-compose up -d
             docker run --network container:marli \
               appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:3000
-
-      - run:
-          name: Run test suite
-          command: docker run --network container:marli marli rake
+            docker-compose exec web rake
 
       # - deploy:
       #     name: Deploy
