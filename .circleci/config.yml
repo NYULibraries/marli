@@ -25,4 +25,4 @@ jobs:
 
       - run:
           name: Run test suite
-          command: docker-compose run web rake
+          command: docker-compose run --network container:marli web rake
