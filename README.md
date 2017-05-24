@@ -22,20 +22,15 @@ Once a user is logged into through NYU's Login, the application uses the [exlibr
 Assuming docker is setup and running in your development environment:
 
 ```bash
-~$ docker-compose -f config/docker/docker-compose.test.yml up -d
-~$ docker-compose -f config/docker/docker-compose.test.yml run web rake db:create
-~$ docker-compose -f config/docker/docker-compose.test.yml run web rake db:schema:load
+~$ docker-compose up -d
 # Run tests
-~$ docker-compose -f config/docker/docker-compose.test.yml run web rake
+~$ docker-compose run web rake
 ```
 
 ### Development
 
 ```bash
-~$ docker-compose -f config/docker/docker-compose.development.yml up -d
-~$ docker-compose -f config/docker/docker-compose.development.yml run web rake db:create
-~$ docker-compose -f config/docker/docker-compose.development.yml run web rake db:schema:load
-~$ docker-compose -f config/docker/docker-compose.development.yml run web rake db:seed
-# Run the server
-~$ docker-compose -f config/docker/docker-compose.development.yml run --service-ports web bundle exec rails server -b 0.0.0.0
+~$ docker-compose up -d
+~$ docker-compose exec web rake db:setup
+# Visit http://{DOCKER_MACHINE_IP}:3000
 ```
