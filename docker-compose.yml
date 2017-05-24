@@ -28,10 +28,11 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
   setup_tests:
     build: .
-    command: rake db:setup
+    command: bundle exec rake db:setup
     volumes:
       - .:/app
     environment:
+      RAILS_ENV: test
       MARLI_DB_HOST: db
     links:
       - db
