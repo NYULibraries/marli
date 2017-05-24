@@ -11,7 +11,7 @@ database:
   override:
     - docker-compose run web rake db:create
     - docker-compose run -e RAILS_ENV=test web rake db:setup
-    
+
 test:
   override:
     - docker-compose run -e RAILS_ENV=test web rake
