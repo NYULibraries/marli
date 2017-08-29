@@ -227,10 +227,10 @@ GEM
       nokogiri (~> 1.7.1)
       require_all (~> 1.3.1)
       savon (~> 2.11.1)
-    factory_girl (4.5.0)
+    factory_girl (4.8.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.5.0)
-      factory_girl (~> 4.5.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
     faker (1.8.4)
       i18n (~> 0.5)
@@ -480,7 +480,7 @@ DEPENDENCIES
   database_cleaner
   devise (~> 4.3.0)
   exlibris-nyu!
-  factory_girl_rails (~> 4.5.0)
+  factory_girl_rails (~> 4.8.0)
   faker
   formaggio!
   httparty (~> 0.15.0)

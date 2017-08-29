@@ -4,7 +4,6 @@ FactoryGirl.define do
     email {Faker::Internet.free_email}
     firstname {Faker::Name.first_name}
     lastname {Faker::Name.last_name}
-    school {Faker::Company.name}
     patron_status "3"
     address({
         street_address: Faker::Address.street_address,

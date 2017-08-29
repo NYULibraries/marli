@@ -194,17 +194,11 @@ describe UsersController do
       login_admin
       let(:barcode) { '12345' }
       let(:department) { 'Dungeon' }
-      let(:school) { 'The Castle' }
       let(:marli_renewal) { '1' }
-      before { post :create_registration, user: { barcode: barcode, department: department, school: school } }
+      before { post :create_registration, user: { barcode: barcode, department: department } }
       subject { response }
-      context 'when school is missing' do
-        let(:school) { nil }
-        it 'should be invalid' do
-          expect(assigns(:user).valid?).to be false
-          expect(assigns(:user).submitted_request).to be false
-          expect(assigns(:user).errors[:base]).to include "School cannot be blank."
-        end
+      it 'should be a valid user' do
+        expect(assigns(:user).valid?).to be true
       end
     end
 

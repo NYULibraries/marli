@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829184340) do
+ActiveRecord::Schema.define(version: 20170829190056) do
 
   create_table "application_details", force: :cascade do |t|
     t.datetime "created_at"
@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 20170829184340) do
     t.boolean  "admin"
     t.string   "patron_status",     limit: 255
     t.boolean  "override_access"
-    t.string   "school",            limit: 255
     t.string   "department",        limit: 255
     t.text     "address",           limit: 65535
     t.text     "marli_renewal",     limit: 65535

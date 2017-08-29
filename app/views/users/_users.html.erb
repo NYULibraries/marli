@@ -33,7 +33,6 @@
   		<th class="hidden-phone"><%= sortable "lastname"%></th>
   		<th class="hidden-phone"><%= sortable "email"%></th>
   		<th class="hidden-phone">Department</th>
-  		<th class="hidden-phone">School</th>
   		<th class="hidden-phone"><%= sortable "submitted_request", "Registered"%></th>
   		<th class="hidden-phone"><%= sortable "submitted_at", "Date of request"%></th>
   		<th class="hidden-phone">Status</th>
@@ -48,7 +47,6 @@
     	<td class="hidden-phone"><%=h user.lastname %></td>
     	<td class="hidden-phone"><%=h word_break(user.email) %></td>
     	<td class="hidden-phone"><%=h user.department%></td>
-  	  <td class="hidden-phone"><%=h user.school%></td>
   	  <td class="hidden-phone"><%= (user.submitted_request?) ? "<i class=\"glyphicon glyphicon-ok\"></i>".html_safe : ''%></td>
   	  <td class="hidden-phone"><%= (user.submitted_at?) ? user.submitted_at.strftime("%Y/%m/%d") : '' %></td>
     	<td class="hidden-phone"><%=h user_status(user) %></td>
