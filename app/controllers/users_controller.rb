@@ -106,7 +106,7 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:username, :email, :submitted_request, :submitted_at, :barcode, :department, :marli_renewal, :affiliation_text, :override_access, :admin)
+    params.require(:user).permit(:username, :email, :submitted_request, :submitted_at, :barcode, :marli_renewal, :affiliation_text, :override_access, :admin)
   end
 
   def admin

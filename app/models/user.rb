@@ -30,7 +30,6 @@ class User < ActiveRecord::Base
     email
     submitted_at {|submitted_at| submitted_at.strftime("%m/%d/%Y") unless submitted_at.nil? }
     barcode "NYPL Barcode"
-    department "Department"
     affiliation_text "Affiliation"
   end
 

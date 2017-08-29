@@ -19,7 +19,6 @@ if Rails.env.development? and User.find_by_username(username).nil?
     admin: true,
     patron_status: '51',
     override_access: false,
-    department: "Division of Libs",
     address: {street_address: "123 Main St", city: "Des Moines", state: "Grace", postal_code: "12345"}
   })
   user.save!

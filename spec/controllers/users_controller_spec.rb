@@ -193,9 +193,8 @@ describe UsersController do
     describe 'PATCH /create_registration' do
       login_admin
       let(:barcode) { '12345' }
-      let(:department) { 'Dungeon' }
       let(:marli_renewal) { '1' }
-      before { post :create_registration, user: { barcode: barcode, department: department } }
+      before { post :create_registration, user: { barcode: barcode } }
       subject { response }
       it 'should be a valid user' do
         expect(assigns(:user).valid?).to be true
