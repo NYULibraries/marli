@@ -3,7 +3,7 @@ services:
   web:
     build: .
     volumes:
-      - .:/marli
+      - .:/app
     container_name: marli
     links:
       - db
