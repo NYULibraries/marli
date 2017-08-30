@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       # - .:/app
-      - .:/marli
+      # - .:/marli
     container_name: marli
     ports:
       - "3000:3000"
@@ -19,8 +19,8 @@ services:
 
   test:
     build: .
-    volumes:
-      - .:/app
+    # volumes:
+      # - .:/app
     environment:
       RAILS_ENV: test
     env_file:
