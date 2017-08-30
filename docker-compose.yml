@@ -3,7 +3,7 @@ services:
   web:
     build: .
     volumes:
-      - .:/app
+      # - .:/app
       - .:/marli
     container_name: marli
     ports:
