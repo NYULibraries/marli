@@ -2,7 +2,7 @@ version: "3"
 services:
   web:
     build: .
-    volumes:
+    # volumes:
       # - .:/app
       # - .:/marli
     container_name: marli
