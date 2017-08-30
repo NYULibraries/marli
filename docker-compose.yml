@@ -19,8 +19,6 @@ services:
 
   test:
     build: .
-    # volumes:
-      # - .:/app
     environment:
       RAILS_ENV: test
     env_file:
@@ -31,8 +29,6 @@ services:
 
   setup_dbs:
     build: .
-    volumes:
-      - .:/app
     environment:
       MARLI_DB_HOST: db
     command: bash -c "sleep 5; rake db:setup"
