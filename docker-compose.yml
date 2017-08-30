@@ -4,6 +4,7 @@ services:
     build: .
     volumes:
       - .:/app
+      - .:/marli
     container_name: marli
     ports:
       - "3000:3000"
