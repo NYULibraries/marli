@@ -192,44 +192,12 @@ describe UsersController do
 
     describe 'PATCH /create_registration' do
       login_admin
-      let(:dob) { '01/01/1985' }
       let(:barcode) { '12345' }
-      let(:department) { 'Dungeon' }
-      let(:school) { 'The Castle' }
       let(:marli_renewal) { '1' }
-      before { post :create_registration, user: { dob: dob, barcode: barcode, department: department, school: school } }
+      before { post :create_registration, user: { barcode: barcode } }
       subject { response }
-      context 'when school is present' do
-        context 'and dob is valid' do
-          it 'should update a valid user' do
-            expect(assigns(:user).valid?).to be true
-            expect(assigns(:user).submitted_request).to be true
-          end
-        end
-        context 'but dob is missing' do
-          let(:dob) { nil }
-          it 'should be invalid' do
-            expect(assigns(:user).valid?).to be false
-            expect(assigns(:user).submitted_request).to be false
-            expect(assigns(:user).errors[:base]).to include "Date of birth cannot be blank."
-          end
-        end
-        context 'but dob is less than 16 years ago' do
-          let(:dob) { "01/01/#{Time.now.year}" }
-          it 'should be invalid' do
-            expect(assigns(:user).valid?).to be false
-            expect(assigns(:user).submitted_request).to be false
-            expect(assigns(:user).errors[:base]).to include "Please select a valid date of birth, before #{16.years.ago.year}."
-          end
-        end
-      end
-      context 'when school is missing' do
-        let(:school) { nil }
-        it 'should be invalid' do
-          expect(assigns(:user).valid?).to be false
-          expect(assigns(:user).submitted_request).to be false
-          expect(assigns(:user).errors[:base]).to include "School cannot be blank."
-        end
+      it 'should be a valid user' do
+        expect(assigns(:user).valid?).to be true
       end
     end
 

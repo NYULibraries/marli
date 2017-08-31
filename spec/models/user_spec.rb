@@ -3,9 +3,7 @@ require 'spec_helper'
 describe User do
 
   let(:validate_fields) { true }
-  let(:school) { 'NYU School' }
-  let(:dob) { '01/01/1971' }
-  let(:user) { create(:user, validate_fields: validate_fields, school: school, dob: dob) }
+  let(:user) { create(:user, validate_fields: validate_fields) }
 
   describe 'validations' do
     subject { user }
@@ -19,25 +17,6 @@ describe User do
     end
     context 'when validate fields attribute is true' do
       context 'when all required fields are present' do
-        it { is_expected.to be_valid }
-      end
-      context 'when school is missing' do
-        let(:school) { nil }
-        it { is_expected.to be_invalid }
-      end
-      context 'when dob is missing' do
-        let(:dob) { nil }
-        it { is_expected.to be_invalid }
-      end
-    end
-    context 'when validate fields attribute is false' do
-      let(:validate_fields) { false }
-      context 'when school is missing' do
-        let(:school) { nil }
-        it { is_expected.to be_valid }
-      end
-      context 'when dob is missing' do
-        let(:dob) { nil }
         it { is_expected.to be_valid }
       end
     end

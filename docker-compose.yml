@@ -2,39 +2,42 @@ version: "3"
 services:
   web:
     build: .
-    volumes:
-      - .:/marli
+    # volumes:
+      # - .:/app
+      # - .:/marli
     container_name: marli
-    links:
-      - db
     ports:
       - "3000:3000"
+    env_file:
+      - test.env
     environment:
-      MARLI_DB_HOST: db
-      PRIVILEGES_BASE_URL: https://privileges.library.nyu.edu
-      PRIVILEGES_SUBLIBRARY_CODE: nyu_ag_noaleph_MaRLI
-      LOGIN_URL: https://dev.login.library.nyu.edu
-      SSO_LOGOUT_PATH: /logout
       CI:
       CODECLIMATE_REPO_TOKEN:
       COVERALLS_REPO_TOKEN:
     depends_on:
-      - setup_tests
+      - setup_dbs
+
+  test:
+    build: .
+    environment:
+      RAILS_ENV: test
+    env_file:
+      - test.env
+    command: "tail -f /dev/null"
+    depends_on:
+      - setup_dbs
+
+  setup_dbs:
+    build: .
+    environment:
+      MARLI_DB_HOST: db
+    command: bash -c "sleep 5; rake db:setup"
+    depends_on:
+      - db
+
   db:
     image: library/mysql:5.6.22
     expose:
       - "3306"
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-  setup_tests:
-    build: .
-    command: bundle exec rake db:setup
-    volumes:
-      - .:/app
-    environment:
-      RAILS_ENV: test
-      MARLI_DB_HOST: db
-    links:
-      - db
-    depends_on:
-      - db

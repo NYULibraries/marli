@@ -32,32 +32,6 @@
       <%= f.text_field :fullname, disabled: true, class: 'form-control' %>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :dob, "Date of birth", :class => "required control-label col-md-3" %>
-    <div class="col-md-4">
-      <div class="input-group">
-        <%= f.text_field :dob, class: 'form-control' %>
-        <span class="input-group-addon">
-          <a class="dob-popover" data-class="article-finding" rel="popover" target="_blank" data-original-title="Date of Birth Required" data-content="Date of birth information is required by<br /> Columbia University Library's systems"><i class="glyphicon glyphicon-info-sign"></i></a>
-        </span>
-        <span id="date_example" class="js_hide">YYYY-MM-DD</span>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="form-group">
-    <%= f.label :school, "School", :class => "required control-label col-md-3" %>
-    <div class="col-md-4">
-    <%= f.select :school, options_for_select(t('schools'), selected: @user.school), {include_blank: true}, {class: 'form-control'} %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :department, "Department", :class => "control-label col-md-3" %>
-    <div class="col-md-4">
-    <%= f.text_field :department, value: @user.department, class: 'form-control' %>
-    </div>
-  </div>
 
 
   <div class="form-group">

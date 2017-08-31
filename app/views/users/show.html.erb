@@ -11,9 +11,6 @@
   <dt>Last name:</dt>
   <dd>&nbsp;<%=h @user.lastname %></dd>
 
-  <dt>Date of birth:</dt>
-  <dd>&nbsp;<%=h @user.dob %></dd>
-
   <dt>Date of Request:</dt>
   <dd>&nbsp;<%=h @user.submitted_at %></dd>
 
@@ -54,12 +51,6 @@
 <dl class="dl-horizontal">
   <dt>N #:</dt>
   <dd>&nbsp;<%=h @user.aleph_id %></dd>
-
-  <dt>School:</dt>
-  <dd>&nbsp;<%=h @user.school%></dd>
-
-  <dt>Department:</dt>
-  <dd>&nbsp;<%=h @user.department%></dd>
 
   <%= form_for @user, :remote => true, :class => "form-inline clearfix" do |f| %>
     <dt>Admin?</dt>
