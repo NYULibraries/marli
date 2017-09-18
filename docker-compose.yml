@@ -1,11 +1,9 @@
 version: "3"
 services:
-  web:
+  app:
     build: .
     # volumes:
-      # - .:/app
-      # - .:/marli
-    container_name: marli
+    #   - .:/app
     ports:
       - "3000:3000"
     env_file:
