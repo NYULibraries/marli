@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 username = 'admin'
-if Rails.env.development? and User.find_by_username(username).nil?
+if Rails.env.development? && User.find_by_username(username).nil?
   user = User.create!({
     username: username,
     firstname: 'Dev',
@@ -17,7 +17,7 @@ if Rails.env.development? and User.find_by_username(username).nil?
     provider: "nyulibraries",
     institution_code: "NYU",
     admin: true,
-    patron_status: '51',
+    patron_status: '85',
     override_access: false,
     address: {street_address: "123 Main St", city: "Des Moines", state: "Grace", postal_code: "12345"}
   })
