@@ -65,7 +65,7 @@ end
 
 group :development, :test do
   # Use pry as the REPL
-  gem 'pry', '~> 0.10.1'
+  gem 'pry'
 end
 
 group :test do

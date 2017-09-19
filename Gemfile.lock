@@ -496,7 +496,7 @@ DEPENDENCIES
   omniauth-nyulibraries!
   phantomjs (>= 1.9.0)
   poltergeist (~> 1.16.0)
-  pry (~> 0.10.1)
+  pry
   rails (~> 4.2.5)
   roboto (~> 1)
   rspec-its

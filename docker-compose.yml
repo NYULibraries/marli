@@ -16,6 +16,10 @@ services:
       - setup_dbs
 
   test:
+    # volumes:
+    #   - .:/app
+    tty: true
+    stdin_open: true
     build: .
     environment:
       RAILS_ENV: test
@@ -29,6 +33,7 @@ services:
     build: .
     environment:
       MARLI_DB_HOST: db
+      RAILS_ENV: test
     command: bash -c "sleep 5; rake db:setup"
     depends_on:
       - db
