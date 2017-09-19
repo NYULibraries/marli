@@ -3,10 +3,6 @@ require 'spec_helper'
 describe ApplicationController do
   before { @request.cookies[:_check_passive_login] = true }
 
-  describe '#current_user_dev' do
-    subject { @controller.send(:current_user_dev) }
-    it { is_expected.to be_a User }
-  end
   describe '#sort_column' do
     subject { @controller.send(:sort_column, "User") }
     it { is_expected.to eql 'title_sort' }

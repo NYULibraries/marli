@@ -9,8 +9,11 @@ module Marli
 
     # Get the affiliation title if it exists or the default text otherwise
     def affiliation_text
-      return affiliation unless affiliation.nil?
-      get_sanitized_detail("default_patron_type") || I18n.t('default_patron_type')
+      unless affiliation.nil?
+        return affiliation
+      else
+        return get_sanitized_detail("default_patron_type") || I18n.t('default_patron_type')
+      end
     end
 
     # Create a hash of :code => :web_text pairs for auth_types
