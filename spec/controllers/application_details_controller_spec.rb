@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ApplicationDetailsController do
   before { @request.cookies[:_check_passive_login] = true }
 
-  let(:application_detail) { create(:application_detail) }
+  let(:application_detail) { create(:random_application_detail) }
   let(:pid_file) { "#{Rails.root}/config/app_is_inactive.pid" }
 
   describe 'GET /index' do
