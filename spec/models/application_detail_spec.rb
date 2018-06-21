@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ApplicationDetail do
 
-  let(:application_detail) { create(:application_detail) }
+  let(:application_detail) { create(:random_application_detail) }
 
   describe 'validations' do
     subject { application_detail }
@@ -18,9 +18,8 @@ describe ApplicationDetail do
       it { is_expected.to be_invalid }
     end
     context 'when there is not a unique purpose' do
-      before { create(:application_detail) }
-      subject { build(:application_detail).valid? }
-      it { is_expected.to be false }
+      subject { build(:application_detail, purpose: application_detail.purpose) }
+      its(:valid?) { is_expected.to be false }
     end
   end
 end
