@@ -1,4 +1,16 @@
-FROM nyulibraries/rails
+FROM ruby:2.3.3
+
+ENV INSTALL_PATH /app
+
+# Setup working directory
+WORKDIR $INSTALL_PATH
+
+RUN wget --no-check-certificate -q -O - https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > /tmp/wait-for-it.sh
+RUN chmod a+x /tmp/wait-for-it.sh
+
+# Add github to known_hosts
+RUN mkdir -p ~/.ssh
+RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle config --global github.https true
