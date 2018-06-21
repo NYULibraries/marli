@@ -24,7 +24,7 @@ Assuming docker is setup and running in your development environment:
 ```bash
 ~$ docker-compose up -d
 # Run tests
-~$ docker-compose run web rake
+~$ docker-compose run test rake
 ```
 
 ### Development
