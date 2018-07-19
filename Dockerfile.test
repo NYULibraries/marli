@@ -4,7 +4,18 @@ ENV INSTALL_PATH /app
 
 # Essential dependencies
 RUN apt-get update -qq && apt-get install -y \
+      bzip2 \
+      git \
+      libfontconfig \
+      libfreetype6 \
+      vim \
       wget
+
+# PhantomJS
+ENV PHANTOMJS_VERSION 2.1.1
+
+RUN wget --no-check-certificate -q -O - https://cnpmjs.org/mirrors/phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 | tar xjC /opt
+RUN ln -s /opt/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
 
 RUN mkdir -p /bundle && chown 1000:2000 /bundle
 
@@ -26,6 +37,7 @@ RUN chmod a+x /tmp/wait-for-it.sh
 RUN mkdir -p ~/.ssh
 RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 
+# Copy source into container
 COPY --chown=docker:docker . .
 
 ENV BUNDLE_PATH=/bundle \

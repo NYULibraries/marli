@@ -1,9 +1,11 @@
 version: "3"
 services:
-  app:
+  dev:
     build: .
-    # volumes:
-    #   - .:/app
+    volumes:
+      - ./app:/app/app
+      - ./vendor:/app/vendor
+      - bundle_cache:/bundle
     ports:
       - "3000:3000"
     env_file:
@@ -12,29 +14,45 @@ services:
       CI:
       CODECLIMATE_REPO_TOKEN:
       COVERALLS_REPO_TOKEN:
+    command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
     depends_on:
       - setup_dbs
 
   test:
-    # volumes:
-    #   - .:/app
-    tty: true
-    stdin_open: true
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - bundle_cache:/bundle
     environment:
       RAILS_ENV: test
     env_file:
       - test.env
-    command: "tail -f /dev/null"
+    command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rake"]
     depends_on:
       - setup_dbs
 
+  setup_test_dbs:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - bundle_cache:/bundle
+    environment:
+      RAILS_ENV: test
+    env_file:
+      - test.env
+    command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rake", "db:setup"]
+    depends_on:
+      - db
+
   setup_dbs:
     build: .
-    environment:
-      MARLI_DB_HOST: db
-      RAILS_ENV: test
-    command: bash -c "sleep 5; rake db:setup"
+    volumes:
+      - bundle_cache:/bundle
+    env_file:
+      - test.env
+    command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rake", "db:setup"]
     depends_on:
       - db
 
@@ -44,3 +62,6 @@ services:
       - "3306"
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+
+volumes:
+  bundle_cache:
