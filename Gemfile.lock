@@ -26,10 +26,10 @@ GIT
 
 GIT
   remote: https://github.com/NYULibraries/nyulibraries_errors.git
-  revision: 16c7a14892e439c48e6fc1f8ce261c3cbe635e4c
-  tag: v1.0.1
+  revision: ae1d11ac6b5ff345912c8043bdb83f1af155f5da
+  tag: v1.0.2
   specs:
-    nyulibraries_errors (1.0.1)
+    nyulibraries_errors (1.0.2)
 
 GIT
   remote: https://github.com/NYULibraries/nyulibraries_institutions.git
@@ -49,19 +49,19 @@ GIT
 
 GIT
   remote: https://github.com/NYULibraries/nyulibraries_stylesheets.git
-  revision: 7635383d77ac815f4a28219138c75f8971f680f6
-  tag: v1.0.5
+  revision: cdb3c1e15e6ef178dc244b9b82201736a3330285
+  tag: v1.1.2
   specs:
-    nyulibraries_stylesheets (1.0.5)
+    nyulibraries_stylesheets (1.1.2)
       bootstrap-sass (~> 3.2)
       compass (>= 1.0.1)
 
 GIT
   remote: https://github.com/NYULibraries/nyulibraries_templates.git
-  revision: 245dea4a7af547de8442c31484dd2888012298de
-  tag: v1.1.2
+  revision: b7c7c2ab23643e7ab6e798e117fe0152045f4534
+  tag: v1.2.1
   specs:
-    nyulibraries_templates (1.1.2)
+    nyulibraries_templates (1.2.1)
       rails (>= 4)
 
 GIT
@@ -116,7 +116,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     arel (6.0.4)
-    autoprefixer-rails (8.0.0)
+    autoprefixer-rails (9.0.0)
       execjs
     bcrypt (3.1.11)
     better_errors (2.4.0)
@@ -484,7 +484,7 @@ DEPENDENCIES
   devise (~> 4.3.0)
   exlibris-nyu!
   factory_girl_rails (~> 4.9)
-  faker
+  faker (~> 1.8.7)
   formaggio!
   httparty (~> 0.16.0)
   jquery-rails (~> 4.3.1)
@@ -499,10 +499,10 @@ DEPENDENCIES
   omniauth-nyulibraries!
   phantomjs (>= 1.9.0)
   poltergeist (~> 1.17)
-  pry
+  pry (~> 0.10)
   rails (~> 4.2.5)
   roboto (~> 1)
-  rspec-its
+  rspec-its (~> 1.2.0)
   rspec-rails (~> 3)
   sass-rails (~> 5.0.6)
   selenium-webdriver
@@ -512,4 +512,4 @@ DEPENDENCIES
   webmock (~> 3)
 
 BUNDLED WITH
-   1.16.2
+   1.16.3

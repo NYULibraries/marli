@@ -32,11 +32,11 @@ gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.0'
 gem 'compass-rails', '~> 3.0.2'
 
 # Use the NYU Libraries assets gem for shared NYU Libraries assets
-gem 'nyulibraries_stylesheets', github: 'NYULibraries/nyulibraries_stylesheets', tag: 'v1.0.5'
-gem 'nyulibraries_templates', github: 'NYULibraries/nyulibraries_templates', tag: 'v1.1.2'
+gem 'nyulibraries_stylesheets', github: 'NYULibraries/nyulibraries_stylesheets', tag: 'v1.1.2'
+gem 'nyulibraries_templates', github: 'NYULibraries/nyulibraries_templates', tag: 'v1.2.1'
 gem 'nyulibraries_institutions', github: 'NYULibraries/nyulibraries_institutions', tag: 'v1.0.3'
 gem 'nyulibraries_javascripts', github: 'NYULibraries/nyulibraries_javascripts', tag: 'v1.0.0'
-gem 'nyulibraries_errors', github: 'NYULibraries/nyulibraries_errors', tag: 'v1.0.1'
+gem 'nyulibraries_errors', github: 'NYULibraries/nyulibraries_errors', tag: 'v1.0.2'
 
 # Deploy the application with Formaggio deploy recipes
 gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.7.1'
@@ -65,7 +65,7 @@ end
 
 group :development, :test do
   # Use pry as the REPL
-  gem 'pry'
+  gem 'pry', '~> 0.10'
 end
 
 group :test do
@@ -74,7 +74,7 @@ group :test do
   # Use VCR with WebMock for testing with deterministic HTTP interactions
   gem 'vcr', '~> 4'
   gem 'webmock', '~> 3'
-  gem 'faker'
+  gem 'faker', '~> 1.8.7'
   gem 'factory_girl_rails', '~> 4.9'
   gem 'cucumber-rails', '~> 1.5.0', require: false
   gem 'database_cleaner'
@@ -82,5 +82,5 @@ group :test do
   gem 'poltergeist', '~> 1.17'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3'
-  gem 'rspec-its'
+  gem 'rspec-its', '~> 1.2.0'
 end
