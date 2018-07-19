@@ -1,13 +1,12 @@
 #!/bin/bash
-# Interpreter identifier
-
-# Exit on fail
-set -e
 
 # Ensure all gems installed. Add binstubs to bin which has been added to PATH in Dockerfile
 # bundle binstubs bundler --force
 bundle config --global github.https true
-bundle install --binstubs="$BUNDLE_BIN"
+bundle check
+if [ $? -ne 0 ]; then
+  bundle install --binstubs="$BUNDLE_BIN"
+fi
 
-# Finally call command issued to the docker service
+# Call command issued to the docker service
 exec "$@"
