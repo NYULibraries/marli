@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :application_detail do
     purpose "already_submitted"
     the_text "You have already submitted your information"

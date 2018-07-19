@@ -75,7 +75,7 @@ group :test do
   gem 'vcr', '~> 4'
   gem 'webmock', '~> 3'
   gem 'faker', '~> 1.8.7'
-  gem 'factory_girl_rails', '~> 4.9'
+  gem 'factory_bot_rails', '~> 4.10'
   gem 'cucumber-rails', '~> 1.5.0', require: false
   gem 'database_cleaner'
   gem 'phantomjs', '>= 1.9.0'
