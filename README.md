@@ -18,18 +18,16 @@ Once a user is logged into through NYU's Login, the application uses the [exlibr
 
 ### Test
 
-Assuming docker is setup and running in your development environment:
+Assuming docker:
 
 ```bash
-~$ docker-compose up -d
 # Run tests
-~$ docker-compose run test rake
+~$ docker-compose run test
 ```
 
 ### Development
 
 ```bash
-~$ docker-compose up -d
-~$ docker-compose exec web rake db:setup
+~$ docker-compose run --service-ports dev
 # Visit http://{DOCKER_MACHINE_IP}:3000
 ```
