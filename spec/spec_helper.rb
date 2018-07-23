@@ -29,8 +29,8 @@ RSpec.configure do |config|
   # Add an exclusion filter
   config.filter_run_excluding pending_implementation: true
 
-  # Include Factory Girl convenience methods
-  config.include FactoryGirl::Syntax::Methods
+  # Include Factory Bot convenience methods
+  config.include FactoryBot::Syntax::Methods
 
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.extend LoginMacros, :type => :controller
@@ -80,12 +80,12 @@ RSpec.configure do |config|
   # Add an exclusion filter
   config.filter_run_excluding pending_implementation: true
 
-  # Include Factory Girl convenience methods
-  config.include FactoryGirl::Syntax::Methods
+  # Include Factory Bot convenience methods
+  config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
-    # Run factory girl lint before the suite
-    # FactoryGirl.lint
+    # Run factory bot lint before the suite
+    # FactoryBot.lint
 
     # Startout by trucating all the tables
     DatabaseCleaner.clean_with :truncation
