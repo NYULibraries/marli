@@ -29,7 +29,7 @@ gem 'therubyracer', '~> 0.12'
 gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.0'
 
 # Use the Compass CSS framework for sprites, etc.
-gem 'compass-rails', '~> 3.0.2'
+gem 'compass-rails', '~> 3.1.0'
 
 # Use the NYU Libraries assets gem for shared NYU Libraries assets
 gem 'nyulibraries_stylesheets', github: 'NYULibraries/nyulibraries_stylesheets', tag: 'v1.1.2'

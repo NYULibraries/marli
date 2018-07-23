@@ -1,7 +1,6 @@
 # Manhattan Research Library Initiative (MaRLI) registration application
 
 [![CircleCI](https://circleci.com/gh/NYULibraries/marli.svg?style=svg)](https://circleci.com/gh/NYULibraries/marli)
-[![Dependency Status](https://gemnasium.com/NYULibraries/marli.png)](https://gemnasium.com/NYULibraries/marli)
 [![Code Climate](https://codeclimate.com/github/NYULibraries/marli.png)](https://codeclimate.com/github/NYULibraries/marli)
 [![Coverage Status](https://coveralls.io/repos/NYULibraries/marli/badge.png)](https://coveralls.io/r/NYULibraries/marli)
 
@@ -19,18 +18,16 @@ Once a user is logged into through NYU's Login, the application uses the [exlibr
 
 ### Test
 
-Assuming docker is setup and running in your development environment:
+Assuming docker:
 
 ```bash
-~$ docker-compose up -d
 # Run tests
-~$ docker-compose run test rake
+~$ docker-compose run test
 ```
 
 ### Development
 
 ```bash
-~$ docker-compose up -d
-~$ docker-compose exec web rake db:setup
+~$ docker-compose run --service-ports dev
 # Visit http://{DOCKER_MACHINE_IP}:3000
 ```
