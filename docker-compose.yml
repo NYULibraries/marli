@@ -9,11 +9,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - test.env
-    environment:
-      CI:
-      CODECLIMATE_REPO_TOKEN:
-      COVERALLS_REPO_TOKEN:
+      - test.env      
     command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
     depends_on:
       - setup_dbs
@@ -26,6 +22,9 @@ services:
       - bundle_cache:/bundle
     environment:
       RAILS_ENV: test
+      CI:
+      CODECLIMATE_REPO_TOKEN:
+      COVERALLS_REPO_TOKEN:
     env_file:
       - test.env
     command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rake"]

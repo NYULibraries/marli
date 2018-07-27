@@ -22,12 +22,12 @@ Assuming docker:
 
 ```bash
 # Run tests
-~$ docker-compose run test
+~$ docker-compose up test
 ```
 
 ### Development
 
 ```bash
-~$ docker-compose run --service-ports dev
+~$ docker-compose up dev
 # Visit http://{DOCKER_MACHINE_IP}:3000
 ```
