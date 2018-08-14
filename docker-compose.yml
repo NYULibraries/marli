@@ -1,6 +1,8 @@
 version: "3"
 services:
   dev:
+    tty: true
+    stdin_open: true
     build: .
     volumes:
       - ./app:/app/app
@@ -9,12 +11,14 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - test.env      
+      - test.env
     command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
     depends_on:
       - setup_dbs
 
   test:
+    tty: true
+    stdin_open: true
     build:
       context: .
       dockerfile: Dockerfile.test
@@ -29,7 +33,7 @@ services:
       - test.env
     command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rake"]
     depends_on:
-      - setup_dbs
+      - setup_test_dbs
 
   setup_test_dbs:
     build:
