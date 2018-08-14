@@ -22,7 +22,7 @@ Assuming docker:
 
 ```bash
 # Run tests
-~$ docker-compose up test
+~$ docker-compose run test
 ```
 
 ### Development
