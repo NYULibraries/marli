@@ -23,7 +23,9 @@ gem 'uglifier', '~> 3.2.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # If you can't install this locally on Mac OS X use the following command
 # gem install libv8 -v '3.16.14.11' -- --with-system-v8
-gem 'therubyracer', '~> 0.12'
+group :no_docker do
+  gem 'therubyracer', '~> 0.12'
+end
 
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
 gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.0'
@@ -78,8 +80,6 @@ group :test do
   gem 'factory_bot_rails', '~> 4.10'
   gem 'cucumber-rails', '~> 1.5.0', require: false
   gem 'database_cleaner'
-  gem 'phantomjs', '>= 1.9.0'
-  gem 'poltergeist', '~> 1.17'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3'
   gem 'rspec-its', '~> 1.2.0'
