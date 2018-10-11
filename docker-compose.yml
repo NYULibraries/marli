@@ -1,60 +1,63 @@
-version: "3"
+version: '3.7'
+x-build: &build
+  build:
+    context: .
+    cache_from:
+      - marli
+      - $ECR_DOMAIN/marli
+      - $ECR_DOMAIN/marli:$BRANCH_NO_SLASH
+  image: marli
+  tty: true
+  stdin_open: true
+x-test-env: &test-env
+  <<: *build
+  environment:
+    RAILS_ENV: test
+    MARLI_DB_DATABASE: rooms_test
+    BRANCH_NO_SLASH:
+    CI:
+    CODECLIMATE_REPO_TOKEN:
+    COVERALLS_REPO_TOKEN:
+  env_file:
+    - test.env
+x-dev-env: &dev-env
+  <<: *build
+  env_file:
+    - test.env
+
 services:
   dev:
-    tty: true
-    stdin_open: true
-    build: .
+    <<: *dev-env
+    ports:
+      - "3000:3000"
+    command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+    depends_on:
+      - setup_dbs
     volumes:
       - ./app:/app/app
       - ./vendor:/app/vendor
       - bundle_cache:/bundle
-    ports:
-      - "3000:3000"
-    env_file:
-      - test.env
-    command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
-    depends_on:
-      - setup_dbs
 
   test:
-    tty: true
-    stdin_open: true
-    build:
-      context: .
-      dockerfile: Dockerfile.test
-    volumes:
-      - bundle_cache:/bundle
-    environment:
-      RAILS_ENV: test
-      CI:
-      CODECLIMATE_REPO_TOKEN:
-      COVERALLS_REPO_TOKEN:
-    env_file:
-      - test.env
+    <<: *test-env
     command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rake"]
     depends_on:
       - setup_test_dbs
-
-  setup_test_dbs:
-    build:
-      context: .
-      dockerfile: Dockerfile.test
     volumes:
       - bundle_cache:/bundle
-    environment:
-      RAILS_ENV: test
-    env_file:
-      - test.env
+
+  setup_test_dbs:
+    <<: *test-env
+    volumes:
+      - bundle_cache:/bundle
     command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rake", "db:setup"]
     depends_on:
       - db
 
   setup_dbs:
-    build: .
+    <<: *dev-env
     volumes:
       - bundle_cache:/bundle
-    env_file:
-      - test.env
     command: ["/tmp/wait-for-it.sh", "db:3306", "--", "rake", "db:setup"]
     depends_on:
       - db

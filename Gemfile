@@ -78,8 +78,6 @@ group :test do
   gem 'factory_bot_rails', '~> 4.10'
   gem 'cucumber-rails', '~> 1.5.0', require: false
   gem 'database_cleaner'
-  gem 'phantomjs', '>= 1.9.0'
-  gem 'poltergeist', '~> 1.17'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3'
   gem 'rspec-its', '~> 1.2.0'
