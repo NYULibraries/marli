@@ -23,7 +23,9 @@ gem 'uglifier', '~> 3.2.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # If you can't install this locally on Mac OS X use the following command
 # gem install libv8 -v '3.16.14.11' -- --with-system-v8
-gem 'therubyracer', '~> 0.12'
+group :no_docker do
+  gem 'therubyracer', '~> 0.12'
+end
 
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
 gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.0'
