@@ -1,8 +1,8 @@
 # Manhattan Research Library Initiative (MaRLI) registration application
 
 [![CircleCI](https://circleci.com/gh/NYULibraries/marli.svg?style=svg)](https://circleci.com/gh/NYULibraries/marli)
-[![Code Climate](https://codeclimate.com/github/NYULibraries/marli.png)](https://codeclimate.com/github/NYULibraries/marli)
-[![Coverage Status](https://coveralls.io/repos/NYULibraries/marli/badge.png)](https://coveralls.io/r/NYULibraries/marli)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c7d81d4f398cb27cac82/maintainability)](https://codeclimate.com/github/NYULibraries/marli/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/NYULibraries/marli/badge.svg?branch=master)](https://coveralls.io/github/NYULibraries/marli?branch=master)
 
 This is a simple Rails application to allow MaRLI participants at NYU to send their registration requests to the other participant libraries. See [http://marli.libguides.com/welcome](http://marli.libguides.com/welcome) for more information on the MaRLI project.
 
