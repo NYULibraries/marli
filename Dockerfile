@@ -1,4 +1,4 @@
-FROM nyulibraries/selenium_chrome_headless_ruby:2.3.7-slim-chrome_69
+FROM quay.io/nyulibraries/selenium_chrome_headless_ruby:2.5-slim-chrome_72
 
 ENV DOCKER true
 ENV INSTALL_PATH /app
@@ -22,7 +22,7 @@ COPY Gemfile Gemfile.lock ./
 ARG RUN_PACKAGES="nodejs ruby-mysql2 default-libmysqlclient-dev git"
 ARG BUILD_PACKAGES="build-essential zlib1g-dev"
 RUN apt-get update && apt-get -y --no-install-recommends install $BUILD_PACKAGES $RUN_PACKAGES \
-  && gem install bundler -v '1.16.5' \
+  && gem install bundler -v '2.0.1' \
   && bundle config --local github.https true \
   && bundle install --without no_docker --jobs 20 --retry 5 \
   && rm -rf /root/.bundle && rm -rf /root/.gem \
