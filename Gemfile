@@ -43,7 +43,7 @@ gem 'nyulibraries_errors', github: 'NYULibraries/nyulibraries_errors', tag: 'v1.
 # Deploy the application with Formaggio deploy recipes
 gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.7.1'
 gem 'omniauth-nyulibraries', github: 'NYULibraries/omniauth-nyulibraries', tag: 'v2.1.1'
-gem 'devise', '~> 4.3.0'
+gem 'devise', '~> 4.6.0'
 
 # Use Kaminari for pagination
 gem 'kaminari', '~> 1.1.1'
