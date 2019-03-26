@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
   protected :authenticate_admin
 
-  prepend_before_filter :passive_login, unless: -> { user_signed_in? }
+  prepend_before_action :passive_login, unless: -> { user_signed_in? }
   def passive_login
     if !cookies[:_check_passive_login]
       cookies[:_check_passive_login] = true

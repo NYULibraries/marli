@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   respond_to :html, :js, :csv
-  before_filter :authenticate_admin, :except => [:new_registration, :create_registration, :confirmation]
-  before_filter :authorize_patron, :only => [:new_registration, :create_registration, :confirmation]
+  before_action :authenticate_admin, :except => [:new_registration, :create_registration, :confirmation]
+  before_action :authorize_patron, :only => [:new_registration, :create_registration, :confirmation]
 
   # GET /users
   def index
