@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '= 4.2.11.1'
+gem 'rails', '= 5.2.2.1'
 
 # Use MySQL for the database
 gem 'mysql2', '~> 0.4.9'
@@ -28,7 +28,8 @@ group :no_docker do
 end
 
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
-gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.0'
+gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.1'
+gem 'exlibris-primo', github: 'NYULibraries/exlibris-primo', branch: 'chore/looser_activesupport_requirements'
 
 # Use the Compass CSS framework for sprites, etc.
 gem 'compass-rails', '~> 3.1.0'
@@ -54,7 +55,7 @@ gem 'acts_as_indexed', '~> 0.8.0'
 gem 'dalli', '~> 2.7.6'
 
 # Create CSVs from models
-gem 'comma', '~> 4.1.0'
+gem 'comma', '~> 4.2.0'
 
 gem 'httparty', '~> 0.16.0'
 
@@ -78,7 +79,7 @@ group :test do
   gem 'webmock', '~> 3'
   gem 'faker', '~> 1.8.7'
   gem 'factory_bot_rails', '~> 4.10'
-  gem 'cucumber-rails', '~> 1.5.0', require: false
+  gem 'cucumber-rails', '~> 1.6.0', require: false
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3'
