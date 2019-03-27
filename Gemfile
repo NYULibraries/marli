@@ -66,6 +66,7 @@ gem 'roboto', '~> 1'
 group :development do
   gem 'better_errors', '~> 2'
   gem 'binding_of_caller', '~> 0'
+  gem 'listen', '~> 3.1'
 end
 
 group :development, :test do
@@ -86,4 +87,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3'
   gem 'rspec-its', '~> 1.2.0'
+  gem 'rails-controller-testing', '~> 1.0.4'
 end
