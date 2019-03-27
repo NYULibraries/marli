@@ -2,6 +2,10 @@ require_relative 'boot'
 
 require 'rails/all'
 
+require 'figs'
+# Don't run this initializer on travis.
+Figs.load(stage: Rails.env) unless ENV['CI']
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
