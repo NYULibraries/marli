@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   # Reset submitted request flag
   def reset_submissions
-    if params[:id]
+    if params[:id].present?
       @user = User.find(params[:id])
       @user.update_attributes( :submitted_request => nil, :submitted_at => nil )
     else
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   # Delete all non-admin patrons
   def clear_patron_data
-    if User.destroy_all(admin: [nil, false])
+    if User.where(admin: [nil, false]).destroy_all
       flash[:success] = t('users.clear_patron_data_success')
     end
     redirect_to users_url
