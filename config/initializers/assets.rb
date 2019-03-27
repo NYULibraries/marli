@@ -15,4 +15,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w[
     nyulibraries/nyu/header.png
     magnifier.png
-]s
+]
