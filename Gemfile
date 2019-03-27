@@ -88,4 +88,5 @@ group :test do
   gem 'rspec-rails', '~> 3'
   gem 'rspec-its', '~> 1.2.0'
   gem 'rails-controller-testing', '~> 1.0.4'
+  gem 'puma', '~> 3.12'
 end
