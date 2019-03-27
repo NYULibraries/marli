@@ -27,6 +27,8 @@ group :no_docker do
   gem 'therubyracer', '~> 0.12'
 end
 
+gem 'bootsnap', require: false
+
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
 gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.1'
 gem 'exlibris-primo', github: 'NYULibraries/exlibris-primo', branch: 'chore/looser_activesupport_requirements'
