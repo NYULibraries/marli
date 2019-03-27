@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Marli::Affiliations
   devise :omniauthable,:omniauth_providers => [:nyulibraries]
 
