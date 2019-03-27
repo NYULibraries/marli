@@ -21,7 +21,7 @@ module ApplicationHelper
     css_class = column == sort_column ? "current #{sort_direction}" : nil
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     direction_icon = (direction.eql? "desc") ? :sort_desc : :sort_asc
-    html = link_to title, params.merge(:sort => column, :direction => direction, :page => nil, :id => ""), {:class => css_class}
+    html = link_to(title, users_url(sort: column, direction: direction, page: nil, id: ""), { class: css_class })
     html << icon_tag(direction_icon) if column == sort_column
     return html
   end
