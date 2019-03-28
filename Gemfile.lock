@@ -506,7 +506,7 @@ DEPENDENCIES
   acts_as_indexed (~> 0.8.0)
   better_errors (~> 2)
   binding_of_caller (~> 0)
-  bootsnap
+  bootsnap (~> 1.4.2)
   coffee-rails (~> 4.2.2)
   comma (~> 4.2.0)
   compass-rails (~> 3.1.0)
