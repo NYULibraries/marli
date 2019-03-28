@@ -31,7 +31,7 @@ gem 'bootsnap', '~> 1.4.2', require: false
 
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
 gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.1'
-gem 'exlibris-primo', github: 'NYULibraries/exlibris-primo', branch: 'chore/looser_activesupport_requirements'
+gem 'exlibris-primo', github: 'NYULibraries/exlibris-primo', tag: 'v2.2.0'
 
 # Use the Compass CSS framework for sprites, etc.
 gem 'compass-rails', '~> 3.1.0'

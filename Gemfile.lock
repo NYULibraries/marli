@@ -10,10 +10,10 @@ GIT
 
 GIT
   remote: https://github.com/NYULibraries/exlibris-primo.git
-  revision: 250305c2c0c87e421f999090719381efa0612568
-  branch: chore/looser_activesupport_requirements
+  revision: 525ecf98dfa99f90217353c3112040cbb5619f5c
+  tag: v2.2.0
   specs:
-    exlibris-primo (2.1.1)
+    exlibris-primo (2.2.0)
       activesupport (>= 3.2, < 6)
       iso-639 (~> 0.2.0)
       json (>= 1.8.0, < 3)
