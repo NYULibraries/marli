@@ -24,7 +24,7 @@ describe UsersController do
         login_admin
         let(:q) { 'user' }
         let(:format) { 'html' }
-        before { get :index, q: q, format: format }
+        before { get :index, params: {q: q, format: format} }
         subject { response }
         context 'when there is a search keyword' do
           it 'should return all users objects' do
@@ -59,7 +59,7 @@ describe UsersController do
 
     describe 'POST /create' do
       login_admin
-      before { post :create, user: { username: username, email: email, admin: admin, override_access: override_access} }
+      before { post :create, params: {user: { username: username, email: email, admin: admin, override_access: override_access}} }
       subject { response }
       context 'when username and email are present' do
         it 'should create a new user' do
@@ -104,7 +104,7 @@ describe UsersController do
 
     describe 'GET /show' do
       login_admin
-      before { get :show, id: user }
+      before { get :show, params: { id: user } }
       subject { response }
       it 'should assign user' do
         expect(assigns(:user)).to_not be_nil
@@ -116,7 +116,7 @@ describe UsersController do
       login_admin
       let(:username) { 'newsername2' }
       let(:email) { "#{username}@school.edu" }
-      before { patch :update, id: user, user: { username: username, email: email, admin: admin, override_access: override_access} }
+      before { patch :update, params: {id: user, user: { username: username, email: email, admin: admin, override_access: override_access}} }
       context 'when trying to change username or email' do
         it 'should not change username or email' do
           expect(assigns(:user)).to_not be_nil
@@ -141,7 +141,7 @@ describe UsersController do
 
     describe 'DELETE /destroy' do
       login_admin
-      before { delete :destroy, id: user }
+      before { delete :destroy, params: {id: user} }
       it 'should delete user' do
         expect(assigns(:user).destroyed?).to be true
       end
@@ -150,9 +150,10 @@ describe UsersController do
 
     describe 'GET /reset_submissions' do
       login_admin
-      before { create(:user, submitted_at: Time.now, submitted_request: true) }
-      let(:user) { create(:user, submitted_at: Time.now, submitted_request: true)}
-      before { get :reset_submissions, id: user }
+      let!(:before_user) { create(:user, submitted_at: Time.now, submitted_request: true) }
+      let(:user_id) { create(:user, submitted_at: Time.now, submitted_request: true).id }
+      before { get :reset_submissions, params: { id: user_id } }
+      subject { response }
       context 'when user id is specified' do
         it 'should reset submission for specified user' do
           expect(assigns(:user)).to_not be_nil
@@ -160,7 +161,7 @@ describe UsersController do
         end
       end
       context 'when user id is not specified' do
-        let(:user) { nil }
+        let(:user_id) { nil }
         it 'should reset submission for all users' do
           expect(assigns(:users)).to_not be_nil
         end
@@ -194,7 +195,7 @@ describe UsersController do
       login_admin
       let(:barcode) { '12345' }
       let(:marli_renewal) { '1' }
-      before { post :create_registration, user: { barcode: barcode } }
+      before { post :create_registration, params: {user: { barcode: barcode }} }
       subject { response }
       it 'should be a valid user' do
         expect(assigns(:user).valid?).to be true

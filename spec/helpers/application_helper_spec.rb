@@ -28,11 +28,12 @@ describe ApplicationHelper do
     end
   end
 
-  # describe '#sortable' do
-  #   let(:sort_column) { 'title' }
-  #   subject { sortable('title') }
-  #   it { is_expected.to eql '' }
-  # end
+  describe '#sortable' do
+    let(:sort_direction) { 'asc' }
+    let(:sort_column) { 'author' }
+    subject { sortable('title') }
+    it { is_expected.to eql '<a href="http://test.host/admin/users?direction=asc&amp;id=&amp;sort=title">Title</a>' }
+  end
 
   describe '#user_status' do
     subject { user_status(user) }

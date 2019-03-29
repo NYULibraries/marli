@@ -26,7 +26,7 @@ describe ApplicationDetailsController do
 
   describe 'GET /edit' do
     login_admin
-    before { get :edit, id: application_detail }
+    before { get :edit, params: { id: application_detail } }
     subject { response }
     it 'should assign application detail' do
       expect(assigns(:application_detail)).to_not be_nil
@@ -36,7 +36,7 @@ describe ApplicationDetailsController do
 
   describe 'PUT /update' do
     login_admin
-    before { put :update, id: application_detail, application_detail: { the_text: 'new text', purpose: 'new purpose', description: 'new description' } }
+    before { put :update, params: { id: application_detail, application_detail: { the_text: 'new text', purpose: 'new purpose', description: 'new description' } } }
     it 'should assign application detail' do
       expect(assigns(:application_detail)).to_not be_nil
       expect(assigns(:application_detail).the_text).to eql 'new text'
