@@ -4,8 +4,8 @@ x-build: &build
     context: .
     cache_from:
       - marli
-      - $ECR_DOMAIN/marli
-      - $ECR_DOMAIN/marli:$BRANCH_NO_SLASH
+      - quay.io/nyulibraries/marli
+      - quay.io/nyulibraries/marli:$BRANCH_NO_SLASH
   image: marli
   tty: true
   stdin_open: true
@@ -45,6 +45,7 @@ services:
       - setup_test_dbs
     volumes:
       - bundle_cache:/bundle
+      # - ./:/app
 
   setup_test_dbs:
     <<: *test-env
