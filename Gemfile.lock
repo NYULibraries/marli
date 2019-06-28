@@ -303,6 +303,7 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
+    kgio (2.11.2)
     libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -397,6 +398,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
+    raindrops (0.19.0)
     rake (10.5.0)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
@@ -483,6 +485,9 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
+    unicorn (5.5.1)
+      kgio (~> 2.6)
+      raindrops (~> 0.7)
     vcr (4.0.0)
     warden (1.2.7)
       rack (>= 1.0)
@@ -543,6 +548,7 @@ DEPENDENCIES
   selenium-webdriver
   therubyracer (~> 0.12)
   uglifier (~> 3.2.0)
+  unicorn (~> 5.5.1)
   vcr (~> 4)
   webmock (~> 3)
 

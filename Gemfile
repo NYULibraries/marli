@@ -63,6 +63,8 @@ gem 'httparty', '~> 0.16.0'
 
 gem 'roboto', '~> 1'
 
+gem 'unicorn', '~> 5.5.1'
+
 group :development do
   gem 'better_errors', '~> 2'
   gem 'binding_of_caller', '~> 0'
