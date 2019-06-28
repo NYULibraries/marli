@@ -64,20 +64,20 @@ jobs:
       - image: appropriate/curl
     steps:
       - run:
-        name: Deploy into staging via Jenkins
-        command: |
-          export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-          curl --fail --user -u $JENKINS_USERNAME:$JENKINS_API_KEY -X POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Development%20Deploy/build/api
+          name: Deploy into staging via Jenkins
+          command: |
+            export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
+            curl --fail --user -u $JENKINS_USERNAME:$JENKINS_API_KEY -X POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Development%20Deploy/build/api
 
   deploy-prod:
     docker:
       - image: appropriate/curl
     steps:
       - run:
-        name: Deploy into production via Jenkins
-        command: |
-          export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-          curl --fail --user -u $JENKINS_USERNAME:$JENKINS_API_KEY -X POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Production%20Deploy/build/api
+          name: Deploy into production via Jenkins
+          command: |
+            export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
+            curl --fail --user -u $JENKINS_USERNAME:$JENKINS_API_KEY -X POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Production%20Deploy/build/api
 
 workflows:
   version: 2
