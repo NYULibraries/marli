@@ -7,6 +7,7 @@ ENV BUNDLE_PATH=/usr/local/bundle \
     GEM_HOME=/usr/local/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 ENV USER docker
+ENV BUNDLER_VERSION='2.0.1'
 
 RUN addgroup -g 1000 -S docker && \
   adduser -u 1000 -S -G docker docker
@@ -19,10 +20,11 @@ COPY --chown=docker:docker bin/ bin/
 COPY --chown=docker:docker Gemfile Gemfile.lock ./
 ARG RUN_PACKAGES="ca-certificates fontconfig mariadb-dev nodejs tzdata git"
 ARG BUILD_PACKAGES="ruby-dev build-base linux-headers mysql-dev python"
+ARG BUNDLE_WITHOUT="no_docker"
 RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \
-  && gem install bundler -v '1.16.6' \
+  && gem install bundler -v ${BUNDLER_VERSION} \
   && bundle config --local github.https true \
-  && bundle install --without no_docker --jobs 20 --retry 5 \
+  && bundle install --without $BUNDLE_WITHOUT --jobs 20 --retry 5 \
   && rm -rf /root/.bundle && rm -rf /root/.gem \
   && rm -rf $BUNDLE_PATH/cache \
   && apk del $BUILD_PACKAGES \

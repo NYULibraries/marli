@@ -3,13 +3,11 @@ x-build-image: &build-image
   build:
     context: .
     cache_from:
-      - marli_test
       - marli
       - quay.io/nyulibraries/marli
       - quay.io/nyulibraries/marli:$BRANCH_NO_SLASH
     args:
       BUNDLE_WITHOUT: "no_docker development test"
-      RUN_PACKAGES: ""
   environment:
     BRANCH_NO_SLASH:
 
