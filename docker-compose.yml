@@ -16,7 +16,7 @@ x-build_test: &build_test
     context: .
     dockerfile: Dockerfile.test
     cache_from:
-      - nyulibraries/selenium_chrome_headless_ruby:2.3.7-slim-chrome_69
+      - quay.io/nyulibraries/selenium_chrome_headless_ruby:2.6-slim-chrome_73
       - marli_test
       - quay.io/nyulibraries/marli_test:${BRANCH_NO_SLASH}
       - quay.io/nyulibraries/marli_test:latest
