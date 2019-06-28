@@ -4,7 +4,7 @@ x-build-image: &build-image
     context: .
     cache_from:
       - marli
-      - quay.io/nyulibraries/marli
+      - quay.io/nyulibraries/marli:latest
       - quay.io/nyulibraries/marli:$BRANCH_NO_SLASH
     args:
       BUNDLE_WITHOUT: "no_docker development test"
@@ -14,10 +14,11 @@ x-build-image: &build-image
 x-build-image-test: &build-image-test
   build:
     context: .
+    dockerfile: Dockerfile.test
     cache_from:
       - marli_test
-      - quay.io/nyulibraries/marli_test
-      - quay.io/nyulibraries/marli_test:$BRANCH_NO_SLASH
+      - quay.io/nyulibraries/marli_test:${BRANCH_NO_SLASH}
+      - quay.io/nyulibraries/marli_test:latest
     args:
       BUNDLE_WITHOUT: "no_docker"
   environment:
