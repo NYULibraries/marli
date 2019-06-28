@@ -2,8 +2,8 @@ docker-defaults: &docker-defaults
   docker:
     - image: quay.io/nyulibraries/circleci_docker:18.06.1-dc-1.23.2-0
       environment:
-        - IMAGE_NAME=pushtocite
-        - COMPOSE_PROJECT_NAME=pushtocite
+        - IMAGE_NAME=marli
+        - COMPOSE_PROJECT_NAME=marli
   working_directory: ~/app
 
 build_docker: &build_docker
