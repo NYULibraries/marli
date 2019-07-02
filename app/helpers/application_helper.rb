@@ -36,4 +36,17 @@ module ApplicationHelper
     @user.present? && @user.marli_renewal == "Renewal"
   end
 
+  def registration_emails(registration_emails)
+    if ENV['REGISTRATION_EMAILS']
+      ENV['REGISTRATION_EMAILS'].split('::').each |institution| 
+        institution_array = institution.split(':')
+        registration_emails << {
+          "email" => institution.last,
+          "institution" => institution.first,
+        }
+      end
+    end
+    registration_emails
+  end
+
 end

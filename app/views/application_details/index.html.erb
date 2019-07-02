@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-  	<% (Figs.env['REGISTRATION_EMAILS'] || []).each do |email| %>
+  	<% registration_emails.each do |email| %>
   	  <tr>
   	    <td><%= email["institution"] %></td>
   	    <td><%= email["email"] %></td>
