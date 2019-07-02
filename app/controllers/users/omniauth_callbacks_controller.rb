@@ -79,25 +79,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def aleph_address_attributes
-    address = Exlibris::Aleph::Patron.new(omniauth_aleph_id).address
-    if address
     {
-      address: {
-        street_address: address.address2,
-        city: address.address3,
-        state: address.address4,
-        postal_code: address.zip
-      }
-    }
-    end
-  rescue NoMethodError => e
-    {
-      address: {
-        street_address: '',
-        city: '',
-        state: '',
-        postal_code: ''
-      }
+      address: omniauth_aleph_properties.address,
     }
   end
 
