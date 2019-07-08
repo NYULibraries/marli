@@ -36,17 +36,11 @@ module ApplicationHelper
     @user.present? && @user.marli_renewal == "Renewal"
   end
 
-  def registration_emails(registration_emails)
-    if ENV['REGISTRATION_EMAILS']
-      ENV['REGISTRATION_EMAILS'].split('::').each |institution| 
-        institution_array = institution.split(':')
-        registration_emails << {
-          "email" => institution.last,
-          "institution" => institution.first,
-        }
-      end
-    end
-    registration_emails
+  # Turn string representation of ENV var with registration emails into array of hashes
+  #
+  # "test@nyu.edu:NYU Marli::test1@nypl.org:NY Public Lib" => [{"email"=>"test@nyu.edu", "institution"=>"NYU Marli"}, {"email"=>"test1@nypl.org", "institution"=>"NY Public Lib"}]
+  def registration_emails
+    ENV['REGISTRATION_EMAILS']&.split('::')&.map {|e| { "email" => e.split(':').first, "institution" => e.split(':').last } }
   end
 
 end

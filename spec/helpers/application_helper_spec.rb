@@ -63,4 +63,29 @@ describe ApplicationHelper do
     end
   end
 
+  describe '#registration_emails' do
+    let(:emails) {
+      "test@nyu.edu:NYU Marli::test1@nypl.org:NY Public Lib"
+    }
+    before { ENV["REGISTRATION_EMAILS"] = emails }
+    subject { registration_emails }
+
+    context 'when env var is properly set' do
+      it { is_expected.to be_instance_of Array }
+      its(:size) { is_expected.to eql 2 }
+      it { is_expected.to include("email"=>"test@nyu.edu", "institution"=>"NYU Marli") }
+      it { is_expected.to include("email"=>"test1@nypl.org", "institution"=>"NY Public Lib") }
+    end
+    context 'when env var is improperly formatted' do
+      let(:emails) { "test-123" }
+      it { is_expected.to be_instance_of Array }
+      its(:size) { is_expected.to eql 1 }
+      it { is_expected.to include("email"=>"test-123", "institution"=>"test-123") }
+    end
+    context 'when env var is nil' do
+      let(:emails) { nil }
+      it { is_expected.to be_nil }
+    end
+  end
+
 end

@@ -9,6 +9,6 @@ class RegistrationMailer < ActionMailer::Base
 
   private
   def registration_emails
-    (Figs.env['REGISTRATION_EMAILS'] || [])
+    (ENV['REGISTRATION_EMAILS']&.split('::')&.map {|e| e.split(':').last } || [])
   end
 end

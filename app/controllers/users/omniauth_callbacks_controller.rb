@@ -29,7 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def is_admin?
-    (Figs.env["MARLI_DEFAULT_ADMINS"] or []).include?(@user.username)
+    (ENV["MARLI_DEFAULT_ADMINS"]&.split(',') || []).include?(@user.username)
   end
 
   def require_valid_omniauth
