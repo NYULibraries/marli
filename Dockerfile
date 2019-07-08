@@ -1,4 +1,4 @@
-FROM ruby:2.6-alpine
+FROM ruby:2.6-alpine3.10
 
 ENV DOCKER true
 ENV INSTALL_PATH /app
@@ -7,7 +7,7 @@ ENV BUNDLE_PATH=/usr/local/bundle \
     GEM_HOME=/usr/local/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 ENV USER docker
-ENV BUNDLER_VERSION='2.0.1'
+ENV BUNDLER_VERSION='2.0.2'
 
 RUN addgroup -g 1000 -S docker && \
   adduser -u 1000 -S -G docker docker
@@ -22,6 +22,7 @@ ARG RUN_PACKAGES="ca-certificates fontconfig mariadb-dev nodejs tzdata git"
 ARG BUILD_PACKAGES="ruby-dev build-base linux-headers mysql-dev python"
 ARG BUNDLE_WITHOUT="no_docker"
 RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \
+  && apk add --upgrade bzip2 && \
   && gem install bundler -v ${BUNDLER_VERSION} \
   && bundle config --local github.https true \
   && bundle install --without $BUNDLE_WITHOUT --jobs 20 --retry 5 \
