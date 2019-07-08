@@ -65,6 +65,8 @@ gem 'unicorn', '~> 5.5.1'
 
 gem 'listen', '~> 3.1'
 
+gem 'sentry-raven', '~> 2.9.0'
+
 group :development do
   gem 'better_errors', '~> 2'
   gem 'binding_of_caller', '~> 0'
