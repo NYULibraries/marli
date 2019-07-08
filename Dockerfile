@@ -22,7 +22,7 @@ ARG RUN_PACKAGES="ca-certificates fontconfig mariadb-dev nodejs tzdata git"
 ARG BUILD_PACKAGES="ruby-dev build-base linux-headers mysql-dev python"
 ARG BUNDLE_WITHOUT="no_docker"
 RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \
-  && apk add --upgrade bzip2 && \
+  && apk add --upgrade bzip2 \
   && gem install bundler -v ${BUNDLER_VERSION} \
   && bundle config --local github.https true \
   && bundle install --without $BUNDLE_WITHOUT --jobs 20 --retry 5 \
