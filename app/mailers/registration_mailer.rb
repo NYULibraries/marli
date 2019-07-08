@@ -3,12 +3,12 @@ class RegistrationMailer < ActionMailer::Base
 
   def registration_email(user)
     @user_data = user
-    emails = registration_emails.collect { |email| email["email"] }
+    emails = registration_emails
     mail(to: emails, cc: @user_data.email, subject: t('send_email.subject')) if emails.present?
   end
 
   private
   def registration_emails
-    (ENV['REGISTRATION_EMAILS']&.split('::')&.map {|e| e.split(':').last } || [])
+    (ENV['REGISTRATION_EMAILS']&.split('::')&.map {|e| e.split(':').first } || [])
   end
 end
