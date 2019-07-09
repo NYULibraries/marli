@@ -27,8 +27,6 @@ group :no_docker do
   gem 'therubyracer', '~> 0.12'
 end
 
-gem 'bootsnap', '~> 1.4.2', require: false
-
 # Use Exlibris::Nyu for NYU Exlibris customizations, etc.
 gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.1'
 gem 'exlibris-primo', github: 'NYULibraries/exlibris-primo', tag: 'v2.2.0'
@@ -63,10 +61,15 @@ gem 'httparty', '~> 0.16.0'
 
 gem 'roboto', '~> 1'
 
+gem 'unicorn', '~> 5.5.1'
+
+gem 'listen', '~> 3.1'
+
+gem 'sentry-raven', '~> 2.9.0'
+
 group :development do
   gem 'better_errors', '~> 2'
   gem 'binding_of_caller', '~> 0'
-  gem 'listen', '~> 3.1'
 end
 
 group :development, :test do

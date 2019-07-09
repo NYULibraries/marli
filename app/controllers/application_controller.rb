@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from Timeout::Error, with: :timeout_error
   # Resuce exlibris-nyu connection error
   rescue_from Faraday::ConnectionFailed, with: :connection_error
+  before_action :set_raven_context
 
   include Marli::Affiliations
   helper_method :affiliation_text, :affiliation, :auth_types
@@ -120,6 +121,10 @@ class ApplicationController < ActionController::Base
 
   def login_path_escaped
     CGI::escape("#{Rails.application.config.action_controller.relative_url_root}/login")
+  end
+
+  def set_raven_context
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
 end

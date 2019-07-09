@@ -1,5 +1,4 @@
-FROM quay.io/nyulibraries/selenium_chrome_headless_ruby:2.6-slim-chrome_73
-
+FROM ruby:2.6-alpine3.10
 
 ENV DOCKER true
 ENV INSTALL_PATH /app
@@ -8,33 +7,37 @@ ENV BUNDLE_PATH=/usr/local/bundle \
     GEM_HOME=/usr/local/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 ENV USER docker
+ENV BUNDLER_VERSION='2.0.2'
 
-RUN groupadd -g 2000 $USER -r && \
-  useradd -u 1000 -r --no-log-init -m -d $INSTALL_PATH -g $USER $USER
+RUN addgroup -g 1000 -S docker && \
+  adduser -u 1000 -S -G docker docker
 
 WORKDIR $INSTALL_PATH
 RUN chown docker:docker .
 
-RUN wget --no-check-certificate -q -O - https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > /tmp/wait-for-it.sh \
-  && chown docker:docker /tmp/wait-for-it.sh && chmod a+x /tmp/wait-for-it.sh
-
-COPY bin/ bin/
-COPY Gemfile Gemfile.lock ./
-ARG RUN_PACKAGES="nodejs ruby-mysql2 default-libmysqlclient-dev git"
-ARG BUILD_PACKAGES="build-essential zlib1g-dev"
-RUN apt-get update && apt-get -y --no-install-recommends install $BUILD_PACKAGES $RUN_PACKAGES \
-  && gem install bundler -v '2.0.1' \
+# bundle install
+COPY --chown=docker:docker bin/ bin/
+COPY --chown=docker:docker Gemfile Gemfile.lock ./
+ARG RUN_PACKAGES="ca-certificates fontconfig mariadb-dev nodejs tzdata git"
+ARG BUILD_PACKAGES="ruby-dev build-base linux-headers mysql-dev python"
+ARG BUNDLE_WITHOUT="no_docker"
+RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \
+  && apk add --upgrade bzip2 \
+  && gem install bundler -v ${BUNDLER_VERSION} \
   && bundle config --local github.https true \
-  && bundle install --without no_docker --jobs 20 --retry 5 \
+  && bundle install --without $BUNDLE_WITHOUT --jobs 20 --retry 5 \
   && rm -rf /root/.bundle && rm -rf /root/.gem \
   && rm -rf $BUNDLE_PATH/cache \
-  && apt-get --purge -y autoremove $BUILD_PACKAGES \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* \
+  && apk del $BUILD_PACKAGES \
   && chown -R docker:docker $BUNDLE_PATH
 
-USER $USER
-
+# precompile assets; use temporary secret token to silence error, real token set at runtime
+USER docker
 COPY --chown=docker:docker . .
-RUN bundle exec rake assets:precompile
+RUN SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) \
+  && SECRET_KEY_BASE=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) \
+  RAILS_ENV=development bin/rails assets:precompile
 
-CMD bundle exec rake
+EXPOSE 9292
+
+CMD ./scripts/start.sh development

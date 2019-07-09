@@ -2,9 +2,11 @@ require_relative 'boot'
 
 require 'rails/all'
 
-require 'figs'
-# Don't run this initializer on travis.
-Figs.load(stage: Rails.env) unless ENV['CI']
+unless ENV['DOCKER']
+  require 'figs'
+  # Don't run this initializer on travis.
+  Figs.load(stage: Rails.env)
+end
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -22,4 +24,8 @@ module Marli
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
   end
+end
+
+Raven.configure do |config|
+  config.dsn = ENV['SENTRY_DSN']
 end

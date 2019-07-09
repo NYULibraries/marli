@@ -1,0 +1,63 @@
+version: '3.7'
+x-build-image: &build-image
+  build:
+    context: .
+    cache_from:
+      - marli
+      - quay.io/nyulibraries/marli:latest
+      - quay.io/nyulibraries/marli:$BRANCH_NO_SLASH
+    args:
+      BUNDLE_WITHOUT: "no_docker development test"
+  environment:
+    BRANCH_NO_SLASH:
+
+x-build-image-test: &build-image-test
+  build:
+    context: .
+    dockerfile: Dockerfile.test
+    cache_from:
+      - marli_test
+      - quay.io/nyulibraries/marli_test:${BRANCH_NO_SLASH}
+      - quay.io/nyulibraries/marli_test:latest
+    args:
+      BUNDLE_WITHOUT: "no_docker"
+  environment:
+    BRANCH_NO_SLASH:
+
+services:
+  marli_1:
+    <<: *build-image
+    image: marli
+  marli_test_1:
+    <<: *build-image-test
+    image: marli_test
+  marli_2:
+    <<: *build-image
+    image: "quay.io/nyulibraries/marli:latest"
+    depends_on:
+      - marli_1
+  marli_test_2:
+    <<: *build-image-test
+    image: "quay.io/nyulibraries/marli_test:latest"
+    depends_on:
+      - marli_test_1
+  marli_3:
+    <<: *build-image
+    image: "quay.io/nyulibraries/marli:${BRANCH_NO_SLASH}"
+    depends_on:
+      - marli_2
+  marli_test_3:
+    <<: *build-image-test
+    image: "quay.io/nyulibraries/marli_test:${BRANCH_NO_SLASH}"
+    depends_on:
+      - marli_test_2
+  marli_4:
+    <<: *build-image
+    image: "quay.io/nyulibraries/marli:${BRANCH_NO_SLASH}-${CIRCLE_SHA1}"
+    depends_on:
+      - marli_3
+  marli_test_4:
+    <<: *build-image-test
+    image: "quay.io/nyulibraries/marli_test:${BRANCH_NO_SLASH}-${CIRCLE_SHA1}"
+    depends_on:
+      - marli_test_3

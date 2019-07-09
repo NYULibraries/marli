@@ -1,0 +1,39 @@
+FROM quay.io/nyulibraries/selenium_chrome_headless_ruby:2.6-slim-chrome_73
+
+ENV DOCKER true
+ENV INSTALL_PATH /app
+ENV BUNDLE_PATH=/usr/local/bundle \
+    BUNDLE_BIN=/usr/local/bundle/bin \
+    GEM_HOME=/usr/local/bundle
+ENV PATH="${BUNDLE_BIN}:${PATH}"
+ENV USER docker
+ENV BUNDLER_VERSION='2.0.2'
+
+RUN groupadd -g 2000 $USER -r && \
+  useradd -u 1000 -r --no-log-init -m -d $INSTALL_PATH -g $USER $USER
+
+WORKDIR $INSTALL_PATH
+RUN chown docker:docker .
+
+RUN wget --no-check-certificate -q -O - https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > /tmp/wait-for-it.sh \
+  && chown docker:docker /tmp/wait-for-it.sh && chmod a+x /tmp/wait-for-it.sh
+
+COPY --chown=docker:docker bin/ bin/
+COPY --chown=docker:docker Gemfile Gemfile.lock ./
+ARG RUN_PACKAGES="nodejs ruby-mysql2 default-libmysqlclient-dev git"
+ARG BUILD_PACKAGES="build-essential zlib1g-dev"
+ARG BUNDLE_WITHOUT="no_docker"
+RUN apt-get update && apt-get -y --no-install-recommends install $BUILD_PACKAGES $RUN_PACKAGES \
+  && gem install bundler -v ${BUNDLER_VERSION} \
+  && bundle config --local github.https true \
+  && bundle install --without $BUNDLE_WITHOUT --jobs 20 --retry 5 \
+  && apt-get --purge -y autoremove $BUILD_PACKAGES \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* \
+  && chown -R docker:docker $BUNDLE_PATH
+
+USER $USER
+
+COPY --chown=docker:docker . .
+RUN bin/rails assets:precompile
+
+CMD bundle exec rake
