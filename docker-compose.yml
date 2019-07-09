@@ -44,9 +44,6 @@ services:
     command: ["bundle", "exec", "rake"]
     depends_on:
       - setup_test_dbs
-  
-  bundle:
-    <<: *build_test
 
   setup_test_dbs:
     <<: *build_test
