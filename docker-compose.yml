@@ -5,7 +5,7 @@ x-build_default: &build_default
   build:
     context: .
     cache_from:
-      - ruby:2.6-alpine
+      - ruby:2.6-alpine3.10
       - marli
       - quay.io/nyulibraries/marli:${BRANCH_NO_SLASH}
       - quay.io/nyulibraries/marli:latest
