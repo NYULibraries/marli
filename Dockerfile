@@ -40,4 +40,4 @@ RUN SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 
 
 EXPOSE 9292
 
-CMD ./scripts/start.sh development
+CMD ./script/start.sh development
