@@ -20,5 +20,7 @@ Rails.application.routes.draw do
 
   get '/robots.txt' => 'application#robots'
 
+  get '/healthcheck' => 'application#healthcheck'
+
   root :to => "users#new_registration"
 end

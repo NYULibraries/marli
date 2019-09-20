@@ -82,6 +82,11 @@ class ApplicationController < ActionController::Base
   alias :is_in_admin_view? :is_in_admin_view
   helper_method :is_in_admin_view?
 
+  def healthcheck
+    render json: {success: true}
+    return
+  end
+
  protected
 
   # Protect against SQL injection by forcing column to be an actual column name in the model
