@@ -1,5 +1,10 @@
+.git/
 log/
 tmp/
 coverage/
 *.sql
 *_test.sh
+
+Dockerfile*
+docker-compose.yml
+.circleci/
