@@ -2,9 +2,6 @@ FROM ruby:2.6-alpine3.10
 
 ENV DOCKER true
 ENV INSTALL_PATH /app
-ENV BUNDLE_PATH=/usr/local/bundle \
-    BUNDLE_BIN=/usr/local/bundle/bin \
-    GEM_HOME=/usr/local/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 ENV USER docker
 ENV BUNDLER_VERSION='2.0.2'
@@ -20,15 +17,14 @@ COPY --chown=docker:docker bin/ bin/
 COPY --chown=docker:docker Gemfile Gemfile.lock ./
 ARG RUN_PACKAGES="ca-certificates fontconfig mariadb-dev nodejs tzdata git"
 ARG BUILD_PACKAGES="ruby-dev build-base linux-headers mysql-dev python"
-ARG BUNDLE_WITHOUT="no_docker"
 RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \
-  && gem install bundler -v '2.0.2' \
+  && gem install bundler -v '1.16.6' \
   && bundle config --local github.https true \
   && bundle install --without no_docker --jobs 20 --retry 5 \
   && rm -rf /root/.bundle && rm -rf /root/.gem \
-  && rm -rf $BUNDLE_PATH/cache \
+  && rm -rf /usr/local/bundle/cache \
   && apk del $BUILD_PACKAGES \
-  && chown -R docker:docker $BUNDLE_PATH
+  && chown -R docker:docker /usr/local/bundle
 
 # precompile assets; use temporary secret token to silence error, real token set at runtime
 USER docker
