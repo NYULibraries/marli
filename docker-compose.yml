@@ -9,6 +9,8 @@ x-build_default: &build_default
       - marli
       - quay.io/nyulibraries/marli:${BRANCH_NO_SLASH}
       - quay.io/nyulibraries/marli:latest
+    args:
+      BUNDLE_WITHOUT: "no_docker development test"
 
 x-build_test: &build_test
   image: marli_test
