@@ -21,9 +21,9 @@ COPY --chown=docker:docker Gemfile Gemfile.lock ./
 ARG RUN_PACKAGES="ca-certificates fontconfig mariadb-dev nodejs tzdata git"
 ARG BUILD_PACKAGES="ruby-dev build-base linux-headers mysql-dev python"
 ARG BUNDLE_WITHOUT="no_docker"
+RUN echo $BUNDLE_WITHOUT
 RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \
-  && apk add --upgrade bzip2 \
-  && gem install bundler -v ${BUNDLER_VERSION} \
+  && gem install bundler -v $BUNDLER_VERSION \
   && bundle config --local github.https true \
   && bundle install --without $BUNDLE_WITHOUT --jobs 20 --retry 5 \
   && rm -rf /root/.bundle && rm -rf /root/.gem \
@@ -34,9 +34,11 @@ RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \
 # precompile assets; use temporary secret token to silence error, real token set at runtime
 USER docker
 COPY --chown=docker:docker . .
-RUN SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) \
-  && SECRET_KEY_BASE=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) \
-  RAILS_ENV=development bin/rails assets:precompile
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
+RUN alias genrand='LC_ALL=C tr -dc "[:alnum:]" < /dev/urandom | head -c40' \
+  && SECRET_TOKEN=genrand SECRET_KEY_BASE=genrand \
+  RAILS_ENV=production bin/rails assets:precompile \
+  && unalias genrand
 
 EXPOSE 9292
 
