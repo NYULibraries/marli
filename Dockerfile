@@ -2,6 +2,9 @@ FROM ruby:2.6-alpine3.10
 
 ENV DOCKER true
 ENV INSTALL_PATH /app
+ENV BUNDLE_PATH=/usr/local/bundle \
+    BUNDLE_BIN=/usr/local/bundle/bin \
+    GEM_HOME=/usr/local/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 ENV USER docker
 ENV BUNDLER_VERSION='2.0.2'
