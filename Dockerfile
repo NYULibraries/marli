@@ -27,16 +27,18 @@ RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \
   && bundle config --local github.https true \
   && bundle install --without $BUNDLE_WITHOUT --jobs 20 --retry 5 \
   && rm -rf /root/.bundle && rm -rf /root/.gem \
-  && rm -rf /usr/local/bundle/cache \
+  && rm -rf $BUNDLE_PATH/cache \
   && apk del $BUILD_PACKAGES \
-  && chown -R docker:docker /usr/local/bundle
+  && chown -R docker:docker $BUNDLE_PATH
 
 # precompile assets; use temporary secret token to silence error, real token set at runtime
 USER docker
 COPY --chown=docker:docker . .
-RUN SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) \
-  && SECRET_KEY_BASE=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) \
-  RAILS_ENV=development bin/rails assets:precompile
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
+RUN alias genrand='LC_ALL=C tr -dc "[:alnum:]" < /dev/urandom | head -c40' \
+  && SECRET_TOKEN=genrand SECRET_KEY_BASE=genrand \
+  RAILS_ENV=production bin/rails assets:precompile \
+  && unalias genrand
 
 EXPOSE 9292
 
