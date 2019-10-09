@@ -42,4 +42,4 @@ RUN alias genrand='LC_ALL=C tr -dc "[:alnum:]" < /dev/urandom | head -c40' \
 
 EXPOSE 9292
 
-CMD ./script/start.sh development
+CMD ["./script/start.sh", "development"]
