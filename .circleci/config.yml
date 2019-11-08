@@ -72,11 +72,11 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-          name: Deploy into staging via Jenkins
-          command: |
-            export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-            docker run appropriate/curl --fail --user $JENKINS_USERNAME:$JENKINS_API_KEY --request POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Development%20Deploy/build/api
+      # - run:
+      #     name: Deploy into staging via Jenkins
+      #     command: |
+      #       export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
+      #       docker run appropriate/curl --fail --user $JENKINS_USERNAME:$JENKINS_API_KEY --request POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Development%20Deploy/build/api
       - <<: *auth_quay
       - run:
           name: Export Hermes dev env vars
@@ -90,11 +90,11 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-          name: Deploy into production via Jenkins
-          command: |
-            export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-            docker run appropriate/curl --fail --user $JENKINS_USERNAME:$JENKINS_API_KEY --request POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Production%20Deploy/build/api
+      # - run:
+      #     name: Deploy into production via Jenkins
+      #     command: |
+      #       export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
+      #       docker run appropriate/curl --fail --user $JENKINS_USERNAME:$JENKINS_API_KEY --request POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Production%20Deploy/build/api
       - <<: *auth_quay
       - run:
           name: Export Hermes prod env vars
