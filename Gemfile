@@ -67,8 +67,6 @@ gem 'listen', '~> 3.1'
 
 gem 'sentry-raven', '~> 2.9.0'
 
-gem 'prometheus-client', '~> 0.9.0'
-
 group :development do
   gem 'better_errors', '~> 2'
   gem 'binding_of_caller', '~> 0'
@@ -95,3 +93,5 @@ group :test do
   gem 'rails-controller-testing', '~> 1.0.4'
   gem 'puma', '~> 3.12'
 end
+
+gem 'prometheus-client', '~> 2.0.0'
