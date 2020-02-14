@@ -358,15 +358,13 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
-    prometheus-client (0.9.0)
-      quantile (~> 0.2.1)
+    prometheus-client (2.0.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (3.0.3)
     puma (3.12.2)
-    quantile (0.2.1)
     rack (2.1.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -538,7 +536,7 @@ DEPENDENCIES
   nyulibraries_stylesheets!
   nyulibraries_templates!
   omniauth-nyulibraries!
-  prometheus-client (~> 0.9.0)
+  prometheus-client (~> 2.0.0)
   pry (~> 0.10)
   puma (~> 3.12)
   rails (= 5.2.2.1)
