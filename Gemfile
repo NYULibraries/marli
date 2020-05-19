@@ -41,8 +41,7 @@ gem 'nyulibraries_institutions', github: 'NYULibraries/nyulibraries_institutions
 gem 'nyulibraries_javascripts', github: 'NYULibraries/nyulibraries_javascripts', tag: 'v1.0.0'
 gem 'nyulibraries_errors', github: 'NYULibraries/nyulibraries_errors', tag: 'v1.1.1'
 
-# Deploy the application with Formaggio deploy recipes
-gem 'formaggio', github: 'NYULibraries/formaggio', tag: 'v1.7.1'
+gem 'git', '~> 1.7'
 gem 'omniauth-nyulibraries', github: 'NYULibraries/omniauth-nyulibraries', tag: 'v2.1.1'
 gem 'devise', '~> 4.6'
 
