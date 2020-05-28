@@ -46,7 +46,7 @@ gem 'omniauth-nyulibraries', github: 'NYULibraries/omniauth-nyulibraries', tag: 
 gem 'devise', '~> 4.6'
 
 # Use Kaminari for pagination
-gem 'kaminari', '~> 1.1.1'
+gem 'kaminari', '~> 1.2.1'
 
 gem 'acts_as_indexed', '~> 0.8.0'
 
