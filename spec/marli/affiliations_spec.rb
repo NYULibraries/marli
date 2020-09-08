@@ -31,18 +31,18 @@ describe Marli::Affiliations do
     it { is_expected.to include "nyu_ag_noaleph_NYU_Emeritus/Retired_Faculty" }
   end
 
-  describe '#auth_types' do
-    subject { current_user.auth_types[0]["code"] }
-    context 'when http request is successful' do
-      it { is_expected.to match /nyu_ag_noaleph_NYU_Emeritus\/Retired_Faculty/ }
-    end
-    context 'when http request results in a timeout to the privileges guide' do
-      before { allow(HTTParty).to receive(:get).and_raise(Timeout::Error) }
-      it 'raises a Timeout error' do
-        expect { subject }.to raise_error Timeout::Error
-      end
-    end
-  end
+  #describe '#auth_types' do
+  #  subject { current_user.auth_types[0]["code"] }
+  #  context 'when http request is successful' do
+  #    it { is_expected.to match /nyu_ag_noaleph_NYU_Emeritus\/Retired_Faculty/ }
+  #  end
+  #  context 'when http request results in a timeout to the privileges guide' do
+  #    before { allow(HTTParty).to receive(:get).and_raise(Timeout::Error) }
+  #    it 'raises a Timeout error' do
+  #      expect { subject }.to raise_error Timeout::Error
+  #    end
+  #  end
+  #end
 
   describe '#attrs' do
     context 'when module is included in User model' do
