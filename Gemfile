@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '= 5.2.4.5'
+gem 'rails', '= 5.2.4.6'
 
 # Use MySQL for the database
 gem 'mysql2', '~> 0.4.10'
@@ -90,7 +90,7 @@ group :test do
   gem 'rspec-rails', '~> 3'
   gem 'rspec-its', '~> 1.2.0'
   gem 'rails-controller-testing', '~> 1.0.4'
-  gem 'puma', '~> 3.12'
+  gem 'puma', '~> 4.3'
 end
 
 gem 'prometheus-client', '~> 2.0.0'
