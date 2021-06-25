@@ -2,12 +2,6 @@ require_relative 'boot'
 
 require 'rails/all'
 
-unless ENV['DOCKER']
-  require 'figs'
-  # Don't run this initializer on travis.
-  Figs.load(stage: Rails.env)
-end
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
