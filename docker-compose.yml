@@ -33,6 +33,8 @@ services:
     command: ["./script/start.sh", "development"]
     depends_on:
       - setup_dbs
+    volumes:
+      - ./:/app
 
   test:
     <<: *build_test
