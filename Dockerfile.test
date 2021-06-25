@@ -21,7 +21,7 @@ RUN wget --no-check-certificate -q -O - https://raw.githubusercontent.com/vishnu
 COPY --chown=docker:docker bin/ bin/
 COPY --chown=docker:docker Gemfile Gemfile.lock ./
 ARG RUN_PACKAGES="nodejs ruby-mysql2 default-libmysqlclient-dev git"
-ARG BUILD_PACKAGES="build-essential zlib1g-dev shared-mime-info"
+ARG BUILD_PACKAGES="build-essential zlib1g-dev shared-mime-info sassc"
 ARG BUNDLE_WITHOUT="no_docker"
 RUN apt-get update && apt-get -y --no-install-recommends install $BUILD_PACKAGES $RUN_PACKAGES \
   && gem install bundler -v ${BUNDLER_VERSION} \
