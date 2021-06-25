@@ -48,6 +48,7 @@ services:
     command: ["bundle", "exec", "rake"]
     depends_on:
       - setup_test_dbs
+      - chrome
 
   setup_test_dbs:
     <<: *build_test
@@ -71,3 +72,24 @@ services:
     image: library/mysql:5.6.22
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+  
+  selenium-hub:
+    image: selenium/hub:4.0.0-rc-1-prerelease-20210618
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+
+  chrome:
+    image: selenium/node-chrome:4.0.0-rc-1-prerelease-20210618
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "6900:5900"

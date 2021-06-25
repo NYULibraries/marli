@@ -1,4 +1,5 @@
-FROM quay.io/nyulibraries/selenium_chrome_headless_ruby:2.6-slim-chrome_73
+# FROM quay.io/nyulibraries/selenium_chrome_headless_ruby:2.6-slim-chrome_73
+FROM ruby:2.6-slim
 
 ENV DOCKER true
 ENV INSTALL_PATH /app
@@ -7,7 +8,7 @@ ENV BUNDLE_PATH=/usr/local/bundle \
     GEM_HOME=/usr/local/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 ENV USER docker
-ENV BUNDLER_VERSION='2.0.2'
+ENV BUNDLER_VERSION='2.2.4'
 
 RUN groupadd -g 2000 $USER -r && \
   useradd -u 1000 -r --no-log-init -m -d $INSTALL_PATH -g $USER $USER
@@ -15,12 +16,9 @@ RUN groupadd -g 2000 $USER -r && \
 WORKDIR $INSTALL_PATH
 RUN chown docker:docker .
 
-RUN wget --no-check-certificate -q -O - https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > /tmp/wait-for-it.sh \
-  && chown docker:docker /tmp/wait-for-it.sh && chmod a+x /tmp/wait-for-it.sh
-
 COPY --chown=docker:docker bin/ bin/
 COPY --chown=docker:docker Gemfile Gemfile.lock ./
-ARG RUN_PACKAGES="nodejs ruby-mysql2 default-libmysqlclient-dev git"
+ARG RUN_PACKAGES="nodejs ruby-mysql2 default-libmysqlclient-dev git wget"
 ARG BUILD_PACKAGES="build-essential zlib1g-dev shared-mime-info sassc"
 ARG BUNDLE_WITHOUT="no_docker"
 RUN apt-get update && apt-get -y --no-install-recommends install $BUILD_PACKAGES $RUN_PACKAGES \
@@ -30,6 +28,9 @@ RUN apt-get update && apt-get -y --no-install-recommends install $BUILD_PACKAGES
   && apt-get --purge -y autoremove $BUILD_PACKAGES \
   && apt-get clean && rm -rf /var/lib/apt/lists/* \
   && chown -R docker:docker $BUNDLE_PATH
+
+RUN wget --no-check-certificate -q -O - https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > /tmp/wait-for-it.sh \
+  && chown docker:docker /tmp/wait-for-it.sh && chmod a+x /tmp/wait-for-it.sh
 
 USER $USER
 

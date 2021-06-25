@@ -1,4 +1,4 @@
-FROM ruby:2.6-alpine3.10
+FROM ruby:2.6-alpine
 
 ENV DOCKER true
 ENV INSTALL_PATH /app
@@ -7,7 +7,7 @@ ENV BUNDLE_PATH=/usr/local/bundle \
     GEM_HOME=/usr/local/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 ENV USER docker
-ENV BUNDLER_VERSION='2.0.2'
+ENV BUNDLER_VERSION='2.2.4'
 
 RUN addgroup -g 1000 -S docker && \
   adduser -u 1000 -S -G docker docker
@@ -19,7 +19,7 @@ RUN chown docker:docker .
 COPY --chown=docker:docker bin/ bin/
 COPY --chown=docker:docker Gemfile Gemfile.lock ./
 ARG RUN_PACKAGES="ca-certificates fontconfig mariadb-dev nodejs tzdata git shared-mime-info"
-ARG BUILD_PACKAGES="ruby-dev build-base linux-headers mysql-dev python sassc"
+ARG BUILD_PACKAGES="ruby-dev build-base linux-headers mysql-dev sassc"
 ARG BUNDLE_WITHOUT="no_docker"
 RUN echo $BUNDLE_WITHOUT
 RUN apk add --no-cache --update $RUN_PACKAGES $BUILD_PACKAGES \

@@ -44,8 +44,10 @@ else
       }
     )
 
-    Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+    # Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+    Capybara::Selenium::Driver.new(app, browser: :remote, url: "http://selenium-hub:4444/wd/hub", desired_capabilities: :chrome)   
   end
+  Capybara.run_server = false
   Capybara.default_driver    = :chrome_headless
   Capybara.javascript_driver = :chrome_headless
   # Capybara.default_wait_time = 20
