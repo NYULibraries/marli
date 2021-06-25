@@ -1,4 +1,4 @@
-module RoomsFeatures
+module MarliFeatures
   module LoginHelper
     def omniauth_hash
       hash = OmniAuth::AuthHash.new(provider: :nyulibraries, uid: 'dev123')

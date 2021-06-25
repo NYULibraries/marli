@@ -15,7 +15,7 @@ Dir[Rails.root.join("features/support/helpers/**/*.rb")].each do |helper|
   require helper
   # Only include _helper.rb methods
   if /_helper.rb/ === helper
-    helper_name = "RoomsFeatures::#{helper.camelize.demodulize.split('.').first}"
+    helper_name = "MarliFeatures::#{helper.camelize.demodulize.split('.').first}"
     Cucumber::Rails::World.send(:include, helper_name.constantize)
   end
 end
@@ -38,16 +38,22 @@ if ENV['IN_BROWSER']
 else
   # DEFAULT: Headless tests with chrome headless
   Capybara.register_driver :chrome_headless do |app|
-    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: {
-        args: %w[ no-sandbox headless disable-gpu window-size=1280,1024]
-      }
-    )
+    # capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    #   chromeOptions: {
+    #     args: %w[ no-sandbox headless disable-gpu window-size=1280,1024 disable-dev-shm-usage]
+    #   }
+    # )
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome
+    opts = Selenium::WebDriver::Chrome::Options.new(args: %w[ no-sandbox headless disable-gpu window-size=1280,1024 disable-dev-shm-usage])
 
     # Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
-    Capybara::Selenium::Driver.new(app, browser: :remote, url: "http://selenium-hub:4444/wd/hub", desired_capabilities: :chrome)   
+    Capybara::Selenium::Driver.new(app, browser: :remote, url: "http://chrome:4444", capabilities: [caps, opts])   
   end
+  
   Capybara.run_server = false
+  Capybara.app_host = "http://test-server:3000"
+  Capybara.server_port = 3000
+  Capybara.always_include_port = true
   Capybara.default_driver    = :chrome_headless
   Capybara.javascript_driver = :chrome_headless
   # Capybara.default_wait_time = 20

@@ -5,7 +5,7 @@ x-build_default: &build_default
   build:
     context: .
     cache_from:
-      - ruby:2.6-alpine3.10
+      - ruby:2.6-alpine
       - marli
       - quay.io/nyulibraries/marli:${BRANCH_NO_SLASH}
       - quay.io/nyulibraries/marli:latest
@@ -18,13 +18,13 @@ x-build_test: &build_test
     context: .
     dockerfile: Dockerfile.test
     cache_from:
-      - quay.io/nyulibraries/selenium_chrome_headless_ruby:2.6-slim-chrome_73
+      - ruby:2.6-slim
       - marli_test
       - quay.io/nyulibraries/marli_test:${BRANCH_NO_SLASH}
       - quay.io/nyulibraries/marli_test:latest
 
 services:
-  dev:
+  dev-server:
     <<: *build_default
     ports:
       - "9292:9292"
@@ -36,7 +36,21 @@ services:
     volumes:
       - ./:/app
 
-  test:
+  test-server:
+    <<: *build_test
+    environment:
+      RAILS_ENV: test
+    env_file:
+      - test.env
+    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+    # command: ["bundle", "exec", "rake"]
+    depends_on:
+      - setup_test_dbs
+      - chrome
+    ports:
+      - "3000:3000"
+  
+  run-tests:  
     <<: *build_test
     environment:
       RAILS_ENV: test
@@ -47,8 +61,7 @@ services:
       - test.env
     command: ["bundle", "exec", "rake"]
     depends_on:
-      - setup_test_dbs
-      - chrome
+      - test-server
 
   setup_test_dbs:
     <<: *build_test
@@ -72,24 +85,12 @@ services:
     image: library/mysql:5.6.22
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-  
-  selenium-hub:
-    image: selenium/hub:4.0.0-rc-1-prerelease-20210618
-    container_name: selenium-hub
-    ports:
-      - "4442:4442"
-      - "4443:4443"
-      - "4444:4444"
 
   chrome:
-    image: selenium/node-chrome:4.0.0-rc-1-prerelease-20210618
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
+    image: selenium/standalone-chrome:4.0
+    shm_size: 2g
     environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - START_XVFB=false
     ports:
-      - "6900:5900"
+      - 7900:7900
+      - 4444:4444

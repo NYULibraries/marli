@@ -6,7 +6,7 @@ VCR.configure do |c|
   # Selenium uses the /hub/session path
   # See: https://github.com/vcr/vcr/issues/229
   c.ignore_request do |request|
-    URI(request.uri).path == "/__identify__" || URI(request.uri).path =~ /\/hub\/session/
+    URI(request.uri).path == "/__identify__" || URI(request.uri).path =~ /(\/hub)?\/session/
   end
   c.ignore_request do |request|
     URI(request.uri).path == "/oauth/token"

@@ -78,9 +78,9 @@ group :test do
   gem 'webmock', '~> 3'
   gem 'faker', '~> 1.8.7'
   gem 'factory_bot_rails', '~> 4.10'
-  gem 'cucumber-rails', '~> 1.6.0', require: false
+  gem 'cucumber-rails', '~> 2.3.0', require: false
   gem 'database_cleaner'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 4.0.0.beta4'
   gem 'rspec-rails', '~> 3'
   gem 'rspec-its', '~> 1.2.0'
   gem 'rails-controller-testing', '~> 1.0.4'
