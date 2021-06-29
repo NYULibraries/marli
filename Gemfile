@@ -27,10 +27,6 @@ group :no_docker do
   gem 'therubyracer', '~> 0.12'
 end
 
-# Use Exlibris::Nyu for NYU Exlibris customizations, etc.
-gem 'exlibris-nyu', github: 'NYULibraries/exlibris-nyu', tag: 'v2.4.1'
-gem 'exlibris-primo', github: 'NYULibraries/exlibris-primo', tag: 'v2.2.0'
-
 # Use the Compass CSS framework for sprites, etc.
 gem 'compass-rails', '~> 3.1.0'
 
@@ -55,8 +51,6 @@ gem 'dalli', '~> 2.7.6'
 
 # Create CSVs from models
 gem 'comma', '~> 4.2.0'
-
-gem 'httparty', '~> 0.16.0'
 
 gem 'roboto', '~> 1'
 
