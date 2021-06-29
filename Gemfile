@@ -90,7 +90,7 @@ group :test do
   gem 'rspec-rails', '~> 3'
   gem 'rspec-its', '~> 1.2.0'
   gem 'rails-controller-testing', '~> 1.0.4'
-  gem 'puma', '~> 3.12'
+  gem 'puma', '~> 4'
 end
 
 gem 'prometheus-client', '~> 2.0.0'
