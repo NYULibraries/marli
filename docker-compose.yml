@@ -24,6 +24,16 @@ x-build_test: &build_test
       - quay.io/nyulibraries/marli_test:latest
 
 services:
+  update:
+    <<: *build_test
+    env_file:
+      - test.env
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - ./Gemfile:/app/Gemfile
+      - ./Gemfile.lock:/app/Gemfile.lock
+
   dev:
     <<: *build_default
     ports:
