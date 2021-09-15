@@ -119,7 +119,7 @@ orbs:
 jobs:
   hermes-deploy:
     docker:
-      - image: quay.io/nyulibraries/hermesclient:${HERMES_IMAGE_TAG}
+      - image: quay.io/nyulibraries/hermesclient:master
         auth:
           username: ${QUAY_USERNAME}
           password: ${QUAY_PASSWORD}
