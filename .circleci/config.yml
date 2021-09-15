@@ -3,9 +3,7 @@ docker-defaults: &docker-defaults
     - image: cimg/base:2021.07
       environment:
         - IMAGE_NAME=marli
-        - COMPOSE_PROJECT_NAME=marli
         - HERMES_DEPLOYMENT=marli-unicorn
-        - HERMES_IMAGE_TAG=master
   working_directory: ~/app
 
 build_docker: &build_docker
@@ -53,10 +51,10 @@ orbs:
       setup:
         parameters:
           host:
-            description: 'Point to the dev or prod hermes host'
+            description: 'Point to an instance of the Hermes host server'
             type: string
           secret:
-            description: 'Supply the host secret'
+            description: 'Supply the Hermes host secret'
             type: string
           tag:
             description: 'Image tag for deployment'
@@ -93,26 +91,32 @@ orbs:
         parameters:
           client_tag:
             default: 'master'
-            description: >
-              Pick a specific hermesclient image tag, defaults to master
+            description: Pick a specific hermesclient image tag, defaults to master
+            type: string
+          client_image:
+            default: 'quay.io/nyulibraries/hermesclient'
+            description: Point to the hermesclient image
             type: string
         steps:
           - run:
               name: "Set new image"
               command: |
-                docker run -e HERMES_HOST -e HERMES_SECRET quay.io/nyulibraries/hermesclient:<<parameters.client_tag>> setImage -deployment=${HERMES_DEPLOYMENT} -tag=${TAG}
+                docker run -e HERMES_HOST -e HERMES_SECRET <<parameters.client_image>>:<<parameters.client_tag>> setImage -deployment=${HERMES_DEPLOYMENT} -tag=${TAG}
       rollout_status:
         parameters:
           client_tag:
             default: 'master'
-            description: >
-              Pick a specific hermesclient image tag, defaults to master
+            description: Pick a specific hermesclient image tag, defaults to master
+            type: string
+          client_image:
+            default: 'quay.io/nyulibraries/hermesclient'
+            description: Point to the hermesclient image
             type: string
         steps:
           - run: 
               name: "Get rollout status"
               command: |
-                docker run -e HERMES_HOST -e HERMES_SECRET quay.io/nyulibraries/hermesclient:<<parameters.client_tag>> rolloutStatus -deployment=${HERMES_DEPLOYMENT}
+                docker run -e HERMES_HOST -e HERMES_SECRET <<parameters.client_image>>:<<parameters.client_tag>> rolloutStatus -deployment=${HERMES_DEPLOYMENT}
 
 jobs:
   hermes-deploy:
@@ -122,11 +126,9 @@ jobs:
       - hermes/setup:
           host: ${HERMES_HOST}
           secret: ${HERMES_SECRET}
-          tag: ${CIRCLE_BRANCH//\//_}
-          # tag: ${CIRCLE_BRANCH//\//_}-${CIRCLE_SHA1}
+          tag: ${CIRCLE_BRANCH//\//_}-${CIRCLE_SHA1}
           deployment: ${HERMES_DEPLOYMENT}
       - hermes/auth_docker:
-          host: quay.io
           username: ${QUAY_USERNAME}
           password: ${QUAY_PASSWORD}
       - hermes/set_image
@@ -138,9 +140,9 @@ jobs:
       - checkout
       - setup_remote_docker
       - <<: *pull_docker
-      # - <<: *build_docker
-      # - <<: *test
-      # - <<: *push_docker
+      - <<: *build_docker
+      - <<: *test
+      - <<: *push_docker
 
 workflows:
   version: 2
