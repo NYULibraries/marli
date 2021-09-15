@@ -5,49 +5,89 @@ docker-defaults: &docker-defaults
         - IMAGE_NAME=marli
         - HERMES_DEPLOYMENT=marli-unicorn
   working_directory: ~/app
-
-build_docker: &build_docker
-  run:
-    name: Build Docker
-    command: |
-      export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-      docker-compose build
-      docker-compose -f docker-compose.build.yml build
-
-test: &test
-  run:
-    name: Test
-    command: |
-      docker-compose run test
       
-pull_docker: &pull_docker
-  run:
-    name: Pull Docker
-    command: |
-      export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-      docker pull quay.io/nyulibraries/${IMAGE_NAME}:${BRANCH_NO_SLASH} || docker pull quay.io/nyulibraries/${IMAGE_NAME}:latest
-      docker pull quay.io/nyulibraries/${IMAGE_NAME}_test:${BRANCH_NO_SLASH} || docker pull quay.io/nyulibraries/${IMAGE_NAME}_test:latest
-
-push_docker: &push_docker
-  run:
-    name: Push Docker
-    command: |
-      export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-      docker push quay.io/nyulibraries/${IMAGE_NAME}:latest
-      docker push quay.io/nyulibraries/${IMAGE_NAME}:${BRANCH_NO_SLASH}
-      docker push quay.io/nyulibraries/${IMAGE_NAME}:${BRANCH_NO_SLASH}-${CIRCLE_SHA1}
-      docker push quay.io/nyulibraries/${IMAGE_NAME}_test:latest
-      docker push quay.io/nyulibraries/${IMAGE_NAME}_test:${BRANCH_NO_SLASH}
-      docker push quay.io/nyulibraries/${IMAGE_NAME}_test:${BRANCH_NO_SLASH}-${CIRCLE_SHA1}
-
 version: 2.1
+commands:
+  build_docker: 
+    steps:
+      - run:
+          name: Build Docker
+          command: |
+            export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
+            docker-compose build
+            docker-compose -f docker-compose.build.yml build
+  test:
+    steps:
+      - run:
+          name: Run tests
+          command: |
+            docker-compose run test
 orbs:
   nyulibraries:
-    executors:
-      hermes:
-        docker:
-          - image: cimg/base:2021.07
     commands:
+      docker_auth:
+        parameters:
+          host:
+            default: 'quay.io'
+            description: 'Provide docker host'
+            type: string
+          username:
+            description: 'Provide docker username'
+            type: string
+          password: 
+            description: 'Provide docker password'
+            type: string
+        steps:
+          - run:
+              name: Authenticate Docker 
+              command: |
+                docker login -u "<<parameters.username>>" --password "<<parameters.password>>" <<parameters.host>>
+      docker_pull:
+        parameters:
+          host:
+            default: 'quay.io'
+            type: string
+          org:
+            default: 'nyulibraries'
+            type: string
+          image_name:
+            type: string
+          image_tag:
+            type: string
+          test_image_name:
+            default: ''
+            type: string
+        steps:
+          - run:
+              name: Pull Docker images
+              command: |
+                docker pull <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>> || docker pull <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:latest
+                docker pull <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:<<parameters.image_tag>> || docker pull <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:latest
+      docker_push:
+        parameters:
+          host:
+            default: 'quay.io'
+            type: string
+          org:
+            default: 'nyulibraries'
+            type: string
+          image_name:
+            type: string
+          image_tag:
+            type: string
+          test_image_name:
+            default: ''
+            type: string
+        steps:
+          - run:
+              name: Push Docker images
+              command: |
+                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>:latest
+                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>
+                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>-${CIRCLE_SHA1}
+                docker push <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:latest
+                docker push <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:<<parameters.image_tag>>
+                docker push <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:<<parameters.image_tag>>-${CIRCLE_SHA1}
       hermes_setup:
         parameters:
           host:
@@ -70,23 +110,6 @@ orbs:
                 echo 'export HERMES_SECRET=<<parameters.secret>>' >> $BASH_ENV
                 echo 'export TAG=<<parameters.tag>>' >> $BASH_ENV
                 echo 'export HERMES_DEPLOYMENT=<<parameters.deployment>>' >> $BASH_ENV
-      docker_auth:
-        parameters:
-          host:
-            default: 'quay.io'
-            description: 'Provide docker host'
-            type: string
-          username:
-            description: 'Provide docker username'
-            type: string
-          password: 
-            description: 'Provide docker password'
-            type: string
-        steps:
-          - run:
-              name: Authenticate Docker 
-              command: |
-                docker login -u "<<parameters.username>>" --password "<<parameters.password>>" <<parameters.host>>
       hermes_set_image:
         parameters:
           client_tag:
@@ -139,13 +162,17 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - <<: *pull_docker
-      - <<: *build_docker
-      - <<: *test
+      - nyulibraries/docker_pull:
+          image_name: ${IMAGE_NAME}
+          image_tag: ${CIRCLE_BRANCH//\//_}
+      - build_docker
+      - test
       - nyulibraries/docker_auth:
           username: ${QUAY_USERNAME}
           password: ${QUAY_PASSWORD}
-      - <<: *push_docker
+      - nyulibraries/docker_push:
+          image_name: ${IMAGE_NAME}
+          image_tag: ${CIRCLE_BRANCH//\//_}
 
 workflows:
   version: 2
