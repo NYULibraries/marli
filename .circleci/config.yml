@@ -49,15 +49,9 @@ orbs:
       hermes:
         docker:
           - image: cimg/base:2021.07
-
     commands:
-      export_env:
+      setup:
         parameters:
-          client_tag:
-            default: 'master'
-            description: >
-              Pick a specific hermesclient image tag, defaults to master
-            type: string
           host:
             description: 'Point to the dev or prod hermes host'
             type: string
@@ -70,16 +64,6 @@ orbs:
           deployment:
             description: 'Kubernetes deployment name'
             type: string
-          docker_host:
-            default: 'quay.io'
-            description: 'Provide docker host'
-            type: string
-          docker_username:
-            description: 'Provide docker username'
-            type: string
-          docker_password: 
-            description: 'Provide docker password'
-            type: string
         steps:
           - run: 
               name: Export Hermes dev env vars
@@ -88,53 +72,66 @@ orbs:
                 echo 'export HERMES_SECRET=<<parameters.secret>>' >> $BASH_ENV
                 echo 'export TAG=<<parameters.tag>>' >> $BASH_ENV
                 echo 'export HERMES_DEPLOYMENT=<<parameters.deployment>>' >> $BASH_ENV
-      auth:
+      auth_docker:
+        parameters:
+          host:
+            default: 'quay.io'
+            description: 'Provide docker host'
+            type: string
+          username:
+            description: 'Provide docker username'
+            type: string
+          password: 
+            description: 'Provide docker password'
+            type: string
         steps:
           - run:
               name: Authenticate Docker 
               command: |
-                docker login -u "<<parameters.docker_username>>" --password "<<parameters.docker_password>>" <<parameters.docker_host>>
+                docker login -u "<<parameters.username>>" --password "<<parameters.password>>" <<parameters.host>>
       set_image:
+        parameters:
+          client_tag:
+            default: 'master'
+            description: >
+              Pick a specific hermesclient image tag, defaults to master
+            type: string
         steps:
-          - run: 
+          - run:
               name: "Set new image"
               command: |
-                # export TAG=${CIRCLE_BRANCH//\//_}-${CIRCLE_SHA1}
-                docker run -e HERMES_HOST -e HERMES_SECRET quay.io/nyulibraries/hermesclient:<<parameters.client_tag>> setImage -deployment=$HERMES_DEPLOYMENT -tag=$TAG
+                docker run -e HERMES_HOST -e HERMES_SECRET quay.io/nyulibraries/hermesclient:<<parameters.client_tag>> setImage -deployment=${HERMES_DEPLOYMENT} -tag=${TAG}
       rollout_status:
+        parameters:
+          client_tag:
+            default: 'master'
+            description: >
+              Pick a specific hermesclient image tag, defaults to master
+            type: string
         steps:
           - run: 
               name: "Get rollout status"
               command: |
-                docker run -e HERMES_HOST -e HERMES_SECRET quay.io/nyulibraries/hermesclient:<<parameters.client_tag>> rolloutStatus -deployment=$HERMES_DEPLOYMENT
-    jobs:
-      deploy:
-        executor: hermes
-        steps:
-          - setup_remote_docker
-          - export_env
-          - set_image
-          - rollout_status
+                docker run -e HERMES_HOST -e HERMES_SECRET quay.io/nyulibraries/hermesclient:<<parameters.client_tag>> rolloutStatus -deployment=${HERMES_DEPLOYMENT}
 
 jobs:
   hermes-deploy:
-    docker:
-      - image: quay.io/nyulibraries/hermesclient:master
-        auth:
-          username: ${QUAY_USERNAME}
-          password: ${QUAY_PASSWORD}
-        environment:
-          - HERMES_DEPLOYMENT=${HERMES_DEPLOYMENT}
-          - TAG=${CIRCLE_BRANCH//\//_}
-          - HERMES_HOST=${HERMES_HOST}
-          - HERMES_SECRET=${HERMES_SECRET}
+    <<: *docker-defaults
     steps:
       - setup_remote_docker
-      - run: |
-          ./hermesclient setImage -deployment=$HERMES_DEPLOYMENT -tag=$TAG
-      - run: |
-          ./hermesclient rolloutStatus -deployment=$HERMES_DEPLOYMENT
-
+      - hermes/setup:
+          host: ${HERMES_HOST}
+          secret: ${HERMES_SECRET}
+          tag: ${CIRCLE_BRANCH//\//_}
+          # tag: ${CIRCLE_BRANCH//\//_}-${CIRCLE_SHA1}
+          deployment: ${HERMES_DEPLOYMENT}
+      - hermes/auth_docker:
+          host: quay.io
+          username: ${QUAY_USERNAME}
+          password: ${QUAY_PASSWORD}
+      - hermes/set_image
+      - hermes/rollout_status
+          
   test-and-build-image:
     <<: *docker-defaults
     steps:
