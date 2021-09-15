@@ -1,6 +1,6 @@
 docker-defaults: &docker-defaults
   docker:
-    - image: circleci/docker@1.7.0
+    - image: cimg/base:2021.07
       environment:
         - IMAGE_NAME=marli
         - COMPOSE_PROJECT_NAME=marli
@@ -61,7 +61,7 @@ orbs:
     executors:
       hermes:
         docker:
-          - image: circleci/docker@1.7.0
+          - image: cimg/base:2021.07
     commands:
       export_env:
         steps:
