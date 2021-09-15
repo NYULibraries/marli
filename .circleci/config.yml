@@ -42,13 +42,13 @@ push_docker: &push_docker
 
 version: 2.1
 orbs:
-  hermes:
+  nyulibraries:
     executors:
       hermes:
         docker:
           - image: cimg/base:2021.07
     commands:
-      setup:
+      hermes_setup:
         parameters:
           host:
             description: 'Point to an instance of the Hermes host server'
@@ -87,7 +87,7 @@ orbs:
               name: Authenticate Docker 
               command: |
                 docker login -u "<<parameters.username>>" --password "<<parameters.password>>" <<parameters.host>>
-      set_image:
+      hermes_set_image:
         parameters:
           client_tag:
             default: 'master'
@@ -102,7 +102,7 @@ orbs:
               name: "Set new image"
               command: |
                 docker run -e HERMES_HOST -e HERMES_SECRET <<parameters.client_image>>:<<parameters.client_tag>> setImage -deployment=${HERMES_DEPLOYMENT} -tag=${TAG}
-      rollout_status:
+      hermes_rollout_status:
         parameters:
           client_tag:
             default: 'master'
@@ -123,16 +123,16 @@ jobs:
     <<: *docker-defaults
     steps:
       - setup_remote_docker
-      - hermes/setup:
+      - nyulibraries/hermes_setup:
           host: ${HERMES_HOST}
           secret: ${HERMES_SECRET}
           tag: ${CIRCLE_BRANCH//\//_}-${CIRCLE_SHA1}
           deployment: ${HERMES_DEPLOYMENT}
-      - hermes/auth_docker:
+      - nyulibraries/auth_docker:
           username: ${QUAY_USERNAME}
           password: ${QUAY_PASSWORD}
-      - hermes/set_image
-      - hermes/rollout_status
+      - nyulibraries/hermes_set_image
+      - nyulibraries/hermes_rollout_status
           
   test-and-build-image:
     <<: *docker-defaults
