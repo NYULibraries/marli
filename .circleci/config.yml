@@ -1,122 +1,194 @@
 docker-defaults: &docker-defaults
   docker:
-    - image: quay.io/nyulibraries/circleci_docker:18.06.1-dc-1.23.2-0
+    - image: cimg/base:2021.07
       environment:
         - IMAGE_NAME=marli
-        - COMPOSE_PROJECT_NAME=marli
+        - HERMES_DEPLOYMENT=marli-unicorn
   working_directory: ~/app
-
-build_docker: &build_docker
-  run:
-    name: Build Docker
-    command: |
-      export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-      docker-compose build
-      docker-compose -f docker-compose.build.yml build
-
-test: &test
-  run:
-    name: Test
-    command: |
-      docker-compose run test
       
-auth_quay: &auth_quay
-  run:
-    name: Authenticate Quay 
-    command: |
-      docker login -u "$QUAY_USERNAME" --password "$QUAY_PASSWORD" quay.io
+version: 2.1
+commands:
+  build_docker: 
+    steps:
+      - run:
+          name: Build Docker
+          command: |
+            export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
+            docker-compose build
+            docker-compose -f docker-compose.build.yml build
+  test:
+    steps:
+      - run:
+          name: Run tests
+          command: |
+            docker-compose run test
+orbs:
+  nyulibraries:
+    commands:
+      docker_auth:
+        parameters:
+          host:
+            default: 'quay.io'
+            description: 'Provide docker host'
+            type: string
+          username:
+            description: 'Provide docker username'
+            type: string
+          password: 
+            description: 'Provide docker password'
+            type: string
+        steps:
+          - run:
+              name: Authenticate Docker 
+              command: |
+                docker login -u "<<parameters.username>>" --password "<<parameters.password>>" <<parameters.host>>
+      docker_pull:
+        parameters:
+          host:
+            default: 'quay.io'
+            type: string
+          org:
+            default: 'nyulibraries'
+            type: string
+          image_name:
+            type: string
+          image_tag:
+            type: string
+        steps:
+          - run:
+              name: Pull Docker images
+              command: |
+                docker pull <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>> || docker pull <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:latest
+      docker_push:
+        parameters:
+          host:
+            default: 'quay.io'
+            type: string
+          org:
+            default: 'nyulibraries'
+            type: string
+          image_name:
+            type: string
+          image_tag:
+            type: string
+        steps:
+          - run:
+              name: Push Docker images
+              command: |
+                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:latest
+                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>
+                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>-${CIRCLE_SHA1}
+      hermes_setup:
+        parameters:
+          host:
+            description: 'Point to an instance of the Hermes host server'
+            type: string
+          secret:
+            description: 'Supply the Hermes host secret'
+            type: string
+          tag:
+            description: 'Image tag for deployment'
+            type: string
+          deployment:
+            description: 'Kubernetes deployment name'
+            type: string
+        steps:
+          - run: 
+              name: Export Hermes dev env vars
+              command: |
+                echo 'export HERMES_HOST=<<parameters.host>>' >> $BASH_ENV
+                echo 'export HERMES_SECRET=<<parameters.secret>>' >> $BASH_ENV
+                echo 'export TAG=<<parameters.tag>>' >> $BASH_ENV
+                echo 'export HERMES_DEPLOYMENT=<<parameters.deployment>>' >> $BASH_ENV
+      hermes_set_image:
+        parameters:
+          client_tag:
+            default: 'master'
+            description: Pick a specific hermesclient image tag, defaults to master
+            type: string
+          client_image:
+            default: 'quay.io/nyulibraries/hermesclient'
+            description: Point to the hermesclient image
+            type: string
+        steps:
+          - run:
+              name: "Set new image"
+              command: |
+                docker run -e HERMES_HOST -e HERMES_SECRET <<parameters.client_image>>:<<parameters.client_tag>> setImage -deployment=${HERMES_DEPLOYMENT} -tag=${TAG}
+      hermes_rollout_status:
+        parameters:
+          client_tag:
+            default: 'master'
+            description: Pick a specific hermesclient image tag, defaults to master
+            type: string
+          client_image:
+            default: 'quay.io/nyulibraries/hermesclient'
+            description: Point to the hermesclient image
+            type: string
+        steps:
+          - run: 
+              name: "Get rollout status"
+              command: |
+                docker run -e HERMES_HOST -e HERMES_SECRET <<parameters.client_image>>:<<parameters.client_tag>> rolloutStatus -deployment=${HERMES_DEPLOYMENT}
 
-pull_docker: &pull_docker
-  run:
-    name: Pull Docker
-    command: |
-      export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-      docker pull quay.io/nyulibraries/${IMAGE_NAME}:${BRANCH_NO_SLASH} || docker pull quay.io/nyulibraries/${IMAGE_NAME}:latest
-      docker pull quay.io/nyulibraries/${IMAGE_NAME}_test:${BRANCH_NO_SLASH} || docker pull quay.io/nyulibraries/${IMAGE_NAME}_test:latest
-
-push_docker: &push_docker
-  run:
-    name: Push Docker
-    command: |
-      export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-      docker push quay.io/nyulibraries/${IMAGE_NAME}:latest
-      docker push quay.io/nyulibraries/${IMAGE_NAME}:${BRANCH_NO_SLASH}
-      docker push quay.io/nyulibraries/${IMAGE_NAME}:${BRANCH_NO_SLASH}-${CIRCLE_SHA1}
-      docker push quay.io/nyulibraries/${IMAGE_NAME}_test:latest
-      docker push quay.io/nyulibraries/${IMAGE_NAME}_test:${BRANCH_NO_SLASH}
-      docker push quay.io/nyulibraries/${IMAGE_NAME}_test:${BRANCH_NO_SLASH}-${CIRCLE_SHA1}
-
-hermes_deploy: &hermes_deploy
-  run:
-    name: Deploy via Hermes
-    command: |
-      export TAG=${CIRCLE_BRANCH//\//_}-${CIRCLE_SHA1}
-      docker run -e HERMES_HOST -e HERMES_SECRET quay.io/nyulibraries/hermesclient:master setImage -deployment=marli-unicorn -tag=$TAG
-      timeout 1m sh -c 'until docker run -e HERMES_HOST -e HERMES_SECRET quay.io/nyulibraries/hermesclient:master rolloutStatus -deployment=marli-unicorn -wait=false; do sleep 5; done'
-
-version: 2
 jobs:
+  hermes-deploy:
+    <<: *docker-defaults
+    steps:
+      - setup_remote_docker
+      - nyulibraries/hermes_setup:
+          host: ${HERMES_HOST}
+          secret: ${HERMES_SECRET}
+          tag: ${CIRCLE_BRANCH//\//_}-${CIRCLE_SHA1}
+          deployment: ${HERMES_DEPLOYMENT}
+      - nyulibraries/docker_auth:
+          username: ${QUAY_USERNAME}
+          password: ${QUAY_PASSWORD}
+      - nyulibraries/hermes_set_image
+      - nyulibraries/hermes_rollout_status
+          
   test-and-build-image:
     <<: *docker-defaults
     steps:
       - checkout
       - setup_remote_docker
-      - <<: *auth_quay
-      - <<: *pull_docker
-      - <<: *build_docker
-      - <<: *test
-      - <<: *push_docker
-
-  deploy-dev:
-    <<: *docker-defaults
-    steps:
-      - checkout
-      - setup_remote_docker
-      # - run:
-      #     name: Deploy into staging via Jenkins
-      #     command: |
-      #       export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-      #       docker run appropriate/curl --fail --user $JENKINS_USERNAME:$JENKINS_API_KEY --request POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Development%20Deploy/build/api
-      - <<: *auth_quay
-      - run:
-          name: Export Hermes dev env vars
-          command: |
-            echo 'export HERMES_HOST=https://hermes-dev.library.nyu.edu' >> $BASH_ENV
-            echo 'export HERMES_SECRET=$HERMES_SECRET_DEV' >> $BASH_ENV
-      - <<: *hermes_deploy
-
-  deploy-prod:
-    <<: *docker-defaults
-    steps:
-      - checkout
-      - setup_remote_docker
-      # - run:
-      #     name: Deploy into production via Jenkins
-      #     command: |
-      #       export BRANCH_NO_SLASH=${CIRCLE_BRANCH//\//_}
-      #       docker run appropriate/curl --fail --user $JENKINS_USERNAME:$JENKINS_API_KEY --request POST http://jenkins.library.nyu.edu/view/MaRLI/job/MaRLI%20Production%20Deploy/build/api
-      - <<: *auth_quay
-      - run:
-          name: Export Hermes prod env vars
-          command: |
-            echo 'export HERMES_HOST=https://hermes.library.nyu.edu' >> $BASH_ENV
-            echo 'export HERMES_SECRET=$HERMES_SECRET_PROD' >> $BASH_ENV
-      - <<: *hermes_deploy
+      - nyulibraries/docker_pull:
+          image_name: ${IMAGE_NAME}
+          image_tag: ${CIRCLE_BRANCH//\//_}
+      - nyulibraries/docker_pull:
+          image_name: ${IMAGE_NAME}_test
+          image_tag: ${CIRCLE_BRANCH//\//_}
+      - build_docker
+      - test
+      - nyulibraries/docker_auth:
+          username: ${QUAY_USERNAME}
+          password: ${QUAY_PASSWORD}
+      - nyulibraries/docker_push:
+          image_name: ${IMAGE_NAME}
+          image_tag: ${CIRCLE_BRANCH//\//_}
+      - nyulibraries/docker_push:
+          image_name: ${IMAGE_NAME}_test
+          image_tag: ${CIRCLE_BRANCH//\//_}
 
 workflows:
   version: 2
   build-test-and-deploy:
     jobs:
       - test-and-build-image
-      - deploy-dev:
-          requires:
-              - test-and-build-image
+      - hermes-deploy:
+          name: hermes-deploy-dev
+          context: web-hermes-dev
+          requires: 
+            - test-and-build-image   
           filters:
             branches:
               ignore: master
-      - deploy-prod:
-          requires:
-              - test-and-build-image
+      - hermes-deploy:
+          name: hermes-deploy-prod
+          context: web-hermes-prod
+          requires: 
+            - test-and-build-image   
           filters:
             branches:
-              only: master
+              only: master   
+
