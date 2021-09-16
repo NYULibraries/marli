@@ -54,15 +54,11 @@ orbs:
             type: string
           image_tag:
             type: string
-          test_image_name:
-            default: ''
-            type: string
         steps:
           - run:
               name: Pull Docker images
               command: |
                 docker pull <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>> || docker pull <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:latest
-                docker pull <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:<<parameters.image_tag>> || docker pull <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:latest
       docker_push:
         parameters:
           host:
@@ -75,9 +71,6 @@ orbs:
             type: string
           image_tag:
             type: string
-          test_image_name:
-            default: ''
-            type: string
         steps:
           - run:
               name: Push Docker images
@@ -85,9 +78,6 @@ orbs:
                 docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:latest
                 docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>
                 docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>-${CIRCLE_SHA1}
-                docker push <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:latest
-                docker push <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:<<parameters.image_tag>>
-                docker push <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:<<parameters.image_tag>>-${CIRCLE_SHA1}
       hermes_setup:
         parameters:
           host:
@@ -165,6 +155,9 @@ jobs:
       - nyulibraries/docker_pull:
           image_name: ${IMAGE_NAME}
           image_tag: ${CIRCLE_BRANCH//\//_}
+      - nyulibraries/docker_pull:
+          image_name: ${IMAGE_NAME}_test
+          image_tag: ${CIRCLE_BRANCH//\//_}
       - build_docker
       - test
       - nyulibraries/docker_auth:
@@ -172,6 +165,9 @@ jobs:
           password: ${QUAY_PASSWORD}
       - nyulibraries/docker_push:
           image_name: ${IMAGE_NAME}
+          image_tag: ${CIRCLE_BRANCH//\//_}
+      - nyulibraries/docker_push:
+          image_name: ${IMAGE_NAME}_test
           image_tag: ${CIRCLE_BRANCH//\//_}
 
 workflows:
