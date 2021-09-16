@@ -82,7 +82,7 @@ orbs:
           - run:
               name: Push Docker images
               command: |
-                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>:latest
+                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:latest
                 docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>
                 docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>-${CIRCLE_SHA1}
                 docker push <<parameters.host>>/<<parameters.org>>/<<#parameters.test_image_name>><<parameters.test_image_name>><</parameters.test_image_name>><<^parameters.test_image_name>><<parameters.image_name>>_test<</parameters.test_image_name>>:latest
