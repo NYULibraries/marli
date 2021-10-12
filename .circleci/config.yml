@@ -34,9 +34,8 @@ commands:
           name: Pull docker images
           command: |
             ./script/push_docker.sh
-
 orbs:
-  deploy: nyulibraries/deploy@0.0.1
+  deploy: nyulibraries/deploy@0.0.6
 jobs:
   hermes-deploy:
     <<: *docker-defaults
