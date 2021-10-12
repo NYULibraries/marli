@@ -36,22 +36,22 @@ commands:
             ./script/push_docker.sh
 
 orbs:
-  nyulibraries: nyulibraries/deploy@dev:alpha
+  deploy: nyulibraries/deploy@dev:alpha
 jobs:
   hermes-deploy:
     <<: *docker-defaults
     steps:
       - setup_remote_docker
-      - nyulibraries/hermes_setup:
+      - deploy/hermes_setup:
           host: ${HERMES_HOST}
           secret: ${HERMES_SECRET}
           tag: ${CIRCLE_BRANCH//\//_}-${CIRCLE_SHA1}
           deployment: ${HERMES_DEPLOYMENT}
-      - nyulibraries/docker_auth:
+      - deploy/docker_auth:
           username: ${QUAY_USERNAME}
           password: ${QUAY_PASSWORD}
-      - nyulibraries/hermes_set_image
-      - nyulibraries/hermes_rollout_status
+      - deploy/hermes_set_image
+      - deploy/hermes_rollout_status
           
   test-and-build-image:
     <<: *docker-defaults
@@ -61,7 +61,7 @@ jobs:
       - docker_pull
       - build_docker
       - test
-      - nyulibraries/docker_auth:
+      - deploy/docker_auth:
           username: ${QUAY_USERNAME}
           password: ${QUAY_PASSWORD}
       - docker_push
