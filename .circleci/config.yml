@@ -36,7 +36,7 @@ commands:
             ./script/push_docker.sh
 
 orbs:
-  deploy: nyulibraries/deploy@dev:alpha
+  deploy: nyulibraries/deploy@0.0.1
 jobs:
   hermes-deploy:
     <<: *docker-defaults
