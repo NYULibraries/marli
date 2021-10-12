@@ -22,6 +22,18 @@ commands:
           name: Run tests
           command: |
             docker-compose run test
+  docker_pull:
+    steps:
+      - run:
+          name: Pull docker images
+          command: |
+            ./script/pull_docker.sh
+  docker_push:
+    steps:
+      - run:
+          name: Pull docker images
+          command: |
+            ./script/push_docker.sh
 orbs:
   nyulibraries:
     commands:
@@ -42,42 +54,6 @@ orbs:
               name: Authenticate Docker 
               command: |
                 docker login -u "<<parameters.username>>" --password "<<parameters.password>>" <<parameters.host>>
-      docker_pull:
-        parameters:
-          host:
-            default: 'quay.io'
-            type: string
-          org:
-            default: 'nyulibraries'
-            type: string
-          image_name:
-            type: string
-          image_tag:
-            type: string
-        steps:
-          - run:
-              name: Pull Docker images
-              command: |
-                docker pull <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>> || docker pull <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:latest
-      docker_push:
-        parameters:
-          host:
-            default: 'quay.io'
-            type: string
-          org:
-            default: 'nyulibraries'
-            type: string
-          image_name:
-            type: string
-          image_tag:
-            type: string
-        steps:
-          - run:
-              name: Push Docker images
-              command: |
-                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:latest
-                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>
-                docker push <<parameters.host>>/<<parameters.org>>/<<parameters.image_name>>:<<parameters.image_tag>>-${CIRCLE_SHA1}
       hermes_setup:
         parameters:
           host:
@@ -130,6 +106,45 @@ orbs:
               name: "Get rollout status"
               command: |
                 docker run -e HERMES_HOST -e HERMES_SECRET <<parameters.client_image>>:<<parameters.client_tag>> rolloutStatus -deployment=${HERMES_DEPLOYMENT}
+      clear_old_builds:
+        parameters:
+          s3_bucket:
+            description: S3 Bucket containing lambda code
+            type: string
+          lambda_fn:
+            description: Name of Lambda function
+            type: string
+          keep_builds_num:
+            default: 3
+            type: integer
+            description: Number of builds to keep
+        steps:
+          - run:
+              name: Install AWS-CLI
+              command: |
+                curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                unzip awscliv2.zip
+                sudo ./aws/install
+          - run:
+              name: "Clear old Lambda builds"
+              command: |
+                # Recursively list all lambda functions in bucket, sort by date, 
+                # pull the latest N files, and extract just the filename into a temp file to maintain newline spacing
+                aws s3 ls s3://<<parameters.s3_bucket>>/<<parameters.lambda_fn>>/ --recursive | sort | tail -n <<parameters.keep_builds_num>> | awk '{print $4}' > exclude.txt
+
+                EXCLUDE_ARGS=""
+                EXCLUDE_FILES="$(cat exclude.txt)"
+
+                # Loop through files we want to keep and format as --exclude <filename> parameters for the AWS-CLI
+                for line in $EXCLUDE_FILES
+                do
+                    EXCLUDE_ARGS="$EXCLUDE_ARGS--exclude $(echo $line | awk -F'/' '{printf("%s/%s"), $2, $3}') "
+                done 
+
+                # Recursively remove all lambda functions of given name, in given bucket
+                # except the ones we explicitly exclude
+                aws s3 rm s3://<<parameters.s3_bucket>>/<<parameters.lambda_fn>>/ --recursive $EXCLUDE_ARGS
+
 
 jobs:
   hermes-deploy:
@@ -152,23 +167,13 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - nyulibraries/docker_pull:
-          image_name: ${IMAGE_NAME}
-          image_tag: ${CIRCLE_BRANCH//\//_}
-      - nyulibraries/docker_pull:
-          image_name: ${IMAGE_NAME}_test
-          image_tag: ${CIRCLE_BRANCH//\//_}
+      - docker_pull
       - build_docker
       - test
       - nyulibraries/docker_auth:
           username: ${QUAY_USERNAME}
           password: ${QUAY_PASSWORD}
-      - nyulibraries/docker_push:
-          image_name: ${IMAGE_NAME}
-          image_tag: ${CIRCLE_BRANCH//\//_}
-      - nyulibraries/docker_push:
-          image_name: ${IMAGE_NAME}_test
-          image_tag: ${CIRCLE_BRANCH//\//_}
+      - docker_push
 
 workflows:
   version: 2
