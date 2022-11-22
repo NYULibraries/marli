@@ -47,7 +47,7 @@ gem 'kaminari', '~> 1.1.1'
 gem 'acts_as_indexed', '~> 0.8.0'
 
 # For memcached
-gem 'dalli', '~> 2.7.6'
+gem 'dalli', '~> 3.2.3'
 
 # Create CSVs from models
 gem 'comma', '~> 4.2.0'
